@@ -1,0 +1,171 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.jeyzer</groupId>
+	<artifactId>jeyzer-recorder</artifactId>
+	<packaging>jar</packaging>
+	<version>2.0-SNAPSHOT</version>
+	<name>Jeyzer Recorder</name>
+	<description>The Jeyzer Recorder. Documentation available at https://jeyzer.org/docs/jzr-recording/</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-compress</artifactId>
+			<version>1.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jeyzer</groupId>
+			<artifactId>jeyzer-agent</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jeyzer</groupId>
+			<artifactId>jeyzer-publish</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>1.14</version>
+				<configuration>
+					<licenseName>mpl-2.0</licenseName>
+                    <licenseResolver>${project.baseUri}/src/license</licenseResolver>
+                    <processStartTag>---------------------------LICENSE_START---------------------------</processStartTag>
+			        <processEndTag>----------------------------LICENSE_END----------------------------</processEndTag>
+			        <sectionDelimiter>--</sectionDelimiter>
+					<roots>
+						<root>src/main/java</root>
+					</roots>
+				</configuration>
+				<executions>
+					<execution>
+						<id>first</id>
+						<goals>
+							<goal>update-file-header</goal>
+							<goal>update-project-license</goal>
+						</goals>
+						<phase>process-sources</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<archive>
+						<addMavenDescriptor>false</addMavenDescriptor>
+						<manifest>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+                        	<Built-By></Built-By>
+                    	</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>make-zip</id>
+						<configuration>
+							<finalName>${project.artifactId}</finalName>
+							<descriptors>
+								<descriptor>src/assembly/bin.xml</descriptor>
+							</descriptors>
+							<attach>false</attach>
+							<outputDirectory>${project.build.directory}/distribution</outputDirectory>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+      		<plugin>
+        		<artifactId>maven-resources-plugin</artifactId>
+        		<version>3.1.0</version>
+       			<executions>
+          			<execution>
+            			<id>copy-resources</id>
+            			<phase>package</phase>
+            			<goals>
+              				<goal>copy-resources</goal>
+            			</goals>
+            			<configuration>
+              				<outputDirectory>${basedir}/target/installer/templates/recorder</outputDirectory>
+              				<resources>          
+                				<resource>
+                  					<directory>src/main/config/agent</directory>
+                  					<includes>
+          								<include>jeyzer-record.installer.properties</include>
+       								</includes>
+                  					<filtering>false</filtering>
+                				</resource>
+              				</resources>              
+            			</configuration>            
+          			</execution>
+        		</executions>
+      		</plugin>
+		</plugins>
+	</build>
+
+	<licenses>
+      <license>
+        <name>Mozilla Public License Version 2.0</name>
+        <url>http://mozilla.org/MPL/2.0/</url>
+        <distribution>repo</distribution>
+      </license>
+    </licenses>
+	
+	<developers>
+		<developer>
+			<id>jeyzer-community-admin</id>
+			<name>Jeyzer Community Admin</name>
+			<email>jeyzer-community-admin@jeyzer.org</email>
+			<url>https://jeyzer.org/contribute-and-share/</url>
+			<organization>Jeyzer</organization>
+			<organizationUrl>https://jeyzer.org</organizationUrl>
+			<roles>
+				<role>administrator</role>
+			</roles>
+		</developer>
+	</developers>
+	
+	<organization>
+		<name>Jeyzer SAS</name>
+		<url>https://jeyzer.org</url>
+	</organization>
+	<inceptionYear>2020</inceptionYear>
+	
+	<scm>
+		<connection>scm:git:git://github.com/jeyzer-community/jeyzer-recorder</connection>
+		<developerConnection>scm:git:git://github.com/jeyzer-community/jeyzer-recorder</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/jeyzer-community/jeyzer-recorder</url>
+	</scm>
+	
+</project>

@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mx_advanced>
+
+	<!-- Garbage collectors exposed by JMX -->
+	<garbage_collectors>
+
+		<!-- ****************** -->
+		<!-- Young space GCs          -->
+		<!-- ****************** -->
+		
+		<!-- PS Scavenge. Default on Oracle jdk8. Enabled with JVM option -XX:+UseParallelGC -->
+		<!-- Manages memory pools : PS Eden Space, PS Survivor Space -->
+		<collector name="PS Scavenge">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="PS Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="PS Eden Space">
+						<!-- Only usage is supported -->					
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="PS Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="PS Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>
+			</last_gc_info>
+		</collector>
+
+		<!-- G1 Young Generation. Enabled with JVM option -XX:+UseG1GC -->
+		<!-- Manages memory pools : G1 Eden Space, G1 Survivor Space -->
+		<collector name="G1 Young Generation">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="G1 Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="G1 Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="G1 Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="G1 Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>				
+			</last_gc_info>
+		</collector>
+
+		<!-- Copy. Enabled with JVM option -XX:+UseSerialGC -->
+		<!-- Manages memory pools : Eden Space, Survivor Space -->
+		<collector name="Copy">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>
+			</last_gc_info>
+		</collector>
+
+		<!-- ParNew. Enabled with JVM option -XX:+UseParNewGC or -XX:+UseConcMarkSweepGC -->
+		<!-- Manages memory pools : Par Eden Space, Par Survivor Space -->
+		<collector name="ParNew">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="Par Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="Par Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>				
+			</last_gc_info>
+		</collector>
+
+		<!-- ****************** -->
+		<!-- Old space GCs          -->
+		<!-- ****************** -->
+	
+		<!-- PS MarkSweep. Default on Oracle jdk8. Enabled with JVM option -XX:+UseParallelGC -->
+		<!-- Manages memory pools : PS Eden Space, PS Survivor Space, PS Old Gen -->
+		<collector name="PS MarkSweep">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="PS Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="PS Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="PS Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="PS Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>
+			</last_gc_info>
+		</collector>
+
+		<!-- G1 Old Generation. Enabled with JVM option -XX:+UseG1GC -->
+		<!-- Manages memory pools : G1 Eden Space, G1 Survivor Space, G1 Old Gen -->
+		<collector name="G1 Old Generation">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="G1 Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="G1 Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="G1 Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+						</usage>
+					</pool>
+					<pool name="G1 Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>				
+			</last_gc_info>
+		</collector>
+
+		<!-- MarkSweepCompact. Enabled with JVM option -XX:+UseSerialGC or -XX:+UseParNewGC -->
+		<collector name="MarkSweepCompact">
+		<!-- Manages memory pools : Eden Space, Survivor Space, Tenured Gen -->
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>
+			</last_gc_info>
+		</collector>
+	
+		<!-- ConcurrentMarkSweep. Enabled with JVM option -XX:+UseConcMarkSweepGC -->
+		<collector name="ConcurrentMarkSweep">
+		<!-- Manages memory pools : Par Eden Space, Par Survivor Space, CMS Old Gen -->
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="Par Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="Par Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>				
+			</last_gc_info>
+		</collector>	
+	
+	</garbage_collectors>
+
+</mx_advanced>

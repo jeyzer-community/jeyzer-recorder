@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mx_advanced>
+
+	<process_card>
+		<!-- Provided by AMQ MX beans -->
+		<mx_parameters name="org.apache.activemq:type=Broker,brokerName=*" attributes="BrokerName,BrokerVersion"/>
+	</process_card>
+
+	<!-- Capture the jar paths obtained from the JVM loaded classes. Useful to analyze the jar versions -->
+	<!-- Only available in AdvancedMXAgent mode -->
+	<jar_paths period="15m" start_offset="2m">
+		<!-- Optional : capture also the jar version and name from the related jar Manifest files -->
+		<manifest>
+			<jar>
+				<filter pattern=".*\.jar$"/>
+				<manifest_info>
+					<filter pattern="Implementation-Version"/>
+					<filter pattern="Specification-Version"/>
+					<filter pattern="Bundle-Version"/>
+					<filter pattern="Jeyzer-Repository"/>
+				</manifest_info>
+			</jar>
+		</manifest>
+	</jar_paths>
+
+	<threads capture_deadlocks="true"/>
+
+	<system>
+		<!-- Provided by com.sun.management.OperatingSystemMXBean -->
+		<system_cpu_load/>
+		<free_physical_memory/>
+		<total_physical_memory/>
+	</system>
+
+	<process>
+		<!-- Provided by com.sun.management.OperatingSystemMXBean -->
+		<process_cpu_load/>
+		<!-- Provided by java.lang.management.RuntimeMXBean -->
+		<process_up_time/>
+		<!-- Provided by AMQ MX beans -->
+		<mx_parameters name="org.apache.activemq:type=Broker,brokerName=*,service=Health" attributes="CurrentStatus"/>
+		<mx_parameters name="org.apache.activemq:type=Broker,brokerName=*" attributes="MemoryPercentUsage,StorePercentUsage,TempPercentUsage"/>
+		<mx_parameters name="org.apache.activemq:type=Broker,brokerName=*" attributes="TotalConnectionsCount,TotalConsumerCount,TotalProducerCount"/>
+		<mx_parameters name="org.apache.activemq:type=Broker,brokerName=*" attributes="TotalEnqueueCount,TotalDequeueCount"/>
+	</process>
+
+	<thread>
+		<!-- Provided by com.sun.management.ThreadMXBean -->
+		<thread_cpu_time/>
+		<thread_user_time/>
+		<thread_allocated_bytes/>
+	</thread>
+
+	<!-- Provided by java.lang.management.MemoryMXBean -->
+	<memory>
+		<object_pending_finalization_count/>
+		<heap>
+			<usage>
+				<used/>
+				<max/>
+			</usage>
+		</heap>
+		<non_heap>
+			<usage>
+				<used/>
+			</usage>
+		</non_heap>	
+	</memory>
+
+	<!-- Garbage collectors exposed by JMX -->
+	<garbage_collectors>
+		
+		<!-- PS Scavenge. Default on Oracle jdk8. Enabled with JVM option -XX:+UseParallelGC -->
+		<!-- Manages memory pools : PS Eden Space, PS Survivor Space -->
+		<collector name="PS Scavenge">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<end_time/>
+				<before>
+					<pool name="PS Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="PS Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="PS Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="PS Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>
+			</last_gc_info>
+		</collector>
+	
+		<!-- PS MarkSweep. Default on Oracle jdk8. Enabled with JVM option -XX:+UseParallelGC -->
+		<!-- Manages memory pools : PS Eden Space, PS Survivor Space, PS Old Gen -->
+		<collector name="PS MarkSweep">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<end_time/>
+				<before>
+					<pool name="PS Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="PS Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="PS Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="PS Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>
+			</last_gc_info>
+		</collector>
+	
+	</garbage_collectors>
+
+	<!-- Memory pools exposed by JMX. Keep here only useful ones -->
+	<!-- Provided by java.lang.management.MemoryPoolMXBean -->
+	<memory_pools>
+
+		<!-- Old gen. Alternative : replace PS with G1 -->
+		<pool name="PS Old Gen">
+			<peak>
+				<used/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<threshold size="50000"/>
+			</usage>
+			<collection>
+				<used/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+	
+		<!-- Eden Space. Alternative : replace PS with G1 -->
+		<pool name="PS Eden Space">
+			<peak>
+				<used/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+			</usage>
+		</pool>
+
+		<!-- Perm gen JDK 7 -->
+		<pool name="PS Perm Gen">
+			<usage>
+				<used/>
+			</usage>
+		</pool>		
+		
+		<!-- Perm gen JDK 8 -->
+		<pool name="Metaspace">
+			<usage>
+				<used/>
+			</usage>
+		</pool>
+	
+	</memory_pools>
+	
+	<disk>
+	
+		<!-- Disk write time. Only available in AdvancedMXAgent mode -->
+		<jeyzer_agent_recording_write_time/>
+		
+		<!-- Disk space monitoring -->
+		<!-- Provided by JVM File API. Only available in AdvancedMXAgent mode -->
+		<disk_spaces>
+		
+			<!-- Directory can refer to a system property or environment variable -->
+			<disk_space name="work" directory="${user.dir}">
+				<free_space/>
+				<used_space/>
+				<total_space/>
+			</disk_space>
+		
+		</disk_spaces>	
+	
+	</disk>
+
+</mx_advanced>

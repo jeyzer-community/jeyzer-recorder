@@ -1,0 +1,5 @@
+# ignore maven build directory
+**/target/
+# ignore generated license files
+/LICENSE.txt
+

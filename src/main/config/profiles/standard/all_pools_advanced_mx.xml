@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mx_advanced>
+
+	<!-- 1 - Memory info exposed by JMX -->
+	<!-- Provided by java.lang.management.MemoryMXBean -->
+	<memory>
+		<object_pending_finalization_count/>
+		<heap>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</usage>
+		</heap>
+		<non_heap>
+			<usage>
+				<used/>
+				<max/> <!-- Can be NA -->
+				<committed/>
+				<init/>
+			</usage>
+		</non_heap>	
+	</memory>
+
+	<!-- 2 - Memory pools exposed by JMX -->
+	<!-- Provided by java.lang.management.MemoryPoolMXBean -->
+	<memory_pools>
+
+		<!-- Old gen -->
+		<pool name="PS Old Gen">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</usage>
+			<collection>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+
+		<!-- G1 Old Gen -->
+		<pool name="G1 Old Gen">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</usage>
+			<collection>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+	
+		<!-- Eden Space -->
+		<pool name="PS Eden Space">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</usage>
+			<collection>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>				
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+
+		<!-- G1 Eden Space -->
+		<pool name="G1 Eden Space">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</usage>
+			<collection>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+
+		<!-- Perm gen JDK 7 -->
+		<pool name="PS Perm Gen">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</usage>
+		</pool>		
+		
+		<!-- Perm gen JDK 8 -->
+		<pool name="Metaspace">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</usage>
+		</pool>
+
+		<!-- Survivor Space -->
+		<pool name="PS Survivor Space">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</usage>
+			<collection>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+
+		<!-- Survivor Space -->
+		<pool name="G1 Survivor Space">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</usage>
+			<collection>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+
+		<!-- Code cache -->
+		<pool name="Code Cache">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</usage>
+		</pool>
+
+		<!-- Compressed Class Space JDK 8 -->
+		<pool name="Compressed Class Space">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</usage>
+		</pool>
+	
+	</memory_pools>
+
+</mx_advanced>

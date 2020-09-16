@@ -1,0 +1,120 @@
+
+PERM GEN - Metaspace
+
+03/15/2015 12:52:49 INFO  Metaspace-Peak-Committed :10485760	2 MOVES ++ 200K
+03/15/2015 12:52:49 INFO  Metaspace-Peak-Init :					NO MOVE - 0
+03/15/2015 12:52:49 INFO  Metaspace-Peak-Max :-1				NOT SUPPORTED (-1)
+03/15/2015 12:52:49 INFO  Metaspace-Peak-Used :10064416			Increasing
+
+03/15/2015 12:52:49 INFO  Metaspace-Current-Committed :10485760		2 MOVES = Metaspace-Peak-Committed
+03/15/2015 12:52:49 INFO  Metaspace-Current-Init :0					NO MOVE - 0
+03/15/2015 12:52:49 INFO  Metaspace-Current-Max :-1					NOT SUPPORTED (-1)
+03/15/2015 12:52:49 INFO  Metaspace-Current-Used :10065280			Increasing
+
+03/15/2015 12:53:21 INFO Metaspace-Usage threshold :5000
+03/15/2015 12:53:21 INFO Metaspace-Usage threshold count :1			Only Once
+
+
+
+CODE CACHE
+
+03/15/2015 12:52:49 INFO  Code Cache-Peak-Committed :2555904		Increasing
+03/15/2015 12:52:49 INFO  Code Cache-Peak-Init :2555904				NOT MOVING
+03/15/2015 12:52:49 INFO  Code Cache-Peak-Max :251658240			NOT MOVING
+03/15/2015 12:52:49 INFO  Code Cache-Peak-Used :2426048				Increasing
+
+03/15/2015 12:52:49 INFO  Code Cache-Current-Committed :2555904		Increasing
+03/15/2015 12:52:49 INFO  Code Cache-Current-Init :2555904			NOT MOVING
+03/15/2015 12:52:49 INFO  Code Cache-Current-Max :251658240			NOT MOVING
+03/15/2015 12:52:49 INFO  Code Cache-Current-Used :2426048			Increasing
+
+03/15/2015 12:53:59 INFO Code Cache-Usage threshold :5000
+03/15/2015 12:53:59 INFO Code Cache-Usage threshold count :1		Only Once
+
+
+
+COMPRESSED CLASS SPACE
+
+03/15/2015 12:52:49 INFO  Compressed Class Space-Peak-Committed :1310720		MOVING ONCE
+03/15/2015 12:52:49 INFO  Compressed Class Space-Peak-Init :0					NO MOVE - 0
+03/15/2015 12:52:49 INFO  Compressed Class Space-Peak-Max :1073741824			NO MOVE
+03/15/2015 12:52:49 INFO  Compressed Class Space-Peak-Used :1225208				Increasing
+
+03/15/2015 12:52:49 INFO  Compressed Class Space-Current-Committed :1310720		MOVING ONCE
+03/15/2015 12:52:49 INFO  Compressed Class Space-Current-Init :0				NO MOVE
+03/15/2015 12:52:49 INFO  Compressed Class Space-Current-Max :1073741824		NO MOVE
+03/15/2015 12:52:49 INFO  Compressed Class Space-Current-Used :1225208			Increasing slowly
+
+03/15/2015 12:53:00 INFO Compressed Class Space-Usage threshold :5000			
+03/15/2015 12:53:00 INFO Compressed Class Space-Usage threshold count :1		Only Once
+
+
+
+
+PS Eden Space
+
+03/15/2015 12:52:49 INFO  PS Eden Space-Peak-Committed :12582912		DECREASE ONCE !!
+03/15/2015 12:52:49 INFO  PS Eden Space-Peak-Init :12582912				NOT MOVING
+03/15/2015 12:52:49 INFO  PS Eden Space-Peak-Max :12582912				DECREASE TWICE !!
+03/15/2015 12:52:49 INFO  PS Eden Space-Peak-Used :10489480				MOVING +/- FREQUENTLY
+
+03/15/2015 12:52:49 INFO  PS Eden Space-Current-Committed :12582912		DECREASE ONCE !!
+03/15/2015 12:52:49 INFO  PS Eden Space-Current-Init :12582912			NOT MOVING
+03/15/2015 12:52:49 INFO  PS Eden Space-Current-Max :12582912			DECREASE TWICE !!
+03/15/2015 12:52:49 INFO  PS Eden Space-Current-Used :2009840			MOVING +/- FREQUENTLY   ALMOST = PS Eden Space-Peak-Used
+
+03/15/2015 12:52:49 INFO  PS Eden Space-Collection-Committed :12582912	DECREASE ONCE !!
+03/15/2015 12:52:49 INFO  PS Eden Space-Collection-Init :12582912		NOT MOVING
+03/15/2015 12:52:49 INFO  PS Eden Space-Collection-Max :12582912		DECREASE TWICE !!
+03/15/2015 12:52:49 INFO  PS Eden Space-Collection-Used :0				ALWAYS 0
+
+03/15/2015 12:54:15 INFO PS Eden Space-Collection threshold :5000
+03/15/2015 12:54:15 INFO PS Eden Space-Collection threshold count :0	ALWAYS 0
+
+
+
+
+PS Survivor Space
+
+03/15/2015 12:53:54 INFO  PS Survivor Space-Peak-Committed :1572864		INCREASING ONCE
+03/15/2015 12:53:54 INFO  PS Survivor Space-Peak-Init :1572864			NOT MOVING
+03/15/2015 12:53:54 INFO  PS Survivor Space-Peak-Max :1572864			INCREASING ONCE
+03/15/2015 12:53:54 INFO  PS Survivor Space-Peak-Used :540688			ZERO, THEN MOVING +/-
+
+03/15/2015 12:53:54 INFO  PS Survivor Space-Current-Committed :1572864	INCREASING ONCE
+03/15/2015 12:53:54 INFO  PS Survivor Space-Current-Init :1572864		NOT MOVING
+03/15/2015 12:53:54 INFO  PS Survivor Space-Current-Max :1572864		INCREASING ONCE
+03/15/2015 12:53:54 INFO  PS Survivor Space-Current-Used :311312		ZERO, THEN MOVING +/-  ALMOST = PS Survivor Space-Peak-Used
+
+03/15/2015 12:53:54 INFO  PS Survivor Space-Collection-Committed :1572864		INCREASING ONCE
+03/15/2015 12:53:54 INFO  PS Survivor Space-Collection-Init :1572864			NOT MOVING
+03/15/2015 12:53:54 INFO  PS Survivor Space-Collection-Max :1572864				INCREASING ONCE
+03/15/2015 12:53:54 INFO  PS Survivor Space-Collection-Used :311312				ZERO, THEN MOVING +/-
+
+03/15/2015 12:53:54 INFO PS Survivor Space-Collection threshold :5000
+03/15/2015 12:53:54 INFO PS Survivor Space-Collection threshold count :2		INCREASING FROM 1 to 6
+
+
+
+PS Old Gen
+
+03/15/2015 12:55:14 INFO  PS Old Gen-Peak-Committed :5242880		NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Peak-Init :5242880				NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Peak-Max :5242880				NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Peak-Used :2582584				SLOWLY INCREASING
+
+03/15/2015 12:55:14 INFO  PS Old Gen-Current-Committed :5242880		NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Current-Init :5242880			NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Current-Max :5242880			NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Current-Used :2582584			SLOWLY INCREASING
+
+03/15/2015 12:55:14 INFO  PS Old Gen-Collection-Committed :5242880	NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Collection-Init :5242880		NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Collection-Max :5242880		NOT MOVING
+03/15/2015 12:55:14 INFO  PS Old Gen-Collection-Used :2549816		NOT MOVING
+
+03/15/2015 12:55:14 INFO PS Old Gen-Collection threshold :5000
+03/15/2015 12:55:14 INFO PS Old Gen-Collection threshold count :0	NOT MOVING
+03/15/2015 12:55:14 INFO PS Old Gen-Usage threshold :5000
+03/15/2015 12:55:14 INFO PS Old Gen-Usage threshold count :1		INCREASING ONCE
+
