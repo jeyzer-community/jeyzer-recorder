@@ -7,6 +7,7 @@
 	<packaging>jar</packaging>
 	<version>2.0-SNAPSHOT</version>
 	<name>Jeyzer Recorder</name>
+	<url>https://github.com/jeyzer-community/jeyzer-recorder</url>
 	<description>The Jeyzer Recorder. Documentation available at https://jeyzer.org/docs/jzr-recording/</description>
 	
 	<dependencies>
@@ -162,10 +163,10 @@
 	<inceptionYear>2020</inceptionYear>
 	
 	<scm>
-		<connection>scm:git:git://github.com/jeyzer-community/jeyzer-recorder</connection>
-		<developerConnection>scm:git:git://github.com/jeyzer-community/jeyzer-recorder</developerConnection>
-		<tag>HEAD</tag>
 		<url>https://github.com/jeyzer-community/jeyzer-recorder</url>
+		<connection>scm:git:ssh://git@github.com/jeyzer-community/jeyzer-recorder.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/jeyzer-community/jeyzer-recorder.git</developerConnection>
+		<tag>HEAD</tag>
 	</scm>
 	
 </project>
