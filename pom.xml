@@ -1,11 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jeyzer</groupId>
 	<artifactId>jeyzer-recorder</artifactId>
 	<packaging>jar</packaging>
-	<version>2.0-SNAPSHOT</version>
+	<version>2.0</version>
 	<name>Jeyzer Recorder</name>
 	<url>https://github.com/jeyzer-community/jeyzer-recorder</url>
 	<description>The Jeyzer Recorder. Documentation available at https://jeyzer.org/docs/jzr-recording/</description>
@@ -80,7 +79,7 @@
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
 						<manifestEntries>
-                        	<Built-By></Built-By>
+                        	<Built-By />
                     	</manifestEntries>
 					</archive>
 				</configuration>
@@ -171,7 +170,7 @@
 		<url>https://github.com/jeyzer-community/jeyzer-recorder</url>
 		<connection>scm:git:ssh://git@github.com/jeyzer-community/jeyzer-recorder.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/jeyzer-community/jeyzer-recorder.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>jeyzer-recorder-2.0</tag>
 	</scm>
 		
 </project>
