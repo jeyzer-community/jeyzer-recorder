@@ -44,7 +44,7 @@ public abstract class JzrAbstractGenericMXBeanAccessor extends JzrAbstractBeanFi
 	protected List<JzrGenericMXBeanConfig> processCardBeanConfigs;
 	protected List<JzrGenericMXBeanConfig> dynamicBeanConfigs;
 	
-	protected Map<String,String> processCardMXAttributes = new HashMap<>();
+	protected Map<String,String> processCardMXAttributes = null; // created on demand
 	protected Map<String,String> processDynamicMXAttributes = new HashMap<>();
 	protected boolean collectDone = false;
 	protected boolean printDone = false;
@@ -94,7 +94,8 @@ public abstract class JzrAbstractGenericMXBeanAccessor extends JzrAbstractBeanFi
 	}
 
 	public void processCardClose() {
-		this.processCardMXAttributes.clear();
+		if (this.processCardMXAttributes != null)
+			this.processCardMXAttributes.clear();
 		this.processCardMXAttributes = null;
 	}
 

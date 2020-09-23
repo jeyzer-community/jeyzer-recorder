@@ -141,7 +141,13 @@ public class JeyzerRecorder implements Runnable {
 		}
 		
 		File processCardFile = new File(cfg.getThreadDumpDirectory() + File.separator + PROCESS_CARD_FILE_NAME);
-		monitor.initiate(processCardFile);
+		try {
+			monitor.initiate(processCardFile);
+		}catch(JzrProcessNotAvailableException ex) {
+			// For JMX and Jstack, re-init is mandatory if remote process is not here.
+			initiated = false;
+			throw ex;
+		}
 
 		initializeTimeZone();
 

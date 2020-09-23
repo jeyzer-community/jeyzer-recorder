@@ -224,7 +224,8 @@ public abstract class JzrAbstractJeyzerAccessor extends JzrAbstractBeanFieldAcce
 		this.processVersion = null;
 		this.processBuildNumber = null;
 		this.profileName = null;
-		this.processStaticCtxParams.clear();
+		if (this.processStaticCtxParams != null)
+			this.processStaticCtxParams.clear();
 		this.processStaticCtxParams= null;
 	}
 	

@@ -18,6 +18,7 @@ package org.jeyzer.recorder.accessor.local.advanced.process;
 
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,6 +57,7 @@ public class LocalGenericMXBeanAccessor extends JzrAbstractGenericMXBeanAccessor
 	
 	public void collectProcessCardFigures() {
 		MBeanServerConnection server = ManagementFactory.getPlatformMBeanServer();
+		this.processCardMXAttributes = new HashMap<>();
 		for (JzrGenericMXBeanConfig config : this.processCardBeanConfigs){
 			collectAttributes(server, config, this.processCardMXAttributes);
 		}
