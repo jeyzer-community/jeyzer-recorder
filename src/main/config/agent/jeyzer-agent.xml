@@ -10,8 +10,8 @@
         <entry>${jeyzer-agent-home}/lib/logback-classic-1.2.3.jar</entry>
         <entry>${jeyzer-agent-home}/lib/logback-core-1.2.3.jar</entry>
         <entry>${jeyzer-agent-home}/lib/slf4j-api-1.7.25.jar</entry>
-		<entry>${jeyzer-agent-home}</entry>
-		<entry>${jeyzer-agent-home}/config</entry>
+        <entry>${jeyzer-agent-home}</entry>
+        <entry>${jeyzer-agent-home}/config</entry>
     </classpath>
     <configuration>
         <item key="jeyzer-recorder-agent.props">${jeyzer-agent-home}/config/agent/jeyzer-record.properties</item>
