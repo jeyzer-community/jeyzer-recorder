@@ -25,6 +25,7 @@ public class JeyzerEventCode implements JzrEventCode{
 	static public final String MX_FIELD_NAME_NAME = "name";
 	static public final String MX_FIELD_NAME_ABBREVIATION = "abbreviation";
 	static public final String MX_FIELD_NAME_DESCRIPTION = "description";
+	static public final String MX_FIELD_NAME_TICKET = "ticket";
 	static public final String MX_FIELD_NAME_LEVEL = "level";
 	static public final String MX_FIELD_NAME_SUB_LEVEL = "subLevel";
 
@@ -32,6 +33,7 @@ public class JeyzerEventCode implements JzrEventCode{
 	private String name;
 	private String abbreviation;
 	private String description;
+	private String ticket;
 	private JzrEventLevel level;
 	private JzrEventSubLevel subLevel;	
 	
@@ -48,6 +50,11 @@ public class JeyzerEventCode implements JzrEventCode{
 	@Override
 	public String getDescription() {
 		return description;
+	}
+	
+	@Override
+	public String getTicket() {
+		return ticket;
 	}
 
 	@Override
@@ -80,6 +87,10 @@ public class JeyzerEventCode implements JzrEventCode{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	public void setTicket(String ticket) {
+		this.ticket = ticket;
+	}
 
 	public void setLevel(JzrEventLevel level) {
 		this.level = level;
@@ -96,10 +107,10 @@ public class JeyzerEventCode implements JzrEventCode{
 		code.setAbbreviation((String)compositeData.get(MX_FIELD_NAME_ABBREVIATION));
 		code.setName((String)compositeData.get(MX_FIELD_NAME_NAME));
 		code.setDescription((String)compositeData.get(MX_FIELD_NAME_DESCRIPTION));
+		code.setTicket((String)compositeData.get(MX_FIELD_NAME_TICKET));
 		code.setLevel(JzrEventLevel.valueOf((String)compositeData.get(MX_FIELD_NAME_LEVEL)));
 		code.setSubLevel(JzrEventSubLevel.valueOf((String)compositeData.get(MX_FIELD_NAME_SUB_LEVEL)));
 		
 		return code;
 	}
-
 }

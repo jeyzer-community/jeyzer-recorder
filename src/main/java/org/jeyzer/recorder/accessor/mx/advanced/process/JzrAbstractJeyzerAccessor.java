@@ -172,6 +172,8 @@ public abstract class JzrAbstractJeyzerAccessor extends JzrAbstractBeanFieldAcce
 		sb.append(event.getTrustFactor());
 		sb.append(EVENT_SEPARATOR);
 		sb.append(event.isOneshot());
+		sb.append(EVENT_SEPARATOR);
+		sb.append(event.getCode().getTicket() !=null ? event.getCode().getTicket() : "");
 		return sb.toString();
 	}
 

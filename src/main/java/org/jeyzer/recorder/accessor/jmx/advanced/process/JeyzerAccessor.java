@@ -280,6 +280,7 @@ public class JeyzerAccessor extends JzrAbstractJeyzerAccessor implements JzrMXBe
 						logger.info("    abbreviation : " + event.getCode().getAbbreviation());
 						logger.info("    name         : " + event.getCode().getName());
 						logger.info("    description  : " + event.getCode().getDescription());
+						logger.info("    ticket       : " + event.getCode().getTicket());
 						logger.info("    level        : " + event.getCode().getLevel().name());
 						logger.info("    sub level    : " + event.getCode().getSubLevel().name());
 						logger.info("    scope        : " + event.getScope().name());
