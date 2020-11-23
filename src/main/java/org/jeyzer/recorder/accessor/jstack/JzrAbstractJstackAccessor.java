@@ -52,7 +52,7 @@ public abstract class JzrAbstractJstackAccessor implements JzrAccessor{
 	protected static final String JSTACK_COMMAND = File.separator + "bin" + File.separator + "jstack";
 	protected static final String JINFO_COMMAND = File.separator + "bin" + File.separator + "jinfo";
 	protected static final String JINFO_OPTION = " -sysprops ";
-	protected static final String javaHome = System.getenv("JAVA_HOME");
+	protected static final String JAVA_HOME = System.getenv("JAVA_HOME");
 	
 	protected static final String JZR_PROPERTY_PID = "jzr.ext.process.pid";
 	
@@ -69,16 +69,16 @@ public abstract class JzrAbstractJstackAccessor implements JzrAccessor{
 	public void validate() throws JzrValidationException {
 		// check the OS
 		if (!SystemHelper.isWindows() && !SystemHelper.isUnix() && !SystemHelper.isSolaris())
-			throw new JzrValidationException("Operating system not supported : " + SystemHelper.platform);
+			throw new JzrValidationException("Operating system not supported : " + SystemHelper.PLATFORM);
 		
 		// check that Jstack process is available
-		File jstack = new File(javaHome + JSTACK_COMMAND + (SystemHelper.isWindows() ? ".exe" : ""));
+		File jstack = new File(JAVA_HOME + JSTACK_COMMAND + (SystemHelper.isWindows() ? ".exe" : ""));
 		if (!jstack.exists())
-			throw new JzrValidationException("Jstack executable not found. JAVA_HOME must refer to a JDK installation (not JRE). Current JAVA_HOME is : " + javaHome);
+			throw new JzrValidationException("Jstack executable not found. JAVA_HOME must refer to a JDK installation (not JRE). Current JAVA_HOME is : " + JAVA_HOME);
 		
 		// check that Jinfo process is available
 		if (processInfoEnabled){
-			File jinfo = new File(javaHome + JINFO_COMMAND + (SystemHelper.isWindows() ? ".exe" : ""));
+			File jinfo = new File(JAVA_HOME + JINFO_COMMAND + (SystemHelper.isWindows() ? ".exe" : ""));
 			jinfoAvailable = jinfo.exists();
 			if (!jinfoAvailable)
 				logger.warn("Jinfo executable not found. Process card content will be reduced to the minimum.");

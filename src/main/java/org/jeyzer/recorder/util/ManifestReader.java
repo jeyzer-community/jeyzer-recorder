@@ -58,7 +58,7 @@ public class ManifestReader {
 				
 				try{
 					Manifest manifest = new Manifest(stream);
-					loadAttributes(jarName, manifest.getMainAttributes(), jarConfig, manifestAttributes, prefix);
+					loadAttributes(manifest.getMainAttributes(), jarConfig, manifestAttributes, prefix);
 				} catch(RuntimeException ex){
 	        	    logger.error("Manifest attributes info collect failed for jar " + jarName + ".", ex);
 				} catch (IOException ex) {
@@ -76,7 +76,7 @@ public class ManifestReader {
 		}
 	}
 
-	private static void loadAttributes(String jarName, Attributes attributes, TDJarConfig jarConfig, Map<String, String> manifestAttributes, String prefix) {
+	private static void loadAttributes(Attributes attributes, TDJarConfig jarConfig, Map<String, String> manifestAttributes, String prefix) {
 		for (Object key : attributes.keySet()) {
             String name = Attributes.Name.class.cast(key).toString();
             if (isMatchingAttribute(name, jarConfig))

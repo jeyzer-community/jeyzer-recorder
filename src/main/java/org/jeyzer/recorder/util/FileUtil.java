@@ -44,15 +44,15 @@ public class FileUtil {
 	public static final String JZR_FILE_TIME_ZONE_PROCESS_ORIGIN = "p-";
 	public static final String JZR_FILE_TIME_ZONE_JZR_ORIGIN = "jzr-";
 	
-	static public final String JZR_FIELD_JZ_PREFIX = "\tJz>\t";
-	static public final String JZR_FIELD_JZ_JZ_PREFIX = "\tJz>\tJz ";
-	static public final String JZR_FIELD_EQUALS = "\t";
-	static public final char   JZR_FIELD_SEPARATOR = ':';
+	public static final String JZR_FIELD_JZ_PREFIX = "\tJz>\t";
+	public static final String JZR_FIELD_JZ_JZ_PREFIX = "\tJz>\tJz ";
+	public static final String JZR_FIELD_EQUALS = "\t";
+	public static final char   JZR_FIELD_SEPARATOR = ':';
 	
-	static public final String JZR_FIELD_CAPTURE_DURATION = JZR_FIELD_JZ_PREFIX + "capture time" + JZR_FIELD_EQUALS;
+	public static final String JZR_FIELD_CAPTURE_DURATION = JZR_FIELD_JZ_PREFIX + "capture time" + JZR_FIELD_EQUALS;
 	
 	private FileUtil(){
-	};
+	}
 	
 	public static class ThreadDumpFileFilter implements FilenameFilter {
 		String ext;

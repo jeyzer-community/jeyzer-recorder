@@ -50,9 +50,9 @@ public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
 		try {
 			String command;
 			if (this.cfg.isCaptureDurationEnabled())
-				command = javaHome +  JSTACK_COMMAND + " " + cfg.getOptions() + " " + cfg.getPid() + " >> " + file.getAbsolutePath(); // append
+				command = JAVA_HOME +  JSTACK_COMMAND + " " + cfg.getOptions() + " " + cfg.getPid() + " >> " + file.getAbsolutePath(); // append
 			else
-				command = javaHome +  JSTACK_COMMAND + " " + cfg.getOptions() + " " + cfg.getPid() + " > " + file.getAbsolutePath(); // override
+				command = JAVA_HOME +  JSTACK_COMMAND + " " + cfg.getOptions() + " " + cfg.getPid() + " > " + file.getAbsolutePath(); // override
 			
 			String[] args = buildExecutionArgs(command);
 			
@@ -114,7 +114,7 @@ public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
 		FileUtil.closeWriter(file, writer); // close the writer now, otherwise append is lost
 		
 		String command;
-		command = javaHome +  JINFO_COMMAND + JINFO_OPTION + cfg.getPid() + " >> " + file.getAbsolutePath(); // append
+		command = JAVA_HOME +  JINFO_COMMAND + JINFO_OPTION + cfg.getPid() + " >> " + file.getAbsolutePath(); // append
         
 		String[] args = buildExecutionArgs(command);
         

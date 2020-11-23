@@ -21,17 +21,17 @@ import org.jeyzer.mx.event.JzrEventScope;
 
 public class JeyzerEventInfo implements JzrEventInfo {
 	
-	static public final String MX_FIELD_NAME_CODE = "code";
-	static public final String MX_FIELD_NAME_SCOPE = "scope";
-	static public final String MX_FIELD_NAME_SOURCE = "source";
-	static public final String MX_FIELD_NAME_SERVICE = "service";
-	static public final String MX_FIELD_NAME_ID = "id";
-	static public final String MX_FIELD_NAME_MESSAGE = "message";
-	static public final String MX_FIELD_NAME_START_TIME = "startTime";
-	static public final String MX_FIELD_NAME_END_TIME = "endTime";
-	static public final String MX_FIELD_NAME_THREAD_ID = "threadId";
-	static public final String MX_FIELD_NAME_TRUST_FACTOR = "trustFactor";
-	static public final String MX_FIELD_NAME_ONESHOT = "oneshot";
+	public static final String MX_FIELD_NAME_CODE = "code";
+	public static final String MX_FIELD_NAME_SCOPE = "scope";
+	public static final String MX_FIELD_NAME_SOURCE = "source";
+	public static final String MX_FIELD_NAME_SERVICE = "service";
+	public static final String MX_FIELD_NAME_ID = "id";
+	public static final String MX_FIELD_NAME_MESSAGE = "message";
+	public static final String MX_FIELD_NAME_START_TIME = "startTime";
+	public static final String MX_FIELD_NAME_END_TIME = "endTime";
+	public static final String MX_FIELD_NAME_THREAD_ID = "threadId";
+	public static final String MX_FIELD_NAME_TRUST_FACTOR = "trustFactor";
+	public static final String MX_FIELD_NAME_ONESHOT = "oneshot";
 
 	private String source;
 	private String service;
@@ -146,7 +146,7 @@ public class JeyzerEventInfo implements JzrEventInfo {
 		this.trustFactor = trustFactor;
 	}
 
-	static public JeyzerEventInfo from(CompositeData compositeData) {
+	public static JeyzerEventInfo from(CompositeData compositeData) {
 		JeyzerEventInfo event = new JeyzerEventInfo();
 		
 		event.setSource((String)compositeData.get(MX_FIELD_NAME_SOURCE));

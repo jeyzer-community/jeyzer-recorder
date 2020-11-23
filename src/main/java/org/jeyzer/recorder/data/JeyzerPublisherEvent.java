@@ -22,11 +22,11 @@ import org.jeyzer.mx.event.JzrPublisherEventCode;
 
 public class JeyzerPublisherEvent implements JzrPublisherEvent {
 	
-	static public final String MX_FIELD_NAME_CODE = "code";
-	static public final String MX_FIELD_NAME_LEVEL = "level";
-	static public final String MX_FIELD_NAME_SUB_LEVEL = "subLevel";
-	static public final String MX_FIELD_NAME_MESSAGE = "message";
-	static public final String MX_FIELD_NAME_TIME = "time";
+	public static final String MX_FIELD_NAME_CODE = "code";
+	public static final String MX_FIELD_NAME_LEVEL = "level";
+	public static final String MX_FIELD_NAME_SUB_LEVEL = "subLevel";
+	public static final String MX_FIELD_NAME_MESSAGE = "message";
+	public static final String MX_FIELD_NAME_TIME = "time";
 	
 	private long time;
 	private JzrPublisherEventCode code;
@@ -69,7 +69,7 @@ public class JeyzerPublisherEvent implements JzrPublisherEvent {
 		this.message = message;
 	}
 
-	static public JeyzerPublisherEvent from(CompositeData compositeData) {
+	public static JeyzerPublisherEvent from(CompositeData compositeData) {
 		JeyzerPublisherEvent event = new JeyzerPublisherEvent();
 		
 		event.setCode(JzrPublisherEventCode.valueOf((String)compositeData.get(MX_FIELD_NAME_CODE)));

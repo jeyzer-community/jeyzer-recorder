@@ -19,8 +19,10 @@ package org.jeyzer.recorder.accessor.local.advanced.thread;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jeyzer.recorder.accessor.local.advanced.thread.LocalThreadMemoryAccessor;
+import org.jeyzer.recorder.accessor.mx.advanced.thread.JzrAbstractThreadCPUAccessor;
 import org.jeyzer.recorder.accessor.mx.advanced.thread.JzrAbstractThreadJeyzerAccessor;
+import org.jeyzer.recorder.accessor.mx.advanced.thread.JzrAbstractThreadMemoryAccessor;
+import org.jeyzer.recorder.accessor.mx.advanced.thread.JzrAbstractlThreadUserTimeAccessor;
 import org.jeyzer.recorder.config.mx.advanced.JzrBeanFieldConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,11 +52,11 @@ public class JzrThreadBeanFieldAccessorBuilder {
 			String name = config.getCategory() + ":" + config.getName();
 			
 			logger.debug("Loading thread bean accessor : {}", name);
-			if (LocalThreadMemoryAccessor.ACCESSOR_NAME.equals(name))
+			if (JzrAbstractThreadMemoryAccessor.ACCESSOR_NAME.equals(name))
 				accessor = new LocalThreadMemoryAccessor();
-			else if (LocalThreadCPUAccessor.ACCESSOR_NAME.equals(name))
+			else if (JzrAbstractThreadCPUAccessor.ACCESSOR_NAME.equals(name))
 				accessor = new LocalThreadCPUAccessor();
-			else if (LocalThreadUserTimeAccessor.ACCESSOR_NAME.equals(name))
+			else if (JzrAbstractlThreadUserTimeAccessor.ACCESSOR_NAME.equals(name))
 				accessor = new LocalThreadUserTimeAccessor();
 			else if (JzrAbstractThreadJeyzerAccessor.isThreadJeyzerAccessorField(name)){
 				if (jhThreadAccessor == null){

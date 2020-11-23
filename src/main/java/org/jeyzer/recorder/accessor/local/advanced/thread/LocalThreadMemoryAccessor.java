@@ -25,9 +25,6 @@ import org.jeyzer.recorder.accessor.mx.advanced.thread.JzrAbstractThreadMemoryAc
 
 public class LocalThreadMemoryAccessor extends JzrAbstractThreadMemoryAccessor implements JzrLocalThreadBeanFieldAccessor{
 	
-	public LocalThreadMemoryAccessor() {
-	}
-	
 	@Override
 	public boolean checkSupport(ThreadMXBean tmbean, JzrAbstractJeyzerAccessor jeyzerAccessor, long[] threadIds) {
 		try {

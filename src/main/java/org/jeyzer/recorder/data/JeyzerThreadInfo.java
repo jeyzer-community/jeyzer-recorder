@@ -27,13 +27,13 @@ import org.jeyzer.recorder.util.JMXUtil;
 
 public class JeyzerThreadInfo implements JzrThreadInfo {
 
-	static public final String MX_FIELD_NAME_ID = "id";
-	static public final String MX_FIELD_NAME_FUNCTION_PRINCIPAL = "functionPrincipal";
-	static public final String MX_FIELD_NAME_START_TIME = "startTime";
-	static public final String MX_FIELD_NAME_THREAD_ID = "threadId";
-	static public final String MX_FIELD_NAME_ACTION_ID = "actionId";
-	static public final String MX_FIELD_NAME_USER = "user";
-	static public final String MX_FIELD_NAME_CONTEXT_PARAMS = "contextParams";
+	public static final String MX_FIELD_NAME_ID = "id";
+	public static final String MX_FIELD_NAME_FUNCTION_PRINCIPAL = "functionPrincipal";
+	public static final String MX_FIELD_NAME_START_TIME = "startTime";
+	public static final String MX_FIELD_NAME_THREAD_ID = "threadId";
+	public static final String MX_FIELD_NAME_ACTION_ID = "actionId";
+	public static final String MX_FIELD_NAME_USER = "user";
+	public static final String MX_FIELD_NAME_CONTEXT_PARAMS = "contextParams";
 	
 	private long threadId;    // unique id
 	private String jhId;      // unique id
@@ -106,7 +106,7 @@ public class JeyzerThreadInfo implements JzrThreadInfo {
 		this.contextParams = contextParams;
 	}
 	
-	static public JeyzerThreadInfo from(CompositeData compositeData) {
+	public static JeyzerThreadInfo from(CompositeData compositeData) {
 		JeyzerThreadInfo ti = new JeyzerThreadInfo();
 		
 		ti.setId((String)compositeData.get(MX_FIELD_NAME_ID));

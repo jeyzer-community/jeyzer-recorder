@@ -25,10 +25,10 @@ public class SystemHelper {
 
 	public static final String PROPERTY_OS_NAME = "os.name";
 	
-	public static final String platform = System.getProperty(PROPERTY_OS_NAME).toLowerCase();
+	public static final String PLATFORM = System.getProperty(PROPERTY_OS_NAME).toLowerCase();
 	
 	private SystemHelper(){
-	};
+	}
 	
 	public static void displayMemoryUsage(){
         int mb = 1024*1024;
@@ -52,19 +52,19 @@ public class SystemHelper {
 	}
 	
 	public static boolean isWindows() {
-		return (platform.indexOf("win") >= 0);
+		return (PLATFORM.indexOf("win") >= 0);
 	}
  
 	public static boolean isMac() {
-		return (platform.indexOf("mac") >= 0);
+		return (PLATFORM.indexOf("mac") >= 0);
 	}
  
 	public static boolean isUnix() {
-		return (platform.indexOf("nix") >= 0 || platform.indexOf("nux") >= 0 || platform.indexOf("aix") > 0 );
+		return (PLATFORM.indexOf("nix") >= 0 || PLATFORM.indexOf("nux") >= 0 || PLATFORM.indexOf("aix") >= 0 );
 	}
  
 	public static boolean isSolaris() {
-		return (platform.indexOf("sunos") >= 0);
+		return (PLATFORM.indexOf("sunos") >= 0);
 	}
 	
 	public static String sanitizePathSeparators(String path){

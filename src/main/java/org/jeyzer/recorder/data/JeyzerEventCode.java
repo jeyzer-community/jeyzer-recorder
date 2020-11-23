@@ -21,13 +21,13 @@ import org.jeyzer.mx.event.JzrEventSubLevel;
 
 public class JeyzerEventCode implements JzrEventCode{
 
-	static public final String MX_FIELD_NAME_TYPE = "type";
-	static public final String MX_FIELD_NAME_NAME = "name";
-	static public final String MX_FIELD_NAME_ABBREVIATION = "abbreviation";
-	static public final String MX_FIELD_NAME_DESCRIPTION = "description";
-	static public final String MX_FIELD_NAME_TICKET = "ticket";
-	static public final String MX_FIELD_NAME_LEVEL = "level";
-	static public final String MX_FIELD_NAME_SUB_LEVEL = "subLevel";
+	public static final String MX_FIELD_NAME_TYPE = "type";
+	public static final String MX_FIELD_NAME_NAME = "name";
+	public static final String MX_FIELD_NAME_ABBREVIATION = "abbreviation";
+	public static final String MX_FIELD_NAME_DESCRIPTION = "description";
+	public static final String MX_FIELD_NAME_TICKET = "ticket";
+	public static final String MX_FIELD_NAME_LEVEL = "level";
+	public static final String MX_FIELD_NAME_SUB_LEVEL = "subLevel";
 
 	private String type;
 	private String name;

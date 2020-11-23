@@ -40,7 +40,7 @@ public class CompressionUtil {
 	public static final String FILE_GZ_EXTENSION = ".tar.gz";
 	
 	private CompressionUtil(){
-	};
+	}
 
 	public static void zipFiles(File[] files, String zip){
 		String tdPath = null;

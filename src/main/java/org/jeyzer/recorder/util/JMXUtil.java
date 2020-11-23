@@ -43,7 +43,6 @@ public class JMXUtil {
 	private static final Logger logger = LoggerFactory.getLogger(JMXUtil.class);	
 	
 	private JMXUtil(){
-		
 	}
 	
 	public static double getDoubleAttribute(MBeanServerConnection server, ObjectName objectName,

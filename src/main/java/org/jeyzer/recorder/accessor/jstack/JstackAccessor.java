@@ -49,7 +49,7 @@ public class JstackAccessor extends JzrAbstractJstackAccessor{
 		long startTime, endTime, duration; 
 		int result = -1;
         
-		String command = javaHome +  JSTACK_COMMAND + " " + cfg.getOptions() + " " + cfg.getPid();
+		String command = JAVA_HOME +  JSTACK_COMMAND + " " + cfg.getOptions() + " " + cfg.getPid();
         
 		BufferedWriter writer = null;
 		try {
@@ -116,7 +116,7 @@ public class JstackAccessor extends JzrAbstractJstackAccessor{
 	protected void dumpJinfo(File file, BufferedWriter writer) throws IOException {
 		long startTime, endTime, duration; 
         
-		String command = javaHome +  JINFO_COMMAND + JINFO_OPTION + cfg.getPid();
+		String command = JAVA_HOME +  JINFO_COMMAND + JINFO_OPTION + cfg.getPid();
         
         if (logger.isDebugEnabled()){
         	logger.debug("Executing command line : {}", command);
