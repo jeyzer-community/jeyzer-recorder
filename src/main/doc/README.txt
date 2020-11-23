@@ -163,7 +163,7 @@ The process card file can contain :
  - pid process, obtained through jinfo utility (Jstack methods only)
  - start time and up time 									ex : jzr.ext.process.start.time=1514351531994
  - number of processors if applicable	  					ex : jzr.ext.process.available.processors=4 
- - process info published through the Jeyzer MX bean     	ex : jzr.cxt.param-tennis-ground=grass
+ - process info published through the Jeyzer MX bean     	ex : jzr.cxt.param-flight-line-type=commercial
  - process info published through standard MX beans       	ex : org.apache.activemq:Broker:*:BrokerVersion=6.2
  - jar manifest attributes (AdvancedMXAgent method only)  	ex : jzr.jar.logback-classic-1.0.13.jar.Bundle-ManifestVersion=2
 
