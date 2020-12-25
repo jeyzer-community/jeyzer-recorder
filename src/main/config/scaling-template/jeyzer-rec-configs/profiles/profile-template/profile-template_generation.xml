@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<recorder profile="${JEYZER_RECORD_PROFILE}">
+
+	<process_card enabled="${JEYZER_RECORD_PROCESS_CARD_ENABLED}"/>
+
+	<!-- Time zone id is used as file name suffix 	-->
+	<!-- Resolution order is :						-->
+	<!--  1. Custom time zone as defined below (C)	-->
+	<!--  	  ex : end user time zone reference    	-->
+	<!--  	  ignored if empty				    	-->	
+	<!--  2. Monitored process time zone (P)		-->
+	<!--  3. Jeyzer Recorder time zone (JZR)	-->
+	<time_zone id=""/>
+
+	<!-- Recording snapshot generation -->
+	<!-- Time unit is sec -->
+	<snapshot period="${JEYZER_RECORD_PERIOD}" start_delay="${JEYZER_RECORD_START_DELAY}" output_dir="${JEYZER_RECORD_DIRECTORY}" capture_duration="${JEYZER_RECORD_CAPTURE_DURATION}">
+
+		<!-- Method can be : AdvancedMXAgent, AdvancedJMX, JMX, Jstack, JstackInShell. -->		
+		<method name="${JEYZER_RECORD_DUMP_METHOD}"/>
+
+		<methods>
+			<!-- JMX access. Performs only thread dumps -->
+			<jmx connection="${JEYZER_TARGET_JMX_ADDRESS}" user="${JEYZER_TARGET_JMX_USER}" password="${JEYZER_TARGET_JMX_PASSWORD}" capture_deadlocks="true"/>
+		
+			<!-- Advanced MX access. Performs thread dump as well other configurable figures 
+			     Achieved through remote JMX access or local java agent -->
+			<mx_advanced config_file="${JEYZER_RECORD_CONFIG_DIR}/profiles/${JEYZER_RECORD_PROFILE}/${JEYZER_RECORD_PROFILE}_advanced_mx.xml"/>
+
+			<!-- JstackInShell. Calls jstack through cmd.exe or sh and redirects the output to a file -->
+			<!-- Options : -l prints dead locks, -F force stacks, to be used when process is hung -->		
+			<jstack_in_shell pid="${JEYZER_TARGET_PID}" options="-l"/>
+		
+			<!-- Jstack. Calls directly jstack and controls the standard and error outputs. 
+				 Standard output is written to file. Error output is written to log file  -->
+			<!-- Options : -l prints dead locks, -F force stacks, to be used when process is hung -->
+			<jstack pid="${JEYZER_TARGET_PID}" options="-l"/>
+		</methods>
+	
+	</snapshot>
+
+	<!-- Recording snapshot archiving -->
+	<archiving period="${JEYZER_RECORD_ARCHIVE_PERIOD}" archive_on_shutdown="false">
+	
+		<storage archive_dir="${JEYZER_RECORD_ARCHIVE_DIR}" archive_prefix="jzr-rec-${JEYZER_RECORD_PROFILE}-"/>
+	
+		<!-- Recording snapshot archive file number retention size. Archive files beyond the limit (so old files) are automatically deleted. -->
+		<retention file_limit="${JEYZER_RECORD_ARCHIVE_FILE_LIMIT}"/>
+		
+		<!-- Recording snapshot archiving offset. Offset used to define the end limit of the archiving time slot. 
+		     Must at least be a multiple of the thread dump period. -->
+		<!-- If Jeyzer monitoring is enabled, must be higher than the scanning period. -->
+		<archiving_time_offset duration="${JEYZER_RECORD_ARCHIVE_TIME_OFFSET}"/>
+	
+	</archiving>
+
+</recorder>

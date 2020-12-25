@@ -94,15 +94,5 @@
 			<source>${basedir}/src/main/config/profiles/standard/standard_advanced_mx.xml</source>
 			<outputDirectory>config/scaling-template/jeyzer-rec-configs/profiles/standard</outputDirectory>
 		</file>
-		<file>
-			<source>${basedir}/src/main/config/profiles/standard/standard_generation.xml</source>
-			<outputDirectory>config/scaling-template/jeyzer-rec-configs/profiles/profile-template</outputDirectory>
-			<destName>profile-template_generation.xml</destName>
-		</file>
-		<file>
-			<source>${basedir}/src/main/config/profiles/standard/standard_advanced_mx.xml</source>
-			<outputDirectory>config/scaling-template/jeyzer-rec-configs/profiles/profile-template</outputDirectory>
-			<destName>profile-template_advanced_mx.xml</destName>
-		</file>
 	</files>
 </assembly>
