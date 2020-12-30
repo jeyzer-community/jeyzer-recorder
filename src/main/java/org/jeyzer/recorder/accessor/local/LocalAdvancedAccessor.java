@@ -40,6 +40,7 @@ import org.jeyzer.recorder.accessor.local.advanced.process.LocalMemoryPoolAccess
 import org.jeyzer.recorder.accessor.local.advanced.process.LocalRuntimePropertiesAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.process.jar.LocalJarPathAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.process.jar.LocalManifestAccessor;
+import org.jeyzer.recorder.accessor.local.advanced.process.module.LocalModuleAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.system.LocalDiskSpaceAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.system.LocalDiskWriteAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.thread.JzrLocalThreadBeanFieldAccessor;
@@ -84,6 +85,8 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 	
 	private LocalJarPathAccessor jarPathAccessor;
 	
+	private LocalModuleAccessor moduleAccessor;
+	
 	public LocalAdvancedAccessor(JzrAdvancedConfig cfg, Instrumentation instrumentation) throws JzrInitializationException {
 		this.cfg = cfg;
 		
@@ -112,6 +115,8 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 				cfg.getBeanFieldConfigs(), jeyzerAccessor, genericMXAccessor);
 		
 		jarPathAccessor = new LocalJarPathAccessor(cfg.getJarPathConfig(), instrumentation, securityMgr);
+		
+		moduleAccessor = new LocalModuleAccessor(cfg.getModuleConfig(), instrumentation, securityMgr);
 	}
 
 	@Override
@@ -164,6 +169,9 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 			
 			// Start the jar path collector. Stopped implicitly when recorder shutdown occurs
 			jarPathAccessor.start();
+			
+			// Start the modules collector. Stopped implicitly when recorder shutdown occurs
+			moduleAccessor.start();
 		} finally {
 			processCardClose();
 		}

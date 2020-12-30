@@ -1,5 +1,9 @@
 package org.jeyzer.recorder.util;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /*-
  * ---------------------------LICENSE_START---------------------------
  * Jeyzer Recorder
@@ -24,8 +28,10 @@ public class SystemHelper {
 	private static final Logger logger = LoggerFactory.getLogger(SystemHelper.class);
 
 	public static final String PROPERTY_OS_NAME = "os.name";
+	public static final String JAVA_HOME_NAME = "java.home";
 	
 	public static final String PLATFORM = System.getProperty(PROPERTY_OS_NAME).toLowerCase();
+	public static final String JAVA_HOME = System.getProperty(JAVA_HOME_NAME).toLowerCase();
 	
 	private SystemHelper(){
 	}
@@ -65,6 +71,11 @@ public class SystemHelper {
  
 	public static boolean isSolaris() {
 		return (PLATFORM.indexOf("sunos") >= 0);
+	}
+	
+	public static boolean isAtLeastJdK9() {
+	    Path modulesDir = Paths.get(JAVA_HOME, "lib", "modules");
+	    return Files.exists(modulesDir);
 	}
 	
 	public static String sanitizePathSeparators(String path){

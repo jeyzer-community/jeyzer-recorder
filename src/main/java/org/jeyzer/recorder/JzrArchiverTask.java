@@ -77,6 +77,9 @@ public class JzrArchiverTask extends Thread implements Runnable {
 	private boolean processJarPathsSupported;
 	private String processJarPath;
 	
+	private boolean processModulesSupported;
+	private String processModulesPath;
+	
 	long startZipTime;
 	
 	public JzrArchiverTask(JzrRecorderConfig cfg) {
@@ -111,6 +114,10 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		// optional jar paths file
 		processJarPathsSupported = cfg instanceof JzrAdvancedMXAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
 		processJarPath = cfg.getThreadDumpDirectory() + File.separator + LocalJarPathTask.JAR_PATHS_FILE;
+		
+		// optional modules file
+		processModulesSupported = cfg instanceof JzrAdvancedMXAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
+		processModulesPath = cfg.getThreadDumpDirectory() + File.separator + LocalJarPathTask.JAR_PATHS_FILE;
 		
 		// initialize start time	
 		startZipTime = Calendar.getInstance().getTimeInMillis() 
@@ -176,8 +183,10 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		String archiveFile = archiveDir + File.separator + getPeriodStampedFileName(startZipTime, endZipTime); 
 		
 		File[] files = addFile(tds, processCardPath, processCardSupported);
+		
 		File[] files2 = addFile(files, processJarPath, processJarPathsSupported);
-		File[] filesToZip = addFile(files2, encryptionKeyFilePath, encryptionPublished);
+		File[] files3 = addFile(files2, processModulesPath, processModulesSupported);
+		File[] filesToZip = addFile(files3, encryptionKeyFilePath, encryptionPublished);
 		
 		if (SystemHelper.isWindows())
 			// zip the files

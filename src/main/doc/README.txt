@@ -188,6 +188,21 @@ Jar paths file generation can be disabled by configuration.
 The loaded jar paths file is included in each recording archive file.
 
 
+-----------------------------------------------
+===   Java modules descriptor generation    ===
+-----------------------------------------------
+
+Java modules descriptor generation is available only on JDK 9 version or above.
+
+Optionally, Jeyzer Recorder can generate a loaded Java modules list file after startup named process-modules.txt.
+This file contains the list of Java modules loaded by the JVM.
+As classes (and therefore related Java modules) may be loaded at any time, the file is re-generated every 15 minutes by default.
+The module collection starts after 2 minutes by default.
+
+Java modules list file generation can be disabled by configuration.
+The loaded Java modules list file is included in each recording archive file.
+
+
 --------------------------------
 ===        Time zone         ===
 --------------------------------
@@ -239,7 +254,8 @@ When enabled Advanced MX permits to collect additional data from the Java Platfo
 	- Garbage collection execution time and count
 	- Free and used disk spaces (AdvancedMXAgent method only)
 	- Recording write time (AdvancedMXAgent method only)
-	- Loaded jar paths(AdvancedMXAgent method only)
+	- Loaded jar paths (AdvancedMXAgent method only)
+	- Loaded Java modules (AdvancedMXAgent method only)
 In addition, it permits to collect process and thread data as well as applicative events published through the Jeyzer MX interface :
 	- Thread context parameters  (ex : action request parameters)
 	- Thread context id  (ex : request id)

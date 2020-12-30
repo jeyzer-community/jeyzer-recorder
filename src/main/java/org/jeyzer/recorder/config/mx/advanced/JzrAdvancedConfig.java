@@ -19,6 +19,7 @@ import java.io.IOException;
 
 
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.List;
 
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
@@ -56,6 +57,7 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 	private JzrManifestConfig manifestConfig;
 	
 	private JzrJarPathConfig jarPathConfig;
+	private JzrModuleConfig moduleConfig;
 	
 	private boolean captureDeadlockEnabled = false;
 
@@ -137,6 +139,10 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 	public JzrJarPathConfig getJarPathConfig() {
 		return jarPathConfig;
 	}
+	
+	public JzrModuleConfig getModuleConfig() {
+		return moduleConfig;
+	}
 
 	public List<JzrDiskSpaceConfig> getDiskSpaceConfigs(){
 		return diskSpaceConfigs;
@@ -174,6 +180,9 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 		// jar paths, optional
 		loadJarPathsNode(advancedJmxNode, getThreadDumpDirectory());
 		
+		// modules, optional
+		loadModulesNode(advancedJmxNode, getThreadDumpDirectory());
+		
 		// memory node
 		Element memoryNode = ConfigUtil.getFirstChildNode(advancedJmxNode, JzrMemoryConfig.JZR_MEMORY);
 		if (memoryNode != null)
@@ -208,5 +217,20 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 			jarPathConfig = new JzrJarPathConfig();
 		}
 	}
-
+	
+	private void loadModulesNode(Element advancedJmxNode, String tdDir) throws JzrInitializationException {
+		boolean moduleSupport = SystemHelper.isAtLeastJdK9();
+		Element modulesNode = ConfigUtil.getFirstChildNode(advancedJmxNode, JzrModuleConfig.JZR_MODULES);
+		if (moduleSupport && modulesNode != null) {
+			logger.debug("Module accessor configuration found.");
+			moduleConfig = new JzrModuleConfig(modulesNode, tdDir);
+		}
+		else {
+			if (!moduleSupport)
+				logger.debug("Modules not supported on this Java version.");
+			else
+				logger.debug("Module accessor configuration not found.");
+			moduleConfig = new JzrModuleConfig();
+		}
+	}
 }

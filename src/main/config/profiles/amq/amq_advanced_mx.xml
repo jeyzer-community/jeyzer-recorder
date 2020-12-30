@@ -23,6 +23,10 @@
 			</jar>
 		</manifest>
 	</jar_paths>
+	
+	<!-- Capture the modules obtained from the JVM loaded classes -->
+	<!-- Only available in AdvancedMXAgent mode -->
+	<modules period="15m" start_offset="2m"/>
 
 	<threads capture_deadlocks="true"/>
 
