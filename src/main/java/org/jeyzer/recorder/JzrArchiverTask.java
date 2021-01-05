@@ -21,6 +21,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.jeyzer.recorder.accessor.local.advanced.process.jar.LocalJarPathTask;
+import org.jeyzer.recorder.accessor.local.advanced.process.module.LocalModuleTask;
 import org.jeyzer.recorder.accessor.mx.security.JzrSecurityManager;
 import org.jeyzer.recorder.config.JzrRecorderConfig;
 import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXAgentConfig;
@@ -117,7 +118,7 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		
 		// optional modules file
 		processModulesSupported = cfg instanceof JzrAdvancedMXAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
-		processModulesPath = cfg.getThreadDumpDirectory() + File.separator + LocalJarPathTask.JAR_PATHS_FILE;
+		processModulesPath = cfg.getThreadDumpDirectory() + File.separator + LocalModuleTask.MODULES_FILE;
 		
 		// initialize start time	
 		startZipTime = Calendar.getInstance().getTimeInMillis() 
