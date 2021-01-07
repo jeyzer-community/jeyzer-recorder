@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>org.jeyzer</groupId>
 			<artifactId>jeyzer-publish</artifactId>
-			<version>2.2-SNAPSHOT</version>
+			<version>2.2</version>
 		</dependency>
 	</dependencies>
 	
