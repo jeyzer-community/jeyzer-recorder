@@ -19,7 +19,6 @@ import java.io.IOException;
 
 
 import java.io.InputStream;
-import java.nio.file.Path;
 import java.util.List;
 
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
