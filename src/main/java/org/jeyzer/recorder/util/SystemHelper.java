@@ -1,9 +1,5 @@
 package org.jeyzer.recorder.util;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 /*-
  * ---------------------------LICENSE_START---------------------------
  * Jeyzer Recorder
@@ -18,8 +14,6 @@ import java.nio.file.Paths;
 
 
 
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,10 +22,12 @@ public class SystemHelper {
 	private static final Logger logger = LoggerFactory.getLogger(SystemHelper.class);
 
 	public static final String PROPERTY_OS_NAME = "os.name";
-	public static final String JAVA_HOME_NAME = "java.home";
+	public static final String PROPERTY_JAVA_HOME_NAME = "java.home";
+	public static final String PROPERTY_JAVA_RUNTIME_VERSION = "java.runtime.version";
 	
 	public static final String PLATFORM = System.getProperty(PROPERTY_OS_NAME).toLowerCase();
-	public static final String JAVA_HOME = System.getProperty(JAVA_HOME_NAME).toLowerCase();
+	public static final String JAVA_HOME = System.getProperty(PROPERTY_JAVA_HOME_NAME).toLowerCase();
+	public static final String JAVA_VERSION = System.getProperty(PROPERTY_JAVA_RUNTIME_VERSION).toLowerCase();
 	
 	private SystemHelper(){
 	}
@@ -74,8 +70,7 @@ public class SystemHelper {
 	}
 	
 	public static boolean isAtLeastJdK9() {
-	    Path modulesDir = Paths.get(JAVA_HOME, "lib", "modules");
-	    return Files.exists(modulesDir);
+		return !JAVA_VERSION.startsWith("1."); // Stands for 1.8, 1.7. From Java 9, "1." is not used anymore.
 	}
 	
 	public static String sanitizePathSeparators(String path){
