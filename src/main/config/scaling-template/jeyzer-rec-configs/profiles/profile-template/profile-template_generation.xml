@@ -43,7 +43,7 @@
 	<!-- Recording snapshot archiving -->
 	<archiving period="${JEYZER_RECORD_ARCHIVE_PERIOD}" archive_on_shutdown="false">
 	
-		<storage archive_dir="${JEYZER_RECORD_ARCHIVE_DIR}" archive_prefix="jzr-rec-${JEYZER_RECORD_PROFILE}-"/>
+		<storage archive_dir="${JEYZER_RECORD_ARCHIVE_DIR}" archive_prefix="jzr-rec-${JEYZER_RECORD_AGENT_PROFILE}-"/>
 	
 		<!-- Recording snapshot archive file number retention size. Archive files beyond the limit (so old files) are automatically deleted. -->
 		<retention file_limit="${JEYZER_RECORD_ARCHIVE_FILE_LIMIT}"/>
