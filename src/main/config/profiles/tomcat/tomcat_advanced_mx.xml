@@ -74,6 +74,105 @@
 	<!-- Garbage collectors exposed by JMX -->
 	<garbage_collectors>
 		
+		<!-- Important : the Jeyzer Recorder will attempt to collect data from the G1 (JDK 11) OR from the PS Scavenge (JDK 8) garbage collectors -->
+		<!--             As one or the other will not be available, a info trace will be printed on startup. -->
+		
+		<!-- G1 Young Generation. Default on JDK 11 -->
+		<!-- Enabled with JVM option -XX:+UseG1GC on JDK8 -->
+		<!-- Manages memory pools : G1 Eden Space, G1 Survivor Space -->
+		<collector name="G1 Young Generation">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="G1 Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="G1 Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="G1 Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="G1 Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>				
+			</last_gc_info>
+		</collector>
+		
+		<!-- G1 Old Generation. Default on JDK 11 -->
+		<!-- Enabled with JVM option -XX:+UseG1GC on JDK8 -->
+		<!-- Manages memory pools : G1 Eden Space, G1 Survivor Space, G1 Old Gen -->
+		<collector name="G1 Old Generation">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<id/>
+				<duration/>
+				<start_time/>
+				<end_time/>
+				<before>
+					<pool name="G1 Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="G1 Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="G1 Old Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="G1 Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>	
+			</last_gc_info>
+		</collector>
+		
 		<!-- PS Scavenge. Default on Oracle jdk8. Enabled with JVM option -XX:+UseParallelGC -->
 		<!-- Manages memory pools : PS Eden Space, PS Survivor Space -->
 		<collector name="PS Scavenge">
@@ -168,7 +267,39 @@
 	<!-- Provided by java.lang.management.MemoryPoolMXBean -->
 	<memory_pools>
 
-		<!-- Old gen. Alternative : replace PS with G1 -->
+		<!-- Important : the Jeyzer Recorder will attempt to collect data from the G1 (JDK 11) OR from the PS Scavenge (JDK 8) memory pools -->
+		<!--             If JDK version is known up front, remove the non required GC sections -->
+	
+		<!-- Old gen G1 -->
+		<pool name="G1 Old Gen">
+			<peak>
+				<used/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<threshold size="50000"/>
+			</usage>
+			<collection>
+				<used/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+	
+		<!-- Eden Space G1 -->
+		<pool name="G1 Eden Space">
+			<peak>
+				<used/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+			</usage>
+		</pool>
+
+		<!-- Old gen PS -->
 		<pool name="PS Old Gen">
 			<peak>
 				<used/>
@@ -185,7 +316,7 @@
 			</collection>
 		</pool>
 	
-		<!-- Eden Space. Alternative : replace PS with G1 -->
+		<!-- Eden space PS -->
 		<pool name="PS Eden Space">
 			<peak>
 				<used/>

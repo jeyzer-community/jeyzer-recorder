@@ -56,7 +56,8 @@
 			</last_gc_info>
 		</collector>
 
-		<!-- G1 Young Generation. Enabled with JVM option -XX:+UseG1GC -->
+		<!-- G1 Young Generation. Default on JDK 11 -->
+		<!-- Enabled with JVM option -XX:+UseG1GC on JDK8 -->
 		<!-- Manages memory pools : G1 Eden Space, G1 Survivor Space -->
 		<collector name="G1 Young Generation">
 			<collection>
@@ -248,7 +249,8 @@
 			</last_gc_info>
 		</collector>
 
-		<!-- G1 Old Generation. Enabled with JVM option -XX:+UseG1GC -->
+		<!-- G1 Old Generation. Default on JDK 11 -->
+		<!-- Enabled with JVM option -XX:+UseG1GC on JDK8 -->
 		<!-- Manages memory pools : G1 Eden Space, G1 Survivor Space, G1 Old Gen -->
 		<collector name="G1 Old Generation">
 			<collection>
@@ -281,6 +283,7 @@
 						<!-- Only usage is supported -->
 						<usage>
 							<used/>
+							<max/>
 						</usage>
 					</pool>
 					<pool name="G1 Eden Space">
@@ -290,7 +293,7 @@
 							<max/>
 						</usage>
 					</pool>
-				</after>				
+				</after>	
 			</last_gc_info>
 		</collector>
 
