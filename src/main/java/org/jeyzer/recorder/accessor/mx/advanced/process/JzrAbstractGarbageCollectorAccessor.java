@@ -83,7 +83,7 @@ public abstract class JzrAbstractGarbageCollectorAccessor {
 
 			for (JzrGarbageCollectorConfig config : collectorConfigs){
 				if (!garbageCollectorBeans.containsKey(config.getName())){
-					logger.warn("Garbage Collector {} not supported. Will be removed.", config.getName());
+					logger.debug("Garbage Collector {} not used. Its data collection will be therefore ignored and skipped.", config.getName());
 					failedGarbageCollectors.add(config);
 					config.disable();
 				}

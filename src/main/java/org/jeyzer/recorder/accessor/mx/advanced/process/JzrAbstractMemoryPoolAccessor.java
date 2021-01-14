@@ -235,7 +235,7 @@ public abstract class JzrAbstractMemoryPoolAccessor {
 						break;
 				}
 				if (!found){
-					logger.warn("Memory Pool {} not supported. Will be removed.", config.getName());
+					logger.debug("Memory Pool {} not used. Its data collection will be therefore ignored and skipped.", config.getName());
 					failedPools.add(config);
 					config.disable();
 				}
