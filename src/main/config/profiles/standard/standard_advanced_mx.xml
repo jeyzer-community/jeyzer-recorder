@@ -304,7 +304,38 @@
 	<!-- Provided by java.lang.management.MemoryPoolMXBean -->
 	<memory_pools>
 
-		<!-- Old gen. Alternative : replace PS with G1 -->
+		<!-- Important : the Jeyzer Recorder will attempt to collect data from the G1 (JDK 11) OR from the PS Scavenge (JDK 8) memory pools -->
+	
+		<!-- Old gen G1 -->
+		<pool name="G1 Old Gen">
+			<peak>
+				<used/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<threshold size="50000"/>
+			</usage>
+			<collection>
+				<used/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+	
+		<!-- Eden Space G1 -->
+		<pool name="G1 Eden Space">
+			<peak>
+				<used/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+			</usage>
+		</pool>
+
+		<!-- Old gen PS -->
 		<pool name="PS Old Gen">
 			<peak>
 				<used/>
@@ -321,7 +352,7 @@
 			</collection>
 		</pool>
 	
-		<!-- Eden Space. Alternative : replace PS with G1 -->
+		<!-- Eden Space PS -->
 		<pool name="PS Eden Space">
 			<peak>
 				<used/>
@@ -333,22 +364,18 @@
 		</pool>
 
 		<!-- Perm gen JDK 7 -->
-		<!-- 
 		<pool name="PS Perm Gen">
 			<usage>
 				<used/>
 			</usage>
-		</pool>
-		 -->
+		</pool>		
 		
 		<!-- Perm gen JDK 8 -->
-		<!--
 		<pool name="Metaspace">
 			<usage>
 				<used/>
 			</usage>
 		</pool>
-		-->
 	
 	</memory_pools>
 
