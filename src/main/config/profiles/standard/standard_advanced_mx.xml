@@ -82,12 +82,12 @@
 		<thread_allocated_bytes/>
 		<!-- Provided by org.jeyzer.mx.Jeyzer -->
 		<!-- 
-		<jzr_thread_user/>
-		<jzr_thread_context_id/>
-		<jzr_thread_action/>
-		<jzr_thread_action_start_time/>
-		<jzr_thread_action_id/>
-		<jzr_thread_parameters/>
+		<jeyzer_thread_user/>
+		<jeyzer_thread_context_id/>
+		<jeyzer_thread_action/>
+		<jeyzer_thread_action_start_time/>
+		<jeyzer_thread_action_id/>
+		<jeyzer_thread_parameters/>
 		-->
 	</thread>
 
@@ -352,7 +352,7 @@
 			</collection>
 		</pool>
 	
-		<!-- Eden Space PS -->
+		<!-- PS Eden space -->
 		<pool name="PS Eden Space">
 			<peak>
 				<used/>
