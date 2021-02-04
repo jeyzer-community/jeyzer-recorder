@@ -124,6 +124,8 @@ public class JzrSecurityConfig {
 			}
 			
 			Document doc = ConfigUtil.loadDOM(path, input);
+			if (doc == null)
+				throw new JzrInitializationException("Failed to load the Jeyzer Recorder security configuration file : " + path);
 			
 			// security
 			NodeList nodes = doc.getElementsByTagName(JZR_SECURITY);

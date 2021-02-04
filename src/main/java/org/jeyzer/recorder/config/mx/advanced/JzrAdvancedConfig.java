@@ -157,6 +157,8 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 	
 	private void loadConfiguration(String path, InputStream file) throws JzrInitializationException{
 		Document doc = ConfigUtil.loadDOM(path, file);
+		if (doc == null)
+			throw new JzrInitializationException("Failed to load the Jeyzer Recorder advanced configuration file : " + path);
 			
 		// report
 		NodeList nodes = doc.getElementsByTagName(JZR_MX_ADVANCED);

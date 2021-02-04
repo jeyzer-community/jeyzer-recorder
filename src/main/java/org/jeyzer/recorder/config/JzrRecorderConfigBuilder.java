@@ -123,20 +123,13 @@ public class JzrRecorderConfigBuilder {
 	}
 
 	private Element loadConfiguration(String tdgFilepath, InputStream input) throws JzrInitializationException {
-		Element config = null;
+		Document doc = ConfigUtil.loadDOM(tdgFilepath, input);
+		if (doc == null)
+			throw new JzrInitializationException("Failed to load the Jeyzer Recorder configuration file : " + tdgFilepath);
 		
-		try {
-			Document doc = ConfigUtil.loadDOM(tdgFilepath, input);
-			
-			// recorder
-			NodeList nodes = doc.getElementsByTagName(JzrRecorderConfig.JZR_RECORDER);
-			config = (Element)nodes.item(0);
-			
-		} catch (Exception e) {
-			throw new JzrInitializationException("Failed to load the Jeyzer Recorder configuration file " + tdgFilepath, e);
-		}
-		
-		return config;
+		// recorder
+		NodeList nodes = doc.getElementsByTagName(JzrRecorderConfig.JZR_RECORDER);		
+		return (Element)nodes.item(0);
 	}
 
 }

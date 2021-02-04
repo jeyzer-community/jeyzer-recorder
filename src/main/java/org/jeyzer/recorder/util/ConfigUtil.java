@@ -15,9 +15,6 @@ package org.jeyzer.recorder.util;
 
 
 
-
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,6 +50,11 @@ public class ConfigUtil {
 	public static final String ISO_8601_DURATION_PREFIX = "PT";
 	
 	public static final String JZR_PROPERTY_RECORDER_VERSION = "jzr.recorder.version";
+	
+	public static final String XERCES_DOC_BUILDER_FACTORY_IMPL = "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl";
+	public static final String XERCES_FEATURE_LOAD_EXT_DTD = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+	public static final String XERCES_FEATURE_LOAD_EXT_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+	public static final String XERCES_FEATURE_LOAD_EXT_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
 	
 	private ConfigUtil(){
 	}
@@ -99,45 +101,46 @@ public class ConfigUtil {
 		}		
 	}
 	
+	public static DocumentBuilder getDocumentBuilder() {
+		DocumentBuilder db = null;
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			if (XERCES_DOC_BUILDER_FACTORY_IMPL.equals(dbf.getClass().getName())){
+				logger.debug("Loading the Apache Xerces document builder factory : " + dbf.getClass().getName());
+				// Security : see http://apache-xml-project.6118.n7.nabble.com/Disabling-XML-External-Entites-td39499.html
+				dbf.setFeature(XERCES_FEATURE_LOAD_EXT_DTD, false);
+				dbf.setFeature(XERCES_FEATURE_LOAD_EXT_GENERAL_ENTITIES, false);
+				dbf.setFeature(XERCES_FEATURE_LOAD_EXT_PARAMETER_ENTITIES, false);
+			}
+			else {
+				// Can be com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl on JDK 8 and 11
+				logger.debug("Loading the document builder factory : " + dbf.getClass().getName());
+				// Security
+				dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+				dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+			}
+			db = dbf.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			logger.error("Failed to load the document builder.", e);
+		}
+		return db;
+	}
+	
 	public static Document loadDOM(String tdgFilepath, InputStream input){
 		Document doc = null;
 		try {
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-			dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-			DocumentBuilder db = dbf.newDocumentBuilder();
+			DocumentBuilder db = getDocumentBuilder();
+			if (db == null)
+				return null;
 			doc = db.parse(input);
 			doc.getDocumentElement().normalize();
 		} catch (IOException e) {
 			logger.error("Failed to open " + tdgFilepath, e);
-		} catch (ParserConfigurationException e) {
-			logger.error("Failed to parse " + tdgFilepath, e);
 		} catch (SAXException e) {
 			logger.error("Failed to parse " + tdgFilepath, e);
 		}
 		return doc;
 	}
-
-	public static Document loadDOM(String uri){
-		Document doc = null;
-		try {
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-			dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			doc = db.parse(uri);
-			doc.getDocumentElement().normalize();
-		} catch (FileNotFoundException e) {
-			logger.error("Failed to open " + uri, e);
-		} catch (IOException e) {
-			logger.error("Failed to open " + uri, e);
-		} catch (ParserConfigurationException e) {
-			logger.error("Failed to parse " + uri, e);
-		} catch (SAXException e) {
-			logger.error("Failed to parse " + uri, e);
-		}
-		return doc;
-	}	
 	
 	public static Element getFirstChildNode(Element node, String name){
 		NodeList nodes = node.getElementsByTagName(name);
