@@ -33,7 +33,8 @@ public class LocalModuleAccessor {
 	private Instrumentation instrumentation;
 	
 	public LocalModuleAccessor(JzrModuleConfig moduleConfig, Instrumentation instrumentation, JzrSecurityManager securityMgr) {
-		logger.debug("Loading LocalModuleAccessor");
+		if (moduleConfig.isActive())
+			logger.debug("Loading LocalModuleAccessor"); // disturbing otherwise
 		this.config = moduleConfig;
 		this.instrumentation = instrumentation;
 		this.securityMgr = securityMgr;
