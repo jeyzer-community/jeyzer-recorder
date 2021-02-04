@@ -22,7 +22,7 @@ To use the Jeyzer Agent recorder, follow these steps :
  1. Edit the start script of the process to monitor
 
     A. Insert the following parameter as part of the startup command line :
-	   -javaagent:"<Jeyzer Recorder home>/lib/jeyzer-agent-3.0.jar"=<Jeyzer Recorder home>/config/agent/jeyzer-agent.xml"
+	   -javaagent:"<Jeyzer Recorder home>/lib/jeyzer-agent-3.0.jar"=<Jeyzer Recorder home>/config/agent/jeyzer-agent.xml
 
     B. Set the JEYZER_AGENT_HOME system environment variable 
     or update the jeyzer-agent-home variable in the <Jeyzer Recorder home>/config/agent/jeyzer-agent.xml file.
