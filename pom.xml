@@ -11,11 +11,6 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
 			<version>1.19</version>
@@ -35,9 +30,6 @@
 	<properties>
 		<!-- Think also to update the versions hard coded in the agent configuration 
 		     which cannot be parsed at build time as the agent also handles properties at runtime -->
-		<ch.qos.logback.logback-classic.version>1.2.3</ch.qos.logback.logback-classic.version>
-		<slf4j-api.version>1.7.25</slf4j-api.version>
-		<logback-core.version>1.2.3</logback-core.version>
 		<org.apache.commons.commons-compress.version>1.19</org.apache.commons.commons-compress.version>
 	</properties>
 	
