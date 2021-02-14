@@ -58,7 +58,7 @@ public class ThreadUserTimeAccessor extends JzrAbstractlThreadUserTimeAccessor
 			this.captureDuration = this.captureDuration + endTime - startTime; // cumulative as per each thread
 			
 			if (logger.isDebugEnabled()) 
-				logger.debug("MX bean user time info access time : {} ms", endTime - startTime);
+				logger.debug("MX bean user time info access time : " + (endTime - startTime) + " ms");
 				
 			// store it
 			this.userTimePerThread.put(id, value);

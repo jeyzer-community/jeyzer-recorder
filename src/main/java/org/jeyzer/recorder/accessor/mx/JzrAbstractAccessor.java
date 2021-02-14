@@ -26,9 +26,8 @@ import java.util.List;
 
 import org.jeyzer.recorder.accessor.JzrAccessor;
 import org.jeyzer.recorder.accessor.error.JzrGenerationException;
-import org.jeyzer.recorder.util.ConfigUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public abstract class JzrAbstractAccessor implements JzrAccessor{
 
@@ -87,12 +86,6 @@ public abstract class JzrAbstractAccessor implements JzrAccessor{
 			logger.error(e.getMessage());
 			throw new JzrGenerationException(msg, e);
 		}		
-	}
-	
-	protected void dumpRecorderVersion(BufferedWriter writer, String version) throws IOException {
-    	writer.write(ConfigUtil.JZR_PROPERTY_RECORDER_VERSION + "=" + version);
-    	writer.newLine();
-    	writer.flush();
 	}
 	
 	protected void close() {

@@ -23,8 +23,8 @@ import java.util.List;
 
 import org.jeyzer.recorder.config.mx.advanced.JzrDiskSpaceConfig;
 import org.jeyzer.recorder.util.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class LocalDiskSpaceAccessor {
 
@@ -56,7 +56,7 @@ public class LocalDiskSpaceAccessor {
 			File dir = config.getDirectory();
 			
 	        if (logger.isDebugEnabled())
-	        	logger.debug("Accessing disk space info for directory : {}", dir.getAbsolutePath());
+	        	logger.debug("Accessing disk space info for directory : " + dir.getAbsolutePath());
 			
 			DiskSpace diskSpace = new DiskSpace(config);
 			diskSpaces.add(diskSpace);
@@ -73,7 +73,7 @@ public class LocalDiskSpaceAccessor {
 				catch(SecurityException ex){
 					diskSpace.setFreeSpace(DIRECTORY_ACCESS_DENIED);
 			        if (logger.isDebugEnabled())
-			        	logger.debug("Accessing disk space info for directory : {} failed. Error is : {}", dir.getAbsolutePath(), ex.getMessage());
+			        	logger.debug("Accessing disk space info for directory : " + dir.getAbsolutePath() + " failed. Error is : " + ex.getMessage());
 				}
 			}
 
@@ -140,14 +140,14 @@ public class LocalDiskSpaceAccessor {
 		if (!directory.exists()){
 			diskSpace.invalidate(DIRECTORY_NOT_EXIST);
 	        if (logger.isDebugEnabled())
-	        	logger.debug("Accessing disk space info for directory : {} failed. Directory doesn't exist.", directory.getAbsolutePath());
+	        	logger.debug("Accessing disk space info for directory : " + directory.getAbsolutePath() + " failed. Directory doesn't exist.");
 			return DIRECTORY_NOT_EXIST;
 		}
 
 		if (directory.isFile()){
 			diskSpace.invalidate(DIRECTORY_IS_FILE);
 	        if (logger.isDebugEnabled())
-	        	logger.debug("Accessing disk space info for directory : {} failed. Directory is a file.", directory.getAbsolutePath());
+	        	logger.debug("Accessing disk space info for directory : " + directory.getAbsolutePath() + " failed. Directory is a file.");
 			return DIRECTORY_IS_FILE;
 		}
 

@@ -29,8 +29,8 @@ import org.jeyzer.recorder.accessor.local.advanced.JzrLocalBeanFieldAccessor;
 import org.jeyzer.recorder.config.JzrRecorderConfig;
 import org.jeyzer.recorder.util.JzrTimeZone;
 import org.jeyzer.recorder.util.SystemHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 import com.sun.management.UnixOperatingSystemMXBean;
 

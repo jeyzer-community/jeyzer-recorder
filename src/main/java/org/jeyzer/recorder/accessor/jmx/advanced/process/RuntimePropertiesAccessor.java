@@ -35,8 +35,8 @@ import org.jeyzer.recorder.config.JzrRecorderConfig;
 import org.jeyzer.recorder.util.JMXUtil;
 import org.jeyzer.recorder.util.JzrTimeZone;
 import org.jeyzer.recorder.util.SystemHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class RuntimePropertiesAccessor extends JzrAbstractBeanFieldAccessor implements JzrMXBeanFieldAccessor {
 
@@ -81,10 +81,10 @@ public class RuntimePropertiesAccessor extends JzrAbstractBeanFieldAccessor impl
 			this.captureDuration = endTime - startTime;
 
 			if (logger.isDebugEnabled())
-				logger.debug("Runtime MX bean parsing time : {} ms", endTime - startTime);
+				logger.debug("Runtime MX bean parsing time : " + (endTime - startTime) + " ms");
 		
 		} catch (IOException e) {
-			logger.error("Failed to access runtime info {}", e);
+			logger.error("Failed to access runtime info", e);
 		}		
 	}
 

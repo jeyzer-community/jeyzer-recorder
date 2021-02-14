@@ -30,8 +30,8 @@ import org.jeyzer.recorder.config.mx.advanced.JzrLastGCInfoConfig;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryPoolConfig;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryUsageConfig;
 import org.jeyzer.recorder.util.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 import com.sun.management.GcInfo;
 
@@ -83,7 +83,7 @@ public abstract class JzrAbstractGarbageCollectorAccessor {
 
 			for (JzrGarbageCollectorConfig config : collectorConfigs){
 				if (!garbageCollectorBeans.containsKey(config.getName())){
-					logger.debug("Garbage Collector {} not used. Its data collection will be therefore ignored and skipped.", config.getName());
+					logger.debug("Garbage Collector " + config.getName() + " not used. Its data collection will be therefore ignored and skipped.");
 					failedGarbageCollectors.add(config);
 					config.disable();
 				}
@@ -132,7 +132,7 @@ public abstract class JzrAbstractGarbageCollectorAccessor {
 				value = garbageCollectorBean.getCollectionTime();
 			}
 		} catch (Exception e) {
-			logger.error("Failed to access gc attribute from {} garbage collector, {} attribute", garbageCollectorName, attribute);
+			logger.error("Failed to access gc attribute from " + garbageCollectorName + " garbage collector, " + attribute + " attribute");
 			return -1;
 		}
 		

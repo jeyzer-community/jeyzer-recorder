@@ -33,8 +33,8 @@ import javax.management.openmbean.CompositeData;
 import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractGarbageCollectorAccessor;
 import org.jeyzer.recorder.config.mx.advanced.JzrGarbageCollectorConfig;
 import org.jeyzer.recorder.config.mx.advanced.JzrLastGCInfoConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 import com.sun.management.GcInfo;
 
@@ -102,7 +102,7 @@ public class GarbageCollectorAccessor extends JzrAbstractGarbageCollectorAccesso
 	protected long preAccessGarbageCollectorAttribute(String garbageCollectorName, String attribute){
 		// get starting time
         if (logger.isDebugEnabled())
-        	logger.debug("Accessing GC attribute from {} garbage collector : {}", garbageCollectorName, attribute);
+        	logger.debug("Accessing GC attribute from " + garbageCollectorName + " garbage collector : " + attribute);
     	return System.currentTimeMillis();
 	}
 	
@@ -112,7 +112,7 @@ public class GarbageCollectorAccessor extends JzrAbstractGarbageCollectorAccesso
     	long endTime = System.currentTimeMillis();
     	this.captureDuration += endTime - startTime; 
         if (logger.isDebugEnabled())
-        	logger.debug("Garbage collector access time : {} ms", endTime - startTime);
+        	logger.debug("Garbage collector access time : " + (endTime - startTime) + " ms");
 	}
 
 	private Map<String, GarbageCollectorMXBean> accessRemotGarbageCollectorBeans(MBeanServerConnection server) throws MalformedObjectNameException, IOException{
@@ -124,7 +124,7 @@ public class GarbageCollectorAccessor extends JzrAbstractGarbageCollectorAccesso
 		garbageCollectorName = new ObjectName(ManagementFactory.GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE + ",*");
 		
         if (logger.isDebugEnabled())
-        	logger.debug("Creating GC beans : {}", ManagementFactory.GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE);
+        	logger.debug("Creating GC beans : " + ManagementFactory.GARBAGE_COLLECTOR_MXBEAN_DOMAIN_TYPE);
 
     	startTime = System.currentTimeMillis();
         
@@ -144,7 +144,7 @@ public class GarbageCollectorAccessor extends JzrAbstractGarbageCollectorAccesso
 		this.captureDuration += endTime - startTime;
 		
         if (logger.isDebugEnabled())
-        	logger.debug("MX beans creation time : {} ms", endTime - startTime);
+        	logger.debug("MX beans creation time : " + (endTime - startTime) + " ms");
 		
 		return garbageCollectorBeans;
 	}	
@@ -205,7 +205,7 @@ public class GarbageCollectorAccessor extends JzrAbstractGarbageCollectorAccesso
 		this.captureDuration += endTime - startTime;
 		
         if (logger.isDebugEnabled())
-        	logger.debug("MX bean GC info for Garbage Collector {} access time : {} ms", name, endTime - startTime);
+        	logger.debug("MX bean GC info for Garbage Collector " + name + " access time : " + (endTime - startTime) + " ms");
 		
 		return value;
 	}

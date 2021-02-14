@@ -25,8 +25,8 @@ import javax.management.ObjectName;
 
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.util.ConfigUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
 

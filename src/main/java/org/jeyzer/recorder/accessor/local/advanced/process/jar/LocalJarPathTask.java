@@ -34,8 +34,8 @@ import org.jeyzer.recorder.accessor.error.JzrGenerationException;
 import org.jeyzer.recorder.accessor.mx.security.JzrSecurityManager;
 import org.jeyzer.recorder.config.mx.advanced.JzrJarPathConfig;
 import org.jeyzer.recorder.output.JzrWriterFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class LocalJarPathTask implements Runnable{
 
@@ -91,7 +91,7 @@ public class LocalJarPathTask implements Runnable{
 		}
 		
 		if (logger.isDebugEnabled())
-			logger.debug("Process jar path file successfully generated into temp file : {}", file.getAbsolutePath());
+			logger.debug("Process jar path file successfully generated into temp file : " + file.getAbsolutePath());
 		
 		boolean result;
 		File finalFile = new File(this.config.getOutputDirectory() + File.separator + JAR_PATHS_FILE);

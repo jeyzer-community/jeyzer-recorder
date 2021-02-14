@@ -81,14 +81,14 @@ set "JEYZER_RECORDER_LOG_FILE=%JEYZER_RECORDER_HOME%\log\jeyzer-recorder-jstack-
 
 set "JEYZER_RECORD_PARAMS=-Djeyzer.record.config=%JEYZER_RECORD_CONFIG_DIR%\profiles\%JEYZER_RECORD_PROFILE%\%JEYZER_RECORD_PROFILE%_generation.xml"
 
-rem logging + commons-compress libraries
-set "CLASSPATH=%JEYZER_RECORDER_HOME%\lib\slf4j-api-${slf4j-api.version}.jar;%JEYZER_RECORDER_HOME%\lib\logback-core-${logback-core.version}.jar;%JEYZER_RECORDER_HOME%\lib\logback-classic-${ch.qos.logback.logback-classic.version}.jar;%JEYZER_RECORDER_HOME%\lib\commons-compress-${org.apache.commons.commons-compress.version}.jar"
+rem commons-compress libraries
+set "CLASSPATH=%JEYZER_RECORDER_HOME%\lib\commons-compress-${org.apache.commons.commons-compress.version}.jar"
 
 rem jeyzer-publish library
 set "CLASSPATH=%CLASSPATH%;%JEYZER_RECORDER_HOME%\lib\jeyzer-publish.jar"
 
-rem jeyzer-recorder library and logback config directory
-set "CLASSPATH=%CLASSPATH%;%JEYZER_RECORDER_HOME%\lib\jeyzer-recorder.jar;%JEYZER_RECORDER_HOME%\config"
+rem jeyzer-recorder library
+set "CLASSPATH=%CLASSPATH%;%JEYZER_RECORDER_HOME%\lib\jeyzer-recorder.jar"
 
 rem JVM options
 set JAVA_OPTS= -Xmn15m -Xms20m -Xmx20m
@@ -99,6 +99,9 @@ rem set "JAVA_OPTS=%JAVA_OPTS% -Dcom.sun.management.jmxremote -Dcom.sun.manageme
 
 rem Java debug options
 rem set "JAVA_OPTS=%JAVA_OPTS% -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5000"
+
+rem Recorder boot debug traces
+rem set "JAVA_OPTS="$JAVA_OPTS" -Djeyzer.recorder.boot.debug=true"
 
 call "%JAVA_HOME%\bin\java.exe" %JAVA_OPTS% -cp %CLASSPATH% %JEYZER_RECORD_PARAMS% org.jeyzer.recorder.JeyzerRecorder 
 goto end

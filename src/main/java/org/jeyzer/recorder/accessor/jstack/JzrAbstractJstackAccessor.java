@@ -14,8 +14,6 @@ package org.jeyzer.recorder.accessor.jstack;
 
 
 
-
-
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -34,13 +32,13 @@ import org.jeyzer.recorder.accessor.JzrAccessor;
 import org.jeyzer.recorder.accessor.error.JzrGenerationException;
 import org.jeyzer.recorder.accessor.error.JzrProcessNotAvailableException;
 import org.jeyzer.recorder.accessor.error.JzrValidationException;
+import org.jeyzer.recorder.accessor.internal.JeyzerInternalsAccessor;
 import org.jeyzer.recorder.config.JzrRecorderConfig;
-import org.jeyzer.recorder.util.ConfigUtil;
 import org.jeyzer.recorder.util.FileUtil;
 import org.jeyzer.recorder.util.JzrTimeZone;
 import org.jeyzer.recorder.util.SystemHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public abstract class JzrAbstractJstackAccessor implements JzrAccessor{
 
@@ -97,7 +95,8 @@ public abstract class JzrAbstractJstackAccessor implements JzrAccessor{
 			        new FileOutputStream(processCardFile), "utf-8"));
 
     		dumpPid(writer, getMonitoredPid());
-    		dumpRecorderVersion(writer);
+    		JeyzerInternalsAccessor internalAccessor = new JeyzerInternalsAccessor();
+    		internalAccessor.dumpRecorderValues(writer);
         	
     		if (this.jinfoAvailable)
     			dumpJinfo(file, writer);
@@ -159,13 +158,6 @@ public abstract class JzrAbstractJstackAccessor implements JzrAccessor{
     	writer.flush();
 	}
 	
-	protected void dumpRecorderVersion(BufferedWriter writer) throws IOException {
-		String version= ConfigUtil.loadRecorderVersion();
-    	writer.write(ConfigUtil.JZR_PROPERTY_RECORDER_VERSION + "=" + version);
-    	writer.newLine();
-    	writer.flush();
-	}
-
 	private void loadProcessProperties(File processCardFile) {
 		Properties props = new Properties();
 		

@@ -32,8 +32,8 @@ import javax.management.ReflectionException;
 import javax.management.openmbean.CompositeData;
 import javax.management.openmbean.TabularDataSupport;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JMXUtil {
 
@@ -119,7 +119,7 @@ public class JMXUtil {
 		RuntimeMXBean rtbean;
 		
         if (logger.isDebugEnabled()){
-    		logger.debug("Creating MX bean : {}", ManagementFactory.RUNTIME_MXBEAN_NAME);
+    		logger.debug("Creating MX bean : " + ManagementFactory.RUNTIME_MXBEAN_NAME);
         	startTime = System.currentTimeMillis();
         }
 
@@ -130,7 +130,7 @@ public class JMXUtil {
 		
         if (logger.isDebugEnabled()){
         	long endTime = System.currentTimeMillis();
-        	logger.debug("MX bean creation time : {} ms", endTime - startTime);
+        	logger.debug("MX bean creation time : " + (endTime - startTime) + " ms");
         }
         
         return rtbean;

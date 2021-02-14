@@ -24,8 +24,8 @@ import org.jeyzer.recorder.accessor.mx.advanced.thread.JzrAbstractThreadJeyzerAc
 import org.jeyzer.recorder.accessor.mx.advanced.thread.JzrAbstractThreadMemoryAccessor;
 import org.jeyzer.recorder.accessor.mx.advanced.thread.JzrAbstractlThreadUserTimeAccessor;
 import org.jeyzer.recorder.config.mx.advanced.JzrBeanFieldConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JzrThreadBeanFieldAccessorBuilder {
 	private static final Logger logger = LoggerFactory.getLogger(JzrThreadBeanFieldAccessorBuilder.class);
@@ -51,7 +51,9 @@ public class JzrThreadBeanFieldAccessorBuilder {
 			accessor = null;
 			String name = config.getCategory() + ":" + config.getName();
 			
-			logger.debug("Loading thread bean accessor : {}", name);
+			if (logger.isDebugEnabled())
+				logger.debug("Loading thread bean accessor : " + name);
+			
 			if (JzrAbstractThreadMemoryAccessor.ACCESSOR_NAME.equals(name))
 				accessor = new LocalThreadMemoryAccessor();
 			else if (JzrAbstractThreadCPUAccessor.ACCESSOR_NAME.equals(name))
@@ -66,7 +68,7 @@ public class JzrThreadBeanFieldAccessorBuilder {
 				jhThreadAccessor.addThreadField(name);
 			}
 			else
-				logger.error("Thread bean configuration {} is invalid. No corresponding accessor found.", name);
+				logger.error("Thread bean configuration " + name + " is invalid. No corresponding accessor found.");
 			
 			if (accessor != null)
 				threadBeanFiledaccessors.add(accessor);

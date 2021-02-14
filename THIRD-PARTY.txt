@@ -1,7 +1,4 @@
 
-Lists of 5 third-party dependencies.
-     (Eclipse Public License - v 1.0) (GNU Lesser General Public License) Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
-     (Eclipse Public License - v 1.0) (GNU Lesser General Public License) Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
+Lists of 2 third-party dependencies.
      (MIT License) General Java Agent (com.hapiware.agent:agent:3.0 - http://www.hapiware.com/java-agent-general)
      (Apache License, Version 2.0) Apache Commons Compress (org.apache.commons:commons-compress:1.19 - https://commons.apache.org/proper/commons-compress/)
-     (MIT License) SLF4J API Module (org.slf4j:slf4j-api:1.7.25 - http://www.slf4j.org)

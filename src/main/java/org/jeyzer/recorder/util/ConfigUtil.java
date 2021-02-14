@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.security.CodeSource;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.jar.Attributes;
@@ -31,10 +32,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.jeyzer.publish.JeyzerPublisher;
+import org.jeyzer.recorder.JeyzerRecorder;
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -48,8 +49,6 @@ public class ConfigUtil {
 	private static final String VARIABLE_SUFFIX = "}";
 	
 	public static final String ISO_8601_DURATION_PREFIX = "PT";
-	
-	public static final String JZR_PROPERTY_RECORDER_VERSION = "jzr.recorder.version";
 	
 	public static final String XERCES_DOC_BUILDER_FACTORY_IMPL = "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl";
 	public static final String XERCES_FEATURE_LOAD_EXT_DTD = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
@@ -214,27 +213,33 @@ public class ConfigUtil {
 			
 			resolvedValue = System.getProperty(variable);
 			if (resolvedValue != null){
-				logger.debug("Variable \"{}\" resolved through system property. Value : {}", value, resolvedValue.replace('\\', '/'));
+				if (logger.isDebugEnabled())
+					logger.debug("Variable \"" + value + "\" resolved through system property. Value : " + resolvedValue.replace('\\', '/'));
 				if (resolvedValue.contains(VARIABLE_PREFIX)){
-					logger.debug("Resolving inner variable for value \"{}\".", resolvedValue.replace('\\', '/'));
+					if (logger.isDebugEnabled())
+						logger.debug("Resolving inner variable for value \"" + resolvedValue.replace('\\', '/') + "\".");
 					resolvedValue = resolveValue(resolvedValue);
-					logger.debug("Inner variable resolved");
+					if (logger.isDebugEnabled())
+						logger.debug("Inner variable resolved");
 				}
 				return resolvedValue;
 			}
 			
 			resolvedValue = System.getenv(variable);
 			if (resolvedValue != null){
-				logger.debug("Variable \"{}\" resolved through environment variable. Value : {}", value, resolvedValue.replace('\\', '/'));
+				if (logger.isDebugEnabled())
+					logger.debug("Variable \"{" + value + "}\" resolved through environment variable. Value : " + resolvedValue.replace('\\', '/'));
 				if (resolvedValue.contains(VARIABLE_PREFIX)){
-					logger.debug("Resolving inner variable for value \"{}\".", resolvedValue.replace('\\', '/'));
+					if (logger.isDebugEnabled())
+						logger.debug("Resolving inner variable for value \"" + resolvedValue.replace('\\', '/') + "\".");
 					resolvedValue = resolveValue(resolvedValue);
-					logger.debug("Inner variable resolved");
+					if (logger.isDebugEnabled())
+						logger.debug("Inner variable resolved");
 				}				
 				return resolvedValue;
 			}
 			
-			logger.warn("Variable {} cannot be resolved. Returning variable name.", value.replace('\\', '/'));
+			logger.warn("Variable " + value.replace('\\', '/') + " cannot be resolved. Returning variable name.");
 		}
 		
 		return value;
@@ -277,8 +282,8 @@ public class ConfigUtil {
 			
 		}
 		
-		if (end != 0)
-			logger.debug("Value loaded \"{}\" mapped to \"{}\"", value, resolvedValue.toString().replace('\\', '/'));
+		if (end != 0 && logger.isDebugEnabled())
+			logger.debug("Value loaded \"" + value + "\" mapped to \"" + resolvedValue.toString().replace('\\', '/') + "\"");
 		
 		return resolvedValue.toString();
 	}
@@ -325,7 +330,7 @@ public class ConfigUtil {
 	
 	public static String loadRecorderVersion() {
 		try {
-			Class<JeyzerPublisher> clazz = JeyzerPublisher.class;
+			Class<JeyzerRecorder> clazz = JeyzerRecorder.class;
 			String className = clazz.getSimpleName() + ".class";
 			String classPath = clazz.getResource(className).toString();
 			if (!classPath.startsWith("jar"))
@@ -343,7 +348,8 @@ public class ConfigUtil {
 				return "Not available : war mode";
 			
 			return value;
-		} catch (IOException e) {
+		} catch (IOException ex) {
+			logger.warn("Failed to access the Recorder version from its Manifest file", ex);
 			return "Not available - Manifest read error";
 		}
 	}

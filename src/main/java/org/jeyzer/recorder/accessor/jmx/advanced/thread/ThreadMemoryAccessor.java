@@ -129,9 +129,8 @@ public class ThreadMemoryAccessor extends JzrAbstractThreadMemoryAccessor implem
 			// memoryThreadSupport = false;
 			
 
-		} catch (Throwable e1) {
-			logger.warn(
-					"Monitored JVM doesn't provide thread allocated memory info.", e1);
+		} catch (Throwable ex) {
+			logger.warn("Monitored JVM doesn't provide thread allocated memory info.", ex);
 			this.supported = false;
 		}
 
@@ -167,7 +166,7 @@ public class ThreadMemoryAccessor extends JzrAbstractThreadMemoryAccessor implem
         	this.captureDuration = this.captureDuration + endTime - startTime; // cumulative as per each thread
 			
 	        if (logger.isDebugEnabled())
-	        	logger.debug("MX thread bean all thread allocated memory access time : {} ms", endTime - startTime);
+	        	logger.debug("MX thread bean all thread allocated memory access time : " + (endTime - startTime) + " ms");
 			
 			long[] tMemorySizes = (long[]) obj;
 			

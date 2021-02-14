@@ -29,8 +29,12 @@ import org.jeyzer.recorder.config.JzrRecorderConfig;
 import org.jeyzer.recorder.config.JzrRecorderConfigBuilder;
 import org.jeyzer.recorder.util.ConfigUtil;
 import org.jeyzer.recorder.util.SanitizedPathProperties;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JeyzerRecorderAgent {
+
+	private static final Logger logger = LoggerFactory.getLogger(JeyzerRecorderAgent.class);	
 	
 	private static final String JEYZER_RECORDER_PROPS_PROPERTY = "jeyzer-recorder-agent.props";
 	private static final String JEYZER_RECORDER_PROPS_DEFAULT_PATH = "./jeyzer/config/agent/jeyzer-record.properties";
@@ -63,6 +67,7 @@ public class JeyzerRecorderAgent {
 	//  - define jeyzer agent home directory
 	 public static void premain(java.util.regex.Pattern[] includePatterns, java.util.regex.Pattern[] excludePatterns, Object config, Instrumentation instrumentation)
 	 {
+		 logStart();
 		 if (config instanceof Map){
 			 @SuppressWarnings("unchecked")
 			Map<String, String> configMap = (Map<String, String>)config;
@@ -70,47 +75,47 @@ public class JeyzerRecorderAgent {
 			 if (propertyFilePath != null){
 				 System.setProperty(JEYZER_RECORDER_PROPS_PROPERTY, propertyFilePath);
 			 }else{
-				 System.err.println(JEYZER_ERROR_MSG_PREFIX + "Configuration value " + JEYZER_RECORDER_PROPS_PROPERTY + " not found in the general java agent configuration" + JEYZER_ERROR_MSG_SUFFIX);
+				 logger.error(JEYZER_ERROR_MSG_PREFIX + "Configuration value " + JEYZER_RECORDER_PROPS_PROPERTY + " not found in the general java agent configuration" + JEYZER_ERROR_MSG_SUFFIX);
 				 return;
 			 }
 		 }
 		 else{
-			 System.err.println(JEYZER_ERROR_MSG_PREFIX + "Invalid general java agent configuration" + JEYZER_ERROR_MSG_SUFFIX);
+			 logger.error(JEYZER_ERROR_MSG_PREFIX + "Invalid general java agent configuration" + JEYZER_ERROR_MSG_SUFFIX);
 			 return;
 		 }
 		 
 		 premain(null, instrumentation);
 	 }
-	
-	 // standard agent main method
+
+	// standard agent main method
 	 public static void premain(String args, Instrumentation inst) {
 		 try{
 			 try {
 				loadAgentProperties();
-			} catch (JzrInitializationException e) {
-				System.err.println(JEYZER_ERROR_MSG_PREFIX + "Error - Failed to load the Jeyzer Recorder agent properties" + JEYZER_ERROR_MSG_SUFFIX);
-				e.printStackTrace();
+			} catch (JzrInitializationException ex) {
+				logger.error(JEYZER_ERROR_MSG_PREFIX + "Error - Failed to load the Jeyzer Recorder agent properties" + JEYZER_ERROR_MSG_SUFFIX,  ex);
 		        return;
 			}
 	
-			JeyzerRecorder ftd = null;
+			JeyzerRecorder recorder = null;
 			JzrRecorderConfig config = null;
 	
 			try {
 				config = JzrRecorderConfigBuilder.newInstance().buildConfig();
-			} catch (Exception e) {
-				System.err.println(JEYZER_ERROR_MSG_PREFIX + "Error - Failed to load the Jeyzer Recorder configuration" + JEYZER_ERROR_MSG_SUFFIX);
-				e.printStackTrace();
+			} catch (Exception ex) {
+				logger.error(JEYZER_ERROR_MSG_PREFIX + "Error - Failed to load the Jeyzer Recorder configuration" + JEYZER_ERROR_MSG_SUFFIX, ex);
 				return;
 			}
-				
+			
+			if (logger.isDebugEnabled())
+				logger.debug(config.toString());
 				
 			// create recording/log directory
 			try {
 				File tdDirectory = new File(config.getThreadDumpDirectory());
 				tdDirectory.mkdirs();
-			} catch (Exception e) {
-				System.err.println(JEYZER_ERROR_MSG_PREFIX + "Error - Failed to create the recording snapshot directory : " + e.getMessage() + JEYZER_ERROR_MSG_SUFFIX);
+			} catch (Exception ex) {
+				logger.error(JEYZER_ERROR_MSG_PREFIX + "Error - Failed to create the recording snapshot directory : " + ex.getMessage() + JEYZER_ERROR_MSG_SUFFIX, ex);
 				return;
 			}
 	
@@ -124,15 +129,15 @@ public class JeyzerRecorderAgent {
 					TimeUnit.SECONDS);
 	
 			try{
-				ftd = new JeyzerRecorder(config, inst);
+				recorder = new JeyzerRecorder(config, inst);
 			} catch(JzrValidationException ex){
-				System.err.println(JEYZER_ERROR_MSG_PREFIX + "Failed to start Jeyzer Recorder : " + ex.getMessage() + JEYZER_ERROR_MSG_SUFFIX);
+				logger.error(JEYZER_ERROR_MSG_PREFIX + "Failed to start Jeyzer Recorder : " + ex.getMessage() + JEYZER_ERROR_MSG_SUFFIX, ex);
 				return;
 			} catch(JzrInitializationException ex){
-				System.err.println(JEYZER_ERROR_MSG_PREFIX + "Failed to start Jeyzer Recorder : " + ex.getMessage() + JEYZER_ERROR_MSG_SUFFIX);
+				logger.error(JEYZER_ERROR_MSG_PREFIX + "Failed to start Jeyzer Recorder : " + ex.getMessage() + JEYZER_ERROR_MSG_SUFFIX, ex);
 				return;
 			} catch(Exception ex){
-				System.err.println(JEYZER_ERROR_MSG_PREFIX + "Failed to start Jeyzer Recorder." + ex + JEYZER_ERROR_MSG_SUFFIX);
+				logger.error(JEYZER_ERROR_MSG_PREFIX + "Failed to start Jeyzer Recorder." + ex + JEYZER_ERROR_MSG_SUFFIX, ex);
 				return;
 			}
 	
@@ -140,13 +145,13 @@ public class JeyzerRecorderAgent {
 			ScheduledExecutorService executor2 = Executors.newSingleThreadScheduledExecutor(
 					new JeyzerRecorder.RecorderThreadFactory(true)
 					);
-			executor2.scheduleWithFixedDelay(ftd, 
+			executor2.scheduleWithFixedDelay(recorder, 
 					config.getStartDelay().getSeconds(),
 					config.getPeriod().getSeconds(),
 					TimeUnit.SECONDS);
 			
 		} catch(Exception ex){
-			System.err.println(JEYZER_ERROR_MSG_PREFIX + "Execution failed." + ex + JEYZER_ERROR_MSG_SUFFIX);
+			logger.error(JEYZER_ERROR_MSG_PREFIX + "Execution failed." + ex + JEYZER_ERROR_MSG_SUFFIX, ex);
 			return;
 		}
 	 }
@@ -194,5 +199,13 @@ public class JeyzerRecorderAgent {
 		
 		// agent method
 		System.setProperty(JEYZER_RECORDER_METHOD_PROPERTY_NAME, JzrRecorderConfigBuilder.PARAM_METHOD_AGENT); 
+	}
+	
+	 private static void logStart() {
+		 logger.info("==================================================================");
+		 logger.info("");
+		 logger.info("Jeyzer Recorder Agent v" + ConfigUtil.loadRecorderVersion() + " started.");
+		 logger.info("");
+		 logger.info("==================================================================");
 	}
 }

@@ -25,8 +25,8 @@ import java.util.Map;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryConfig;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryUsageConfig;
 import org.jeyzer.recorder.util.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JzrAbstractMemoryAccessor {
 	
@@ -80,7 +80,7 @@ public class JzrAbstractMemoryAccessor {
 		long value = -1;
 		
         if (logger.isDebugEnabled())
-        	logger.debug("Accessing heap/non heap memory info from {}, {} figure", heapType, figure);
+        	logger.debug("Accessing heap/non heap memory info from " + heapType +  ", " + figure + " figure");
         
 		try {
 			
@@ -119,7 +119,7 @@ public class JzrAbstractMemoryAccessor {
 			
 			}
 		} catch (Exception e) {
-			logger.error("Failed to access heap/non heap memory info {} for figure {}", heapType, figure);
+			logger.error("Failed to access heap/non heap memory info " + heapType + " for figure " + figure);
 			return -1;
 		}
 		

@@ -97,10 +97,10 @@ public class ProcessCPULoadAccessor extends JzrAbstractProcessCPULoadAccessor im
 			this.captureDuration = endTime - startTime;
 			
 			if (logger.isDebugEnabled()) 
-				logger.debug("MX bean Process CPU info access time : {} ms", captureDuration);
+				logger.debug("MX bean Process CPU info access time : " + captureDuration + " ms");
 			
 		} catch (IOException e) {
-			logger.error("Failed to access process CPU {}", e);
+			logger.error("Failed to access process CPU", e);
 			this.cpuValue = (double)-1;
 		}
 	}

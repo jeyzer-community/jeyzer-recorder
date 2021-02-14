@@ -67,7 +67,7 @@ public class ThreadJeyzerAccessor extends JzrAbstractThreadJeyzerAccessor implem
     	long endTime = System.currentTimeMillis();
     	this.captureDuration = this.captureDuration + endTime - startTime;
 		if (logger.isDebugEnabled()) 
-			logger.debug("MX bean Jeyzer thread info access time : {} ms", endTime - startTime);
+			logger.debug("MX bean Jeyzer thread info access time : " + (endTime - startTime) + " ms");
 
     	List<JzrThreadInfo> threadInfos = new ArrayList<>();		
     	for (int i=0; i<compositeThreadInfos.length; i++)

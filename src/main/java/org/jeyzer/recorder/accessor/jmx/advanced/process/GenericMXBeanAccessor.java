@@ -28,8 +28,8 @@ import javax.management.ObjectName;
 import org.jeyzer.recorder.accessor.jmx.advanced.JzrMXBeanFieldAccessor;
 import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractGenericMXBeanAccessor;
 import org.jeyzer.recorder.config.mx.advanced.JzrGenericMXBeanConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class GenericMXBeanAccessor extends JzrAbstractGenericMXBeanAccessor implements JzrMXBeanFieldAccessor{
 
@@ -70,7 +70,7 @@ public class GenericMXBeanAccessor extends JzrAbstractGenericMXBeanAccessor impl
 		this.captureDuration += endTime - startTime;
 
 		if (logger.isDebugEnabled())
-			logger.debug("Generic MX bean object name query time : {} ms", endTime - startTime);
+			logger.debug("Generic MX bean object name query time : " + (endTime - startTime) + " ms");
 
         try {
     		String value;
@@ -85,7 +85,7 @@ public class GenericMXBeanAccessor extends JzrAbstractGenericMXBeanAccessor impl
             			this.captureDuration += endTime - startTime;
 
             			if (logger.isDebugEnabled())
-            				logger.debug("Generic MX bean object name access time for MX attribute {} on object {} : {} ms", attribute, objectName, endTime - startTime);            			
+            				logger.debug("Generic MX bean object name access time for MX attribute " + attribute + " on object " + objectName + " : " + (endTime - startTime) + " ms");            			
             			
             			String name = buildAttributeName(objectName, attribute);
             			collectedAttributes.put(name, value);

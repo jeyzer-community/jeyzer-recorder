@@ -13,6 +13,7 @@
 			<includes>
 				<include>org.jeyzer:jeyzer-recorder</include>
 				<include>org.jeyzer:jeyzer-publish</include>
+				<include>org.jeyzer:jeyzer-agent</include>
 			</includes>
 		</dependencySet>
 		<dependencySet>
@@ -21,6 +22,7 @@
 			<excludes>
 				<exclude>org.jeyzer:jeyzer-recorder</exclude>
 				<exclude>org.jeyzer:jeyzer-publish</exclude>
+				<exclude>org.jeyzer:jeyzer-agent</exclude>
 			</excludes>
 		</dependencySet>
 	</dependencySets> 
@@ -54,13 +56,12 @@
 			<directory>${basedir}/src/main/config/scaling-template</directory>
 			<outputDirectory>config/scaling-template</outputDirectory>
 		</fileSet>
-		
 	</fileSets>
 	<files>
 		<file>
-			<source>${basedir}/src/main/config/logback.xml</source>
-			<outputDirectory>config</outputDirectory>
-		</file>
+			<source>${basedir}/src/main/config/log/jeyzer-log.properties</source>
+			<outputDirectory>config/log</outputDirectory>
+		</file>			
 		<file>
 			<source>${basedir}/src/main/doc/README.txt</source>
 			<outputDirectory>/</outputDirectory>
@@ -83,16 +84,16 @@
 		</file>
 		<!--  Fill the scaling template directory with standard files -->
 		<file>
-			<source>${basedir}/src/main/config/logback.xml</source>
-			<outputDirectory>config/scaling-template/jeyzer-rec-configs/log</outputDirectory>
-		</file>
-		<file>
 			<source>${basedir}/src/main/config/profiles/standard/standard_generation.xml</source>
 			<outputDirectory>config/scaling-template/jeyzer-rec-configs/profiles/standard</outputDirectory>
 		</file>
 		<file>
 			<source>${basedir}/src/main/config/profiles/standard/standard_advanced_mx.xml</source>
 			<outputDirectory>config/scaling-template/jeyzer-rec-configs/profiles/standard</outputDirectory>
+		</file>
+		<file>
+			<source>${basedir}/src/main/config/log/jeyzer-log.properties</source>
+			<outputDirectory>config/scaling-template/jeyzer-rec-configs/log/log-template</outputDirectory>
 		</file>
 	</files>
 </assembly>

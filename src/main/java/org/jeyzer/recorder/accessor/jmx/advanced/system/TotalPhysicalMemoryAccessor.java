@@ -95,10 +95,10 @@ public class TotalPhysicalMemoryAccessor extends JzrAbstractTotalPhysicalMemoryA
 			this.captureDuration = endTime - startTime;
 			
 			if (logger.isDebugEnabled()) 
-				logger.debug("MX bean System total memory info access time : {} ms", captureDuration);
+				logger.debug("MX bean System total memory info access time : " + captureDuration + " ms");
 			
 		} catch (IOException e) {
-			logger.error("Failed to access System total memory {}", e);
+			logger.error("Failed to access System total memory", e);
 			this.memoryValue = (long)-1;
 		}
 	}

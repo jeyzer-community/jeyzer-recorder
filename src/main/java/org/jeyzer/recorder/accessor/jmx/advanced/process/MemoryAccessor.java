@@ -92,7 +92,7 @@ public class MemoryAccessor extends JzrAbstractMemoryAccessor{
 			this.captureDuration = endTime - startTime;
 
 			if (logger.isDebugEnabled())
-				logger.debug("Memory MX bean parsing time : {} ms", endTime - startTime);
+				logger.debug("Memory MX bean parsing time : " + (endTime - startTime) + " ms");
 		
 		} catch (IOException e) {
 			logger.error("Failed to access memory MX info {}", e);
@@ -108,7 +108,7 @@ public class MemoryAccessor extends JzrAbstractMemoryAccessor{
 		MemoryMXBean memBean;
 		
         if (logger.isDebugEnabled()){
-    		logger.debug("Creating MX bean : {}", ManagementFactory.MEMORY_MXBEAN_NAME);
+    		logger.debug("Creating MX bean : " + ManagementFactory.MEMORY_MXBEAN_NAME);
         	startTime = System.currentTimeMillis();
         }
 
@@ -119,7 +119,7 @@ public class MemoryAccessor extends JzrAbstractMemoryAccessor{
 		
         if (logger.isDebugEnabled()){
         	long endTime = System.currentTimeMillis();
-        	logger.debug("MX bean creation time : {} ms", endTime - startTime);
+        	logger.debug("MX bean creation time : " + (endTime - startTime) + " ms");
         }
         
         return memBean;

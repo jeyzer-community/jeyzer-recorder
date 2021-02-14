@@ -18,8 +18,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.jeyzer.recorder.util.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class LocalDiskWriteAccessor {
 
@@ -57,7 +57,7 @@ public class LocalDiskWriteAccessor {
 			if (this.time == 0)
 				this.time = 1;  // get 1 ms as minimum
 			if (logger.isDebugEnabled())
-				logger.debug("Print duration : {} ms", this.time);
+				logger.debug("Print duration : " + this.time + " ms");
 		}
 		else{
 			if (logger.isDebugEnabled())

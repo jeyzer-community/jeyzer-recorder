@@ -9,9 +9,6 @@
         <entry>${jeyzer-agent-home}/lib/commons-compress-1.19.jar</entry>
         <entry>${jeyzer-agent-home}/lib/jeyzer-recorder.jar</entry>
         <entry>${jeyzer-agent-home}/lib/jeyzer-publish.jar</entry>
-        <entry>${jeyzer-agent-home}/lib/logback-classic-1.2.3.jar</entry>
-        <entry>${jeyzer-agent-home}/lib/logback-core-1.2.3.jar</entry>
-        <entry>${jeyzer-agent-home}/lib/slf4j-api-1.7.25.jar</entry>
 		<entry>${jeyzer-agent-home}</entry>
 		<!-- Customized log configuration (optional) -->
 		<!-- <entry>${jeyzer-configs}/log/${jeyzer-record-agent-profile}</entry> -->

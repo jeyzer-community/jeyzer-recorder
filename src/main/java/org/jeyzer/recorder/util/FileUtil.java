@@ -29,8 +29,8 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class FileUtil {
 
@@ -103,13 +103,13 @@ public class FileUtil {
         try {        
         	writer.flush();
 		} catch (IOException e) {
-			logger.warn("Failed to flush file {}", file.getAbsolutePath());	
+			logger.warn("Failed to flush file " + file.getAbsolutePath());	
 		}
         
         try {
 			writer.close();
 		} catch (IOException e) {
-			logger.warn("Failed to close file {}", file.getAbsolutePath());	
+			logger.warn("Failed to close file " + file.getAbsolutePath());	
 		}
 	}
 
@@ -119,7 +119,7 @@ public class FileUtil {
 		try {
 			writer = new PrintWriter(file);
 		} catch (FileNotFoundException e) {
-			logger.warn("File not found {}", file.getAbsolutePath());
+			logger.warn("File not found " + file.getAbsolutePath());
 			return;
 		}
 		

@@ -109,14 +109,14 @@ export JEYZER_RECORDER_LOG_FILE
 
 JEYZER_RECORD_PARAMS="-Djeyzer.record.config="$JEYZER_RECORD_CONFIG_DIR"/profiles/"$JEYZER_RECORD_PROFILE"/"$JEYZER_RECORD_PROFILE"_generation.xml"
 
-# logging + commons-compress libraries
-CLASSPATH="$JEYZER_RECORDER_HOME/lib/slf4j-api-${slf4j-api.version}.jar:$JEYZER_RECORDER_HOME/lib/logback-core-${logback-core.version}.jar:$JEYZER_RECORDER_HOME/lib/logback-classic-${ch.qos.logback.logback-classic.version}.jar:$JEYZER_RECORDER_HOME/lib/commons-compress-${org.apache.commons.commons-compress.version}.jar"
+# commons-compress libraries
+CLASSPATH="$JEYZER_RECORDER_HOME/lib/commons-compress-${org.apache.commons.commons-compress.version}.jar"
 
 # jeyzer-publish library
 CLASSPATH=""$CLASSPATH":$JEYZER_RECORDER_HOME/lib/jeyzer-publish.jar"
 
-# jeyzer-recorder library and logback config directory
-CLASSPATH=""$CLASSPATH":$JEYZER_RECORDER_HOME/lib/jeyzer-recorder.jar:$JEYZER_RECORDER_HOME/config"
+# jeyzer-recorder library
+CLASSPATH=""$CLASSPATH":$JEYZER_RECORDER_HOME/lib/jeyzer-recorder.jar"
 export CLASSPATH
 
 # JVM options
@@ -129,5 +129,8 @@ export JAVA_OPTS
 
 # Java debug options
 # JAVA_OPTS=""$JAVA_OPTS" -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5000"
+
+# Recorder boot debug traces
+# JAVA_OPTS=""$JAVA_OPTS" -Djeyzer.recorder.boot.debug=true"
 
 "$JAVA_HOME"/bin/java $JAVA_OPTS -cp $CLASSPATH $JEYZER_RECORD_PARAMS org.jeyzer.recorder.JeyzerRecorder

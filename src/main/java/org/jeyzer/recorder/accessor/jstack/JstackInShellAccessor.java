@@ -27,8 +27,8 @@ import org.jeyzer.recorder.accessor.error.JzrProcessNotAvailableException;
 import org.jeyzer.recorder.config.jstack.JzrJstackInShellConfig;
 import org.jeyzer.recorder.util.FileUtil;
 import org.jeyzer.recorder.util.SystemHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
 
@@ -56,9 +56,8 @@ public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
 			
 			String[] args = buildExecutionArgs(command);
 			
-			if (logger.isDebugEnabled()){
-				logger.debug("Executing command line : {}", command);
-			}
+			if (logger.isDebugEnabled())
+				logger.debug("Executing command line : " + command);
 
 			if (this.cfg.isCaptureDurationEnabled()){
 				// prepare header
@@ -80,7 +79,7 @@ public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
 			duration = endTime - startTime;
 			
 			if (logger.isDebugEnabled())
-				logger.debug("Jstack execution time : {} ms", duration);
+				logger.debug("Jstack execution time : " + duration + " ms");
 			
 			if (result != 0){
 				FileUtil.emptyFile(file);
@@ -118,9 +117,8 @@ public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
         
 		String[] args = buildExecutionArgs(command);
         
-        if (logger.isDebugEnabled()){
-        	logger.debug("Executing command line : {}", command);
-        }
+        if (logger.isDebugEnabled())
+        	logger.debug("Executing command line : " + command);
         
     	startTime = System.currentTimeMillis();
         final Process p = Runtime.getRuntime().exec(args);
@@ -135,13 +133,13 @@ public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
         duration = endTime - startTime;
         
         if (logger.isDebugEnabled())
-        	logger.debug("Jinfo execution time : {} ms", duration);
+        	logger.debug("Jinfo execution time : " + duration + " ms");
         
         if (result != 0)
         	logger.error("Failed to execute jinfo command : " + command);
         else
     		if (logger.isDebugEnabled())
-    			logger.debug("Process card file successfully generated into file : {}", file.getAbsolutePath());
+    			logger.debug("Process card file successfully generated into file : " + file.getAbsolutePath());
         
 	}
 

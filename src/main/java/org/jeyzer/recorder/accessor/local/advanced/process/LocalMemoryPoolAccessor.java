@@ -23,8 +23,8 @@ import java.util.List;
 
 import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractMemoryPoolAccessor;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryPoolConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class LocalMemoryPoolAccessor extends JzrAbstractMemoryPoolAccessor{
 	
@@ -44,7 +44,7 @@ public class LocalMemoryPoolAccessor extends JzrAbstractMemoryPoolAccessor{
 			return this.checkPools(memPoolBeans);
 			
 		}catch(Exception ex){
-			logger.warn("Memory Pool {} accesss error. Memory Pool access disabled", ex);
+			logger.warn("Memory Pool accesss error. Memory Pool access disabled", ex);
 			enabled = false;
 			return false;
 		}

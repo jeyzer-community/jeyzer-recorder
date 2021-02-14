@@ -30,6 +30,7 @@ import java.util.List;
 import org.jeyzer.recorder.accessor.error.JzrGenerationException;
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.accessor.error.JzrValidationException;
+import org.jeyzer.recorder.accessor.internal.JeyzerInternalsAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.JzrLocalBeanFieldAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.JzrLocalBeanFieldAccessorBuilder;
 import org.jeyzer.recorder.accessor.local.advanced.process.LocalGarbageCollectorAccessor;
@@ -49,11 +50,10 @@ import org.jeyzer.recorder.accessor.mx.JzrAbstractAccessor;
 import org.jeyzer.recorder.accessor.mx.security.JzrSecurityManager;
 import org.jeyzer.recorder.config.mx.advanced.JzrAdvancedConfig;
 import org.jeyzer.recorder.output.JzrWriterFactory;
-import org.jeyzer.recorder.util.ConfigUtil;
 import org.jeyzer.recorder.util.FileUtil;
 import org.jeyzer.recorder.util.JzrTimeZone;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 	
@@ -135,7 +135,7 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
             this.captureDuration = endTime - startTime; 
             
             if (logger.isDebugEnabled())
-            	logger.debug("MX bean info global access time : {} ms", captureDuration);
+            	logger.debug("MX bean info global access time : " + captureDuration + " ms");
     		
 			// dump it into file
 			printTDInfo(file);
@@ -195,6 +195,7 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 	}
 	
 	private void processCardDump(File file) throws JzrGenerationException {
+		JeyzerInternalsAccessor internalsAccessor = new JeyzerInternalsAccessor();
 		LocalRuntimePropertiesAccessor runtimeAccessor;
 
 		runtimeAccessor = new LocalRuntimePropertiesAccessor(this.cfg);
@@ -205,7 +206,6 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 		jeyzerAccessor.collectProcessCardFigures();
 		genericMXAccessor.collectProcessCardFigures();
 		manifestAccessor.collectProcessCardFigures();
-		String version= ConfigUtil.loadRecorderVersion();
 		
 		try (
 				BufferedWriter writer = getWriter(file);
@@ -214,8 +214,8 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 			runtimeAccessor.printValue(writer);
 			jeyzerAccessor.printProcessCardValues(writer);
 			genericMXAccessor.printProcessCardValues(writer);
-			manifestAccessor.printProcessCardValues(writer);
-			dumpRecorderVersion(writer, version);
+			manifestAccessor.printProcessCardValues(writer); 
+			internalsAccessor.dumpRecorderValues(writer);
 		}catch(IOException ex){
 			String msg = "Failed to print process card file";
 			logger.error(msg);
@@ -223,7 +223,7 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 		}
 		
 		if (logger.isDebugEnabled())
-			logger.debug("Process card file successfully generated into file : {}", file.getAbsolutePath());
+			logger.debug("Process card file successfully generated into file : " + file.getAbsolutePath());
 		
 		this.timeZoneId = runtimeAccessor.getTimeZoneId();
 	}
@@ -465,7 +465,7 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 
 	private void printCaptureDuration() throws IOException {
 		if (logger.isDebugEnabled())
-        	logger.debug("Global JMX info access time : {} ms", this.captureDuration);
+        	logger.debug("Global JMX info access time : " + this.captureDuration + " ms");
 	
 		writeln(FileUtil.JZR_FIELD_CAPTURE_DURATION + this.captureDuration);
 	}

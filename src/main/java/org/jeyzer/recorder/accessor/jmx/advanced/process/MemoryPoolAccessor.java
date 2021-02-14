@@ -31,8 +31,8 @@ import javax.management.ObjectName;
 
 import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractMemoryPoolAccessor;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryPoolConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class MemoryPoolAccessor extends JzrAbstractMemoryPoolAccessor{
 	
@@ -52,7 +52,7 @@ public class MemoryPoolAccessor extends JzrAbstractMemoryPoolAccessor{
 		poolName = new ObjectName(ManagementFactory.MEMORY_POOL_MXBEAN_DOMAIN_TYPE + ",*");
 		
         if (logger.isDebugEnabled())
-        	logger.debug("Creating memory pool beans : {}", ManagementFactory.MEMORY_POOL_MXBEAN_DOMAIN_TYPE);
+        	logger.debug("Creating memory pool beans : " + ManagementFactory.MEMORY_POOL_MXBEAN_DOMAIN_TYPE);
 
     	startTime = System.currentTimeMillis();
         
@@ -71,7 +71,7 @@ public class MemoryPoolAccessor extends JzrAbstractMemoryPoolAccessor{
 		this.captureDuration += endTime - startTime;
 		
         if (logger.isDebugEnabled())
-        	logger.debug("MX beans creation time : {} ms", endTime - startTime);
+        	logger.debug("MX beans creation time : " + (endTime - startTime) + " ms");
 		
 		return memPoolBeans;
 	}
@@ -89,7 +89,7 @@ public class MemoryPoolAccessor extends JzrAbstractMemoryPoolAccessor{
 			return checkPools(memPoolBeans);
 			
 		}catch(Exception ex){
-			logger.warn("Memory Pool {} accesss error. Memory Pool access disabled", ex);
+			logger.warn("Memory Pool accesss error. Memory Pool access disabled", ex);
 			enabled = false;
 			return false;
 		}
@@ -125,7 +125,7 @@ public class MemoryPoolAccessor extends JzrAbstractMemoryPoolAccessor{
 	    	this.captureDuration += endTime - startTime; 
 			
 	        if (logger.isDebugEnabled())
-	        	logger.debug("Pool memory info access time : {} ms", endTime - startTime);
+	        	logger.debug("Pool memory info access time : " + (endTime - startTime) + " ms");
 		}
 		
 		return value;

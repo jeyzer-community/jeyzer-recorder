@@ -17,8 +17,8 @@ import java.time.Duration;
 
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.util.ConfigUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 import org.w3c.dom.Element;
 
 public class JzrModuleConfig {
@@ -42,13 +42,13 @@ public class JzrModuleConfig {
 	public JzrModuleConfig(Element modulesNode, String tdDir) throws JzrInitializationException {
 		period = ConfigUtil.getAttributeDuration(modulesNode, JZR_PERIOD);
 		if (period.getSeconds() < 1) {
-			logger.error("Configuration error - Invalid " + JZR_MODULES + " {} parameter : {}. Value must be positive.", JZR_PERIOD, period);
+			logger.error("Configuration error - Invalid " + JZR_MODULES + " " + JZR_PERIOD + " parameter : " + period + ". Value must be positive.");
 			throw new JzrInitializationException("Configuration error - Invalid " + JZR_MODULES + " " + JZR_PERIOD + " parameter : " + period + ". Value must be positive.");
 		}
 		
 		offset = ConfigUtil.getAttributeDuration(modulesNode, JZR_START_OFFSET);
 		if (offset.getSeconds() < 1) {
-			logger.error("Configuration error - Invalid " + JZR_MODULES + " {} parameter : {}. Value must be positive.", JZR_START_OFFSET, offset);
+			logger.error("Configuration error - Invalid " + JZR_MODULES + " " + JZR_START_OFFSET + " parameter : " + offset + ". Value must be positive.");
 			throw new JzrInitializationException("Configuration error - Invalid " + JZR_MODULES + " " + JZR_START_OFFSET + " parameter : " + offset + ". Value must be positive.");
 		}
 		

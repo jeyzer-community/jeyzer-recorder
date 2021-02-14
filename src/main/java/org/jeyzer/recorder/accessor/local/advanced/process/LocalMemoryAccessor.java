@@ -21,8 +21,8 @@ import java.lang.management.MemoryMXBean;
 
 import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractMemoryAccessor;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class LocalMemoryAccessor extends JzrAbstractMemoryAccessor{
 

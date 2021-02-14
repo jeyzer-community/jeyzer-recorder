@@ -27,8 +27,8 @@ import java.util.Map;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryPoolConfig;
 import org.jeyzer.recorder.config.mx.advanced.JzrMemoryUsageConfig;
 import org.jeyzer.recorder.util.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public abstract class JzrAbstractMemoryPoolAccessor {
 
@@ -115,7 +115,7 @@ public abstract class JzrAbstractMemoryPoolAccessor {
 		long value = -1;
 		
         if (logger.isDebugEnabled())
-        	logger.debug("Accessing memory info from {} pool, {} usage, {} figure", poolName, usageName, figure);
+        	logger.debug("Accessing memory info from " + poolName + " pool, " + usageName + " usage, " + figure + " figure");
         
 		try {
 			for (MemoryPoolMXBean memPoolBean : memPoolBeans){
@@ -188,7 +188,7 @@ public abstract class JzrAbstractMemoryPoolAccessor {
 				}
 			}
 		} catch (Exception e) {
-			logger.error("Failed to access memory pool {} for memory usage {} for figure {}", poolName, usageName, figure);
+			logger.error("Failed to access memory pool " + poolName + " for memory usage " + usageName + " for figure " + figure);
 			return -1;
 		}
 		
@@ -235,13 +235,14 @@ public abstract class JzrAbstractMemoryPoolAccessor {
 						break;
 				}
 				if (!found){
-					logger.debug("Memory Pool {} not used. Its data collection will be therefore ignored and skipped.", config.getName());
+					if (logger.isDebugEnabled())
+						logger.debug("Memory Pool " + config.getName() + " not used. Its data collection will be therefore ignored and skipped.");
 					failedPools.add(config);
 					config.disable();
 				}
 			}
 		}catch(Exception ex){
-			logger.warn("Memory Pool {} accesss error. Memory Pool access disabled", ex);
+			logger.warn("Memory Pool accesss error. Memory Pool access disabled", ex);
 			enabled = false;
 			return false;
 		}

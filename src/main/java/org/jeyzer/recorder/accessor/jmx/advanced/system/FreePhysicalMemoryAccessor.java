@@ -99,10 +99,10 @@ public class FreePhysicalMemoryAccessor extends JzrAbstractFreePhysicalMemoryAcc
 			this.captureDuration = endTime - startTime;  
 			
 			if (logger.isDebugEnabled()) 
-				logger.debug("MX bean System free memory info access time : {} ms", captureDuration);
+				logger.debug("MX bean System free memory info access time : " + captureDuration + " ms");
 			
 		} catch (IOException e) {
-			logger.error("Failed to access System free memory {}", e);
+			logger.error("Failed to access System free memory", e);
 			this.memoryValue = (long)-1;
 		}	
 	}

@@ -35,8 +35,8 @@ import org.jeyzer.recorder.accessor.mx.advanced.system.JzrAbstractSystemCPULoadA
 import org.jeyzer.recorder.accessor.mx.advanced.system.JzrAbstractTotalPhysicalMemoryAccessor;
 import org.jeyzer.recorder.config.mx.advanced.JzrBeanFieldConfig;
 import org.jeyzer.recorder.config.mx.advanced.JzrGenericMXBeanConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JzrLocalBeanFieldAccessorBuilder {
 	
@@ -62,7 +62,9 @@ public class JzrLocalBeanFieldAccessorBuilder {
 			accessor = null;
 			String name = config.getCategory() + ":" + config.getName();
 			
-			logger.debug("Loading bean accessor : {}", name);
+			if (logger.isDebugEnabled())
+				logger.debug("Loading bean accessor : " + name);
+			
 			if (JzrAbstractProcessCPULoadAccessor.ACCESSOR_NAME.equals(name))
 				accessor = new LocalProcessCPULoadAccessor();
 			else if (JzrAbstractSystemCPULoadAccessor.ACCESSOR_NAME.equals(name))
@@ -83,7 +85,7 @@ public class JzrLocalBeanFieldAccessorBuilder {
 			if (accessor != null)
 				beanFieldaccessors.add(accessor);
 			else
-				logger.error("Bean configuration {} is invalid. No corresponding accessor found.", name);
+				logger.error("Bean configuration " + name + " is invalid. No corresponding accessor found.");
 		}
 		
 		return beanFieldaccessors;

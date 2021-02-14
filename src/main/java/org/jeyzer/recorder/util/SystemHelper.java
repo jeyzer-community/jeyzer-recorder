@@ -14,8 +14,8 @@ package org.jeyzer.recorder.util;
 
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class SystemHelper {
 
@@ -41,16 +41,16 @@ public class SystemHelper {
         logger.debug("Heap utilization statistics :");
          
         //Print used memory
-        logger.debug(" - Used Memory  : {} Mb", (runtime.totalMemory() - runtime.freeMemory()) / mb);
+        logger.debug(" - Used Memory  : " + ((runtime.totalMemory() - runtime.freeMemory()) / mb) + " Mb");
  
         //Print free memory
-        logger.debug(" - Free Memory  : {} Mb", runtime.freeMemory() / mb);
+        logger.debug(" - Free Memory  : " + (runtime.freeMemory() / mb) + " Mb");
          
         //Print total available memory
-        logger.debug(" - Total Memory : {} Mb", runtime.totalMemory() / mb);
+        logger.debug(" - Total Memory : " + (runtime.totalMemory() / mb) + " Mb");
  
         //Print Maximum available memory
-        logger.debug(" - Max Memory   : {} Mb", runtime.maxMemory() / mb);
+        logger.debug(" - Max Memory   : " + (runtime.maxMemory() / mb) + " Mb");
 	}
 	
 	public static boolean isWindows() {

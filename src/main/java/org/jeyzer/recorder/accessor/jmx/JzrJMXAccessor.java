@@ -37,15 +37,15 @@ import javax.management.remote.JMXServiceURL;
 import org.jeyzer.recorder.accessor.error.JzrGenerationException;
 import org.jeyzer.recorder.accessor.error.JzrProcessNotAvailableException;
 import org.jeyzer.recorder.accessor.error.JzrValidationException;
+import org.jeyzer.recorder.accessor.internal.JeyzerInternalsAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.process.RuntimePropertiesAccessor;
 import org.jeyzer.recorder.accessor.mx.JzrAbstractAccessor;
 import org.jeyzer.recorder.config.jmx.JzrJMXConfig;
 import org.jeyzer.recorder.output.JzrWriterFactory;
-import org.jeyzer.recorder.util.ConfigUtil;
 import org.jeyzer.recorder.util.FileUtil;
 import org.jeyzer.recorder.util.SystemHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JzrJMXAccessor extends JzrAbstractAccessor {
 	
@@ -103,14 +103,13 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		}
 		
 		if (logger.isDebugEnabled())
-			logger.debug("Process card file successfully generated into file : {}", file.getAbsolutePath());
+			logger.debug("Process card file successfully generated into file : " + file.getAbsolutePath());
 	}
 	
 	// ca be overriden, must then be super called.
 	protected void processCardDump(BufferedWriter writer) throws IOException {
-		// Jeyzer recorder version
-		String version= ConfigUtil.loadRecorderVersion();
-		dumpRecorderVersion(writer, version);
+		JeyzerInternalsAccessor internalsAccessor = new JeyzerInternalsAccessor(); 
+		internalsAccessor.dumpRecorderValues(writer);
 		
 		// Runtime properties
 		RuntimePropertiesAccessor runtimeAccessor = new RuntimePropertiesAccessor(this.cfg);
@@ -122,7 +121,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		
 		this.timeZoneId = runtimeAccessor.getTimeZoneId();
 	}
-	
+
 	protected void processCardClose() {
 		disconnect();
 		// nothing else to do : runtimeAccessor was local variable
@@ -218,7 +217,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
         this.captureDuration = endTime - startTime; 
         
         if (logger.isDebugEnabled())
-        	logger.debug("MX bean thread dump info access time : {} ms", captureDuration);
+        	logger.debug("MX bean thread dump info access time : " + captureDuration + " ms");
 		
 		return startTime + (captureDuration) / 2;
 	}
@@ -232,7 +231,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		long startTime = 0;
 
         if (logger.isDebugEnabled()){
-    		logger.debug("Connecting to JMX server : {}", cfg.getConnectionUrl());
+    		logger.debug("Connecting to JMX server : " + cfg.getConnectionUrl());
         	startTime = System.currentTimeMillis();
         }
 		
@@ -264,7 +263,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		
         if (logger.isDebugEnabled()){
         	long endTime = System.currentTimeMillis();
-        	logger.debug("JMX server connection time : {} ms", endTime - startTime);
+        	logger.debug("JMX server connection time : " + (endTime - startTime) + " ms");
         }
 	}
 
@@ -272,7 +271,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		long startTime = 0;
 		
         if (logger.isDebugEnabled()){
-    		logger.debug("Creating MX bean : {}", ManagementFactory.THREAD_MXBEAN_NAME);
+    		logger.debug("Creating MX bean : " + ManagementFactory.THREAD_MXBEAN_NAME);
         	startTime = System.currentTimeMillis();
         }
 
@@ -289,7 +288,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		
         if (logger.isDebugEnabled()){
         	long endTime = System.currentTimeMillis();
-        	logger.debug("MX bean creation time : {} ms", endTime - startTime);
+        	logger.debug("MX bean creation time : " + (endTime - startTime) + " ms");
         }		
 	}
 
@@ -343,7 +342,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		
         if (logger.isDebugEnabled()){
         	long endTime = System.currentTimeMillis();
-        	logger.debug("Thread MX bean parsing time : {} ms", endTime - startTime);
+        	logger.debug("Thread MX bean parsing time : " + (endTime - startTime) + " ms");
         }
 	}	
 	
@@ -381,7 +380,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		
 		if (logger.isDebugEnabled()) {
 			long endTime = System.currentTimeMillis();
-			logger.debug("Print duration : {} ms", endTime - startTime);
+			logger.debug("Print duration : " + (endTime - startTime) + " ms");
 		}
 	}
 
@@ -411,8 +410,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		long startTime = 0;
 		
         if (logger.isDebugEnabled()){
-    		logger.debug("Disconnecting from JMX server : {}",
-    				cfg.getConnectionUrl());
+    		logger.debug("Disconnecting from JMX server : " + cfg.getConnectionUrl());
         	startTime = System.currentTimeMillis();
         }
 
@@ -423,7 +421,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 
         if (logger.isDebugEnabled()){
         	long endTime = System.currentTimeMillis();
-        	logger.debug("JMX server disconnection time : {} ms", endTime - startTime);
+        	logger.debug("JMX server disconnection time : " + (endTime - startTime) + " ms");
         }		
 		
 		try {
@@ -450,7 +448,7 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		long duration = computeGlobalCaptureDuration();
 
 		if (logger.isDebugEnabled())
-        	logger.debug("Global JMX info access time : {} ms", duration);
+        	logger.debug("Global JMX info access time : " + duration + " ms");
 	
 		writeln(FileUtil.JZR_FIELD_CAPTURE_DURATION + duration);
 	}

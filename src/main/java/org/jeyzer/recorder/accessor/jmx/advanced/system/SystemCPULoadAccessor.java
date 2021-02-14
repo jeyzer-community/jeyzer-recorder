@@ -93,10 +93,10 @@ public class SystemCPULoadAccessor extends JzrAbstractSystemCPULoadAccessor impl
 			this.captureDuration = endTime - startTime; 
 			
 			if (logger.isDebugEnabled()) 
-				logger.debug("MX bean System CPU info access time : {} ms", captureDuration);
+				logger.debug("MX bean System CPU info access time : " + captureDuration + " ms");
 			
 		} catch (IOException e) {
-			logger.error("Failed to access System CPU {}", e);
+			logger.error("Failed to access System CPU", e);
 			this.cpuValue = (double)-1;
 		}	
 	}

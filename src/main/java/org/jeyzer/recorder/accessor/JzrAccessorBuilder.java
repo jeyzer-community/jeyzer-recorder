@@ -28,12 +28,12 @@ import org.jeyzer.recorder.config.jmx.advanced.JzrAdvancedJMXConfig;
 import org.jeyzer.recorder.config.jstack.JzrJstackConfig;
 import org.jeyzer.recorder.config.jstack.JzrJstackInShellConfig;
 import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXAgentConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JzrAccessorBuilder {
 
-	private static final Logger logger = LoggerFactory.getLogger(JeyzerRecorder.class);	
+	private static final Logger logger = LoggerFactory.getLogger(JzrAccessorBuilder.class);	
 	private static final JzrAccessorBuilder builder = new JzrAccessorBuilder();
 
 	private JzrAccessorBuilder() {

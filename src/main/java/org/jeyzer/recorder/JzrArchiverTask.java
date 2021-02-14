@@ -30,8 +30,8 @@ import org.jeyzer.recorder.util.FileUtil;
 import org.jeyzer.recorder.util.JzrTimeZone;
 import org.jeyzer.recorder.util.SystemHelper;
 import org.jeyzer.recorder.util.FileUtil.ThreadDumpFileFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 // Runnable for the scheduler
 // Thread for the shutdown hook
@@ -86,8 +86,8 @@ public class JzrArchiverTask extends Thread implements Runnable {
 	public JzrArchiverTask(JzrRecorderConfig cfg) {
 		long taskPeriod = cfg.getArchiveZipPeriod().getSeconds();
 		if (cfg.getPeriod().getSeconds() > taskPeriod){
-			logger.warn("Zip period ({} sec) lower than recording snapshot period ({} sec)."
-					+ "Defaulting to 10x recording snapshot period.", taskPeriod, cfg.getPeriod().getSeconds());
+			logger.warn("Zip period (" + taskPeriod + " sec) lower than recording snapshot period (" + cfg.getPeriod().getSeconds() + " sec)."
+					+ "Defaulting to 10x recording snapshot period.");
 			taskPeriod = cfg.getArchiveZipPeriod().getSeconds() * 10L; 
 		}
 		
@@ -97,8 +97,8 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		
 		archiveDir = new File(cfg.getArchiveDir());
 		if (!archiveDir.exists() && !archiveDir.mkdirs()){
-			logger.warn("Failed to create archive directory {}. "
-					+ "Defaulting to recording snapshot directory.", archiveDir);
+			logger.warn("Failed to create archive directory " + archiveDir + ". "
+					+ "Defaulting to recording snapshot directory.");
 			archiveDir = tdDir; 
 		}
 		
@@ -200,7 +200,7 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		// delete the recording snapshot files 
 		for (File td : tds){
 			if (!td.delete())
-				logger.warn("Failed to delete recording snapshot file {}", td.getAbsolutePath());
+				logger.warn("Failed to delete recording snapshot file : " + td.getAbsolutePath());
 		}
 	}
 
@@ -236,7 +236,7 @@ public class JzrArchiverTask extends Thread implements Runnable {
 
 		for (int i=0 ; i< files.length-this.zipRetentionLimit; i++){
 			if (!files[i].delete())
-				logger.warn("Failed to delete archive file {}", files[i]);
+				logger.warn("Failed to delete archive file : " + files[i]);
 		}
 	}
 

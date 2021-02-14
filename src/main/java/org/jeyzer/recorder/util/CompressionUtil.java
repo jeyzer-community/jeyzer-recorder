@@ -29,8 +29,8 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.compress.utils.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class CompressionUtil {
 	
@@ -63,7 +63,7 @@ public class CompressionUtil {
 		    	)
 				{
 			    	if (logger.isDebugEnabled())
-			    		logger.debug("Zipping file : {}", tdPath);
+			    		logger.debug("Zipping file : " + tdPath);
 
 			        // Keep last modified date
 			        ZipEntry entry = new ZipEntry(td.getName());
@@ -89,7 +89,7 @@ public class CompressionUtil {
 		}
 		
     	if (logger.isDebugEnabled())
-    		logger.debug("{} file generated with {} thread dumps", zip, files.length);
+    		logger.debug(zip + " file generated with " + files.length + " thread dumps");
 	}
 	
     public static void tarGzFiles(File[] files, String tarGz)
@@ -126,17 +126,17 @@ public class CompressionUtil {
 	        {
 	        	tdPath = f.getParent(); 
 	        	if (logger.isDebugEnabled())
-	        		logger.debug("Tar file : {}", tdPath);
+	        		logger.debug("Tar file : " + tdPath);
 	            addFilesToCompression(taos, f);
 	        }
 			
 		} catch (Exception e) {
-			logger.error("Failed to tar gzip file {} while procesing file {}", tarGz, tdPath);
+			logger.error("Failed to tar gzip file " + tarGz + " while procesing file " + tdPath);
 			logger.error("Exception : ", e);
 		}
         
     	if (logger.isDebugEnabled())
-        	logger.debug("{} file generated with {} thread dumps", tarGz, files.length);
+        	logger.debug("tarGz file generated with " + files.length + " thread dumps");
     }
  
     /**
@@ -165,7 +165,7 @@ public class CompressionUtil {
                 IOUtils.copy(bis, taos);
                 taos.closeArchiveEntry();
 			} catch (Exception e) {
-				logger.error("Failed to tar file {}", file.getName());
+				logger.error("Failed to tar file " + file.getName());
 				logger.error("Exception : ", e);
 			}
         }

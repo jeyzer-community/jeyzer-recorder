@@ -28,8 +28,8 @@ import org.jeyzer.recorder.accessor.jstack.output.JstackErrorProcessor;
 import org.jeyzer.recorder.accessor.jstack.output.JstackOutputProcessor;
 import org.jeyzer.recorder.config.jstack.JzrJstackConfig;
 import org.jeyzer.recorder.util.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class JstackAccessor extends JzrAbstractJstackAccessor{
 
@@ -53,9 +53,8 @@ public class JstackAccessor extends JzrAbstractJstackAccessor{
         
 		BufferedWriter writer = null;
 		try {
-	        if (logger.isDebugEnabled()){
-	        	logger.debug("Executing command line : {}", command);
-	        }
+	        if (logger.isDebugEnabled())
+	        	logger.debug("Executing command line : " + command);
 
 	        File tdFile = new File(file.getAbsolutePath());
 	        writer = new BufferedWriter(new OutputStreamWriter(
@@ -88,7 +87,7 @@ public class JstackAccessor extends JzrAbstractJstackAccessor{
 	        duration = endTime - startTime;
 
 	        if (logger.isDebugEnabled())
-	        	logger.debug("Jstack execution time : {} ms", duration);        
+	        	logger.debug("Jstack execution time : " + duration + " ms");        
 			
 		}catch (Exception e) {
 			String msg = "Failed to generate thread dump file : " + e.getMessage();
@@ -118,9 +117,8 @@ public class JstackAccessor extends JzrAbstractJstackAccessor{
         
 		String command = JAVA_HOME +  JINFO_COMMAND + JINFO_OPTION + cfg.getPid();
         
-        if (logger.isDebugEnabled()){
-        	logger.debug("Executing command line : {}", command);
-        }
+        if (logger.isDebugEnabled())
+        	logger.debug("Executing command line : " + command);
         
     	startTime = System.currentTimeMillis();
         final Process p = Runtime.getRuntime().exec(command);
@@ -152,13 +150,13 @@ public class JstackAccessor extends JzrAbstractJstackAccessor{
         duration = endTime - startTime;
 
         if (logger.isDebugEnabled())
-        	logger.debug("Jinfo execution time : {} ms", duration);        
+        	logger.debug("Jinfo execution time : " + duration + " ms");        
         
         if (result != 0)
         	logger.error("Failed to execute jinfo command : " + command);
         else
     		if (logger.isDebugEnabled())
-    			logger.debug("Process card file successfully generated into file : {}", file.getAbsolutePath());        	
+    			logger.debug("Process card file successfully generated into file : " + file.getAbsolutePath());        	
     }
 
 	@Override

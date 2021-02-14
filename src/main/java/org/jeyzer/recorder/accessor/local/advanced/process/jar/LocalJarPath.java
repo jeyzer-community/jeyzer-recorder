@@ -23,8 +23,8 @@ import java.util.regex.Matcher;
 
 import org.jeyzer.recorder.config.mx.advanced.JzrManifestConfig;
 import org.jeyzer.recorder.util.ManifestReader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class LocalJarPath {
 	

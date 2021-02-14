@@ -26,15 +26,15 @@ import org.jeyzer.recorder.config.jstack.JzrJstackInShellConfig;
 import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXAgentConfig;
 import org.jeyzer.recorder.util.ConfigUtil;
 import org.jeyzer.recorder.util.SystemHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class JzrRecorderConfigBuilder {
 	
-	private static final Logger logger = LoggerFactory.getLogger(JzrRecorderConfigBuilder.class);	
+	private static final Logger logger = LoggerFactory.getLogger(JzrRecorderConfigBuilder.class);
 	
 	public static final String CONFIG_FILE_PROPERTY = "jeyzer.record.config";
 	

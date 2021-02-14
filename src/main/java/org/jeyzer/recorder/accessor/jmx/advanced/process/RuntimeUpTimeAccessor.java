@@ -65,10 +65,10 @@ public class RuntimeUpTimeAccessor extends JzrAbstractRuntimeUpTimeAccessor impl
 			this.captureDuration = endTime - startTime;
 
 			if (logger.isDebugEnabled())
-				logger.debug("Runtime MX bean parsing time : {} ms", endTime - startTime);
+				logger.debug("Runtime MX bean parsing time : " + captureDuration + " ms");
 		
 		} catch (IOException e) {
-			logger.error("Failed to access runtime up time info {}", e);
+			logger.error("Failed to access runtime up time info", e);
 			this.upTimeValue = (long)-1;			
 		}		
 		

@@ -134,12 +134,12 @@ public abstract class JzrAbstractGenericMXBeanAccessor extends JzrAbstractBeanFi
 		try {
 			value = JMXUtil.getAttribute(server, objectName, objectAttribute);
 		} catch (AttributeNotFoundException ex) {
-			logger.warn("MX attribute {} not found on object : {}", objectAttribute, objectName);
+			logger.warn("MX attribute " + objectAttribute + " not found on object : " + objectName);
 			return null;
 		}
 		
 		if (value instanceof CompositeData) {
-			logger.warn("MX attribute {} on object {} is instance of composite data : cannot convert it to String.", objectAttribute, objectName);
+			logger.warn("MX attribute " + objectAttribute + " on object " + objectName + " is instance of composite data : cannot convert it to String.");
 			return null;
 		}
 		return value.toString();

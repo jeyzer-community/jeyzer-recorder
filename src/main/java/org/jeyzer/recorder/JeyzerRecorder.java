@@ -31,12 +31,14 @@ import org.jeyzer.recorder.accessor.error.JzrProcessNotAvailableException;
 import org.jeyzer.recorder.accessor.error.JzrValidationException;
 import org.jeyzer.recorder.config.JzrRecorderConfig;
 import org.jeyzer.recorder.config.JzrRecorderConfigBuilder;
+import org.jeyzer.recorder.logger.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.util.ConfigUtil;
 import org.jeyzer.recorder.util.FileUtil;
 import org.jeyzer.recorder.util.JzrTimeZone;
 import org.jeyzer.recorder.util.SystemHelper;
 import org.jeyzer.recorder.util.JzrTimeZone.Origin;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 public class JeyzerRecorder implements Runnable {
 	
@@ -102,9 +104,9 @@ public class JeyzerRecorder implements Runnable {
 			tdFile = renameTemporaryFile(tempFile, tdTimestamp);
 			
 			if (logger.isDebugEnabled()){
-				logger.debug("Recording snapshot successfully generated into file : {}", tdFile.getAbsolutePath());
+				logger.debug("Recording snapshot successfully generated into file : " + tdFile.getAbsolutePath());
 				long endTime = System.currentTimeMillis();
-				logger.debug("Recording snapshot generation total time : {} ms", endTime - startTime);
+				logger.debug("Recording snapshot generation total time : " + (endTime - startTime) + " ms");
 				SystemHelper.displayMemoryUsage();
 			}
 			
@@ -114,7 +116,7 @@ public class JeyzerRecorder implements Runnable {
 				logger.warn("Recording snapshot generation failed : process not available. Will retry in "
 						+ cfg.getPeriod().getSeconds() + " sec.");
 			}else{
-				logger.warn("Recording snapshot generation failed : process not available. Will retry in "
+				logger.error("Recording snapshot generation failed : process not available. Will retry in "
 						+ cfg.getPeriod().getSeconds() + " sec.", 
 						ex);
 			}
@@ -153,7 +155,7 @@ public class JeyzerRecorder implements Runnable {
 
 		if (logger.isDebugEnabled()){
 			long endTime = System.currentTimeMillis();
-			logger.debug("Initializing Recording snapshot session total time : {} ms", endTime - startTime);
+			logger.debug("Initializing Recording snapshot session total time : " + (endTime - startTime) +  " ms");
 		}
 	}
 
@@ -163,7 +165,7 @@ public class JeyzerRecorder implements Runnable {
 		// 1. take it from configuration. Custom time zone like the end user one
 		candidate = this.cfg.getTimeZoneId();
 		if (JzrTimeZone.isValidTimeZone(candidate)){
-			logger.info("Time zone issued from the configuration : {}", candidate);
+			logger.info("Time zone issued from the configuration : " + candidate);
 			JzrTimeZone.setTimeZone(TimeZone.getTimeZone(candidate), Origin.CUSTOM);
 			return;
 		}
@@ -171,13 +173,13 @@ public class JeyzerRecorder implements Runnable {
 		// 2. get it from the monitored process (process card file) 
 		candidate = this.monitor.getTimeZoneId();
 		if (JzrTimeZone.isValidTimeZone(candidate)){
-			logger.info("Time zone issued from the process card : {}", candidate);
+			logger.info("Time zone issued from the process card : " + candidate);
 			JzrTimeZone.setTimeZone(TimeZone.getTimeZone(candidate), Origin.PROCESS);
 			return;
 		}
 		
 		// 3. take the one from current process
-		logger.info("Time zone issued from the current process : {}", TimeZone.getDefault().getID());
+		logger.info("Time zone issued from the current process : " + TimeZone.getDefault().getID());
 		JzrTimeZone.setTimeZone(TimeZone.getDefault(), Origin.JZR);
 	}
 
@@ -193,7 +195,7 @@ public class JeyzerRecorder implements Runnable {
 		File tdFile = new File(filePath);
 		if (tempFile.exists()){
 			if (! tempFile.renameTo(tdFile))
-				logger.error("Failed to rename file {} into file {}", tempfilename, filePath);
+				logger.error("Failed to rename file " + tempfilename + " into file " + filePath);
 		}
 		else{
 			logger.debug("Temp file " + tempFile.getPath() + " doesn't exist. Skipping the renaming.");
@@ -206,6 +208,7 @@ public class JeyzerRecorder implements Runnable {
 		JeyzerRecorder ftd = null;
 		JzrRecorderConfig config = null;
 
+		logStart();
 		try{
 			config = JzrRecorderConfigBuilder.newInstance().buildConfig();
 		}catch(Exception ex){
@@ -224,7 +227,6 @@ public class JeyzerRecorder implements Runnable {
 			System.exit(-1);
 		}
 		
-		logger.info("Jeyzer Recorder started.");
 		logger.info(config.toString());
 		logger.info("Generating recording snapshots ...");
 
@@ -273,6 +275,13 @@ public class JeyzerRecorder implements Runnable {
 		System.out.println("Usage: java org.jeyzer.recorder.JeyzerRecorder -D" 
 				+ JzrRecorderConfigBuilder.CONFIG_FILE_PROPERTY + "=<configuration file>");
 		System.out.println("---------------------------");
-	}	
+	}
 	
+	 private static void logStart() {
+		 logger.info("==================================================================");
+		 logger.info("");
+		 logger.info("Jeyzer Recorder v" + ConfigUtil.loadRecorderVersion() + " started.");
+		 logger.info("");
+		 logger.info("==================================================================");
+	}
 }

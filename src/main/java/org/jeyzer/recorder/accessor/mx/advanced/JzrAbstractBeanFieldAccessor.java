@@ -19,8 +19,8 @@ package org.jeyzer.recorder.accessor.mx.advanced;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 
 public abstract class JzrAbstractBeanFieldAccessor {
 

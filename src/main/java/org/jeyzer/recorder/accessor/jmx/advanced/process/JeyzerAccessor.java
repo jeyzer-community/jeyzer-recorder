@@ -55,7 +55,7 @@ public class JeyzerAccessor extends JzrAbstractJeyzerAccessor implements JzrMXBe
 		}catch(Exception ex){
 			logger.warn("Jeyzer MX accesss error. Jeyzer MX access disabled.");
 			if (!logger.isDebugEnabled())
-				logger.debug("Exception is :", ex);
+				logger.debug("Exception is : ", ex);
 			this.supported = false;
 			return false;
 		}
@@ -98,7 +98,7 @@ public class JeyzerAccessor extends JzrAbstractJeyzerAccessor implements JzrMXBe
     	long endTime = System.currentTimeMillis();
     	this.captureDuration = this.captureDuration + endTime - startTime;
 		if (logger.isDebugEnabled()) 
-			logger.debug("Jeyzer MX bean process publisher events access time : {} ms", endTime - startTime);
+			logger.debug("Jeyzer MX bean process publisher events access time : " + (endTime - startTime) + " ms");
 
     	for (int i=0; i<publisherEventsCD.length; i++)
     		if (publisherEventsCD[i] != null){
@@ -126,7 +126,7 @@ public class JeyzerAccessor extends JzrAbstractJeyzerAccessor implements JzrMXBe
 		this.captureDuration = this.captureDuration + endTime - startTime;
 		
 		if (logger.isDebugEnabled())
-			logger.debug("Jeyzer MX bean process applicative dynamic data parsing time : {} ms", endTime - startTime);
+			logger.debug("Jeyzer MX bean process applicative dynamic data parsing time : " + (endTime - startTime) + " ms");
 
 	}
 
@@ -151,7 +151,7 @@ public class JeyzerAccessor extends JzrAbstractJeyzerAccessor implements JzrMXBe
     	long endTime = System.currentTimeMillis();
     	this.captureDuration = this.captureDuration + endTime - startTime;
 		if (logger.isDebugEnabled()) 
-			logger.debug("Jeyzer MX bean process applicative events access time : {} ms", endTime - startTime);
+			logger.debug("Jeyzer MX bean process applicative events access time : " + (endTime - startTime) + " ms");
 
     	for (int i=0; i<applicativeEventsCD.length; i++)
     		if (applicativeEventsCD[i] != null){
@@ -202,7 +202,7 @@ public class JeyzerAccessor extends JzrAbstractJeyzerAccessor implements JzrMXBe
 		long startTime = 0;
 		
         if (logger.isDebugEnabled()){
-    		logger.debug("Creating MX bean : {}", JeyzerMXBean.JEYZER_MXBEAN_NAME);
+    		logger.debug("Creating MX bean : " + JeyzerMXBean.JEYZER_MXBEAN_NAME);
         	startTime = System.currentTimeMillis();
         }
 
@@ -213,7 +213,7 @@ public class JeyzerAccessor extends JzrAbstractJeyzerAccessor implements JzrMXBe
 		
         if (logger.isDebugEnabled()){
         	long endTime = System.currentTimeMillis();
-        	logger.debug("Jeyzer MX bean creation time : {} ms", endTime - startTime);
+        	logger.debug("Jeyzer MX bean creation time : " + (endTime - startTime) + " ms");
         }
         
         return this.jeyzerBean;

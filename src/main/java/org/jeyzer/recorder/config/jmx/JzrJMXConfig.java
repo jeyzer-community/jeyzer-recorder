@@ -21,8 +21,8 @@ import java.util.Map;
 
 import org.jeyzer.recorder.config.JzrRecorderConfig;
 import org.jeyzer.recorder.util.ConfigUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 import org.w3c.dom.Element;
 
 public class JzrJMXConfig extends JzrRecorderConfig{
@@ -110,7 +110,7 @@ public class JzrJMXConfig extends JzrRecorderConfig{
 	private void parseConnectString(String connect) throws Exception {
 		int idx = connect.indexOf(':');
 		if (idx == -1) {
-			logger.error("Configuration error - Invalid {} parameter : {}", JZR_CONNECTION, connect);
+			logger.error("Configuration error - Invalid " + JZR_CONNECTION + " parameter : " + connect);
 			throw new Exception("Configuration error - Invalid " + JZR_CONNECTION + " archiving parameter : " + connect + ". Value must follow <host>:<port> pattern.");
 		}
 
@@ -119,14 +119,14 @@ public class JzrJMXConfig extends JzrRecorderConfig{
 
 		if (host == null || host.isEmpty() 
 				|| portValue == null || portValue.isEmpty()) {
-			logger.error("Configuration error - Invalid {} parameter : {}", JZR_CONNECTION, connect);
+			logger.error("Configuration error - Invalid " + JZR_CONNECTION + " parameter : " + connect);
 			throw new Exception("Configuration error - Invalid " + JZR_CONNECTION + " archiving parameter : " + connect + ". Invalid or missing value.");
 		}
 		
 		try {
 			port = Integer.parseInt(portValue);
 		} catch (NumberFormatException x) {
-			logger.error("Configuration error - Invalid port parameter : {}", port);
+			logger.error("Configuration error - Invalid port parameter : " + port);
 			throw new Exception("Configuration error - Invalid port parameter" + port, x);
 		}
 		if (port < 1 || port > 65535) {

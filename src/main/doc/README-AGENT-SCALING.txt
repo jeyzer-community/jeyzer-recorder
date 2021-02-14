@@ -135,7 +135,14 @@ Your Jeyzer recording file structures should finally like the ones below.
 				profile-template_generation.xml  (S)
 				profile-template_advanced_mx.xml (S)
 		/log
-			logback.xml  (S)
+			/application-1
+				jeyzer-log.properties
+			/application-2
+				jeyzer-log.properties
+			/<application-profile N>
+				jeyzer-log.properties
+			/application-template        (S)
+				jeyzer-log.properties (S)
 
   (S) = default files provided in the scaling-template package. 
 
@@ -237,18 +244,5 @@ Check for example these Jeyzer demo locations :
 ===     Agent logging                   ===
 -------------------------------------------
 
-Jeyzer Recorder logging configuration is initially shared.
-Jeyzer Recorder traces are generated in the file referenced by the JEYZER_RECORDER_LOG_FILE environment variable.
-Log level of each appender (console and log file) is controlled through the <jeyzer-rec-configs>/log/backup.xml.
-By default it is set to INFO.
-Log configuration update requires to restart the target application.
-
-In case you would need to specialize it per application : 
-- Create the directory : <jeyzer-rec-configs>/log/<jeyzer-agent-profile>
-- Copy the <jeyzer-rec-configs>/log/backup.xml file in this new directory
-- Edit the <jeyzer-rec-configs>/agent/jeyzer-agent.xml to activate this class path entry :
-    <entry>${jeyzer-rec-configs}/log/${jeyzer-record-agent-profile}</entry>
-- Edit the <jeyzer-rec-configs>/log/<jeyzer-agent-profile>/backup.xml to adapt it to your needs
-- Restart the monitored application
-
-Read also the Logger configuration section in the README-AGENT.txt
+The logger configuration and log file locations are automatically set to refer the locations of the above scaling structure.
+See the Jeyzer Recorder logging section in the README.txt for more details.

@@ -21,8 +21,8 @@ import java.time.Duration;
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.util.ConfigUtil;
 import org.jeyzer.recorder.util.SystemHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jeyzer.recorder.logger.Logger;
+import org.jeyzer.recorder.logger.LoggerFactory;
 import org.w3c.dom.Element;
 
 public abstract class JzrRecorderConfig {
@@ -156,7 +156,7 @@ public abstract class JzrRecorderConfig {
 		period = ConfigUtil.getAttributeDuration(snapshotNode, JZR_PERIOD);
 
 		if (period.getSeconds() < 1) {
-			logger.error("Configuration error - Invalid {} parameter : {}. Value must be positive.", JZR_PERIOD, period);
+			logger.error("Configuration error - Invalid " + JZR_PERIOD + " parameter : " + period + ". Value must be positive.");
 			throw new JzrInitializationException("Configuration error - Invalid " + JZR_PERIOD + " parameter : " + period + ". Value must be positive.");
 		}
 		
@@ -169,7 +169,7 @@ public abstract class JzrRecorderConfig {
 		try{
 			captureDurationEnabled = Boolean.valueOf(ConfigUtil.loadStringValue(snapshotNode, JZR_CAPTURE_DURATION));
 		}catch(Exception ex){
-			logger.warn("Configuration error - Invalid or missing {} parameter : {}. ", JZR_CAPTURE_DURATION, ConfigUtil.loadStringValue(snapshotNode, JZR_CAPTURE_DURATION));
+			logger.warn("Configuration error - Invalid or missing " + JZR_CAPTURE_DURATION + " parameter : " + ConfigUtil.loadStringValue(snapshotNode, JZR_CAPTURE_DURATION) +  ". ");
 			captureDurationEnabled = false;
 		}
 		
@@ -186,14 +186,14 @@ public abstract class JzrRecorderConfig {
 		try{
 			archiveOnShutdown = Boolean.valueOf(ConfigUtil.loadStringValue(archivingNode, JZR_ARCHIVING_ON_SHUTDOWN));
 		}catch(Exception ex){
-			logger.warn("Configuration error - Invalid or missing {} parameter : {}. ", JZR_ARCHIVING_ON_SHUTDOWN, ConfigUtil.loadStringValue(archivingNode, JZR_ARCHIVING_ON_SHUTDOWN));
+			logger.warn("Configuration error - Invalid or missing " + JZR_ARCHIVING_ON_SHUTDOWN + " parameter : " + ConfigUtil.loadStringValue(archivingNode, JZR_ARCHIVING_ON_SHUTDOWN) +  ".");
 			archiveOnShutdown = false;
 		}
 		
 		archiveZipPeriod = ConfigUtil.getAttributeDuration(archivingNode, JZR_ARCHIVING_PERIOD); 
 		
 		if (archiveZipPeriod.getSeconds() < 10) {
-			logger.error("Configuration error - Invalid {} parameter : {}. Value must be greater than 10.",JZR_ARCHIVING_PERIOD, archiveZipPeriod);
+			logger.error("Configuration error - Invalid " + JZR_ARCHIVING_PERIOD + " parameter : " + archiveZipPeriod + ". Value must be greater than 10.");
 			throw new JzrInitializationException("Configuration error - Invalid " + JZR_ARCHIVING_PERIOD + " archiving parameter : " + archiveZipPeriod + ". Value must be greater than 10.");
 		}
 
@@ -203,7 +203,7 @@ public abstract class JzrRecorderConfig {
 		archiveZipLimit = ConfigUtil.loadIntegerValue(retentionNode, JZR_ARCHIVING_RETENTION_FILE_LIMIT);
 		
 		if (archiveZipLimit < 1) {
-			logger.error("Configuration error - Invalid {} parameter : {}. Value must be greater than 1.",JZR_ARCHIVING_RETENTION_FILE_LIMIT, archiveZipLimit);
+			logger.error("Configuration error - Invalid " + JZR_ARCHIVING_RETENTION_FILE_LIMIT + " parameter : " + archiveZipLimit + ". Value must be greater than 1.");
 			throw new JzrInitializationException("Configuration error - Invalid " + JZR_ARCHIVING_RETENTION_FILE_LIMIT + " archiving parameter : " + archiveZipLimit + ". Value must be greater than 1.");
 		}
 
@@ -213,7 +213,7 @@ public abstract class JzrRecorderConfig {
 		archiveZipTimeOffset = ConfigUtil.getAttributeDuration(offsetNode, JZR_ARCHIVING_TIME_OFFSET_DURATION);
 
 		if (archiveZipTimeOffset.getSeconds() < 10) {
-			logger.error("Configuration error - Invalid {} parameter : {}. Value must be greater than 10.",JZR_ARCHIVING_TIME_OFFSET_DURATION, archiveZipTimeOffset);
+			logger.error("Configuration error - Invalid " + JZR_ARCHIVING_TIME_OFFSET_DURATION + " parameter : " + archiveZipTimeOffset + ". Value must be greater than 10.");
 			throw new JzrInitializationException("Configuration error - Invalid " + JZR_ARCHIVING_TIME_OFFSET_DURATION + " archiving parameter : " + archiveZipTimeOffset + ". Value must be greater than 10.");
 		}
 	}

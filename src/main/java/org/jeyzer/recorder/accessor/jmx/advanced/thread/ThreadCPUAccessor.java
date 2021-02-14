@@ -58,7 +58,7 @@ public class ThreadCPUAccessor extends JzrAbstractThreadCPUAccessor implements
 			this.captureDuration = this.captureDuration + endTime - startTime; // cumulative as per each thread
 			
 			if (logger.isDebugEnabled())
-				logger.debug("MX bean CPU thread info access time : {} ms", endTime - startTime);
+				logger.debug("MX bean CPU thread info access time : " + (endTime - startTime) + " ms");
 				
 			// store it
 			this.cpuPerThread.put(id, value);
