@@ -16,8 +16,6 @@ public class LoggerConstants {
 	
 	// The logger -D configuration param
 	public static final String PROPERTY_JEYZER_AGENT_HOME = "jeyzer.agent.home";
-	public static final String PROPERTY_JEYZER_RECORD_APP_CONFIG_REPOSITORY = "jeyzer.record.app.config.repository";
-	public static final String PROPERTY_JEYZER_RECORD_APP_RECORDING_HOME = "jeyzer.record.app.recording.home";
 	public static final String PROPERTY_JEYZER_RECORD_AGENT_PROFILE = "jeyzer.record.agent.profile";
 	public static final String PROPERTY_JEYZER_RECORDER_LOG_CONFIGURATION_FILE = "jeyzer.recorder.log.configuration.file";
 	public static final String PROPERTY_JEYZER_RECORDER_LOG_FILE = "jeyzer.recorder.log.file";

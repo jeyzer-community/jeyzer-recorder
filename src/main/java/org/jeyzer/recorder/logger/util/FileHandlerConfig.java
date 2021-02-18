@@ -78,7 +78,7 @@ public class FileHandlerConfig extends HandlerConfig{
 		
 		// scaling environment with variables
 		boolean recordingHomeProp = true;
-		String recordingHome = System.getProperty(PROPERTY_JEYZER_RECORD_APP_RECORDING_HOME);
+		String recordingHome = System.getProperty(ENV_JEYZER_RECORD_APP_RECORDING_HOME);
 		if (recordingHome == null) {
 			recordingHome = System.getenv().get(ENV_JEYZER_RECORD_APP_RECORDING_HOME);
 			recordingHomeProp = false;
@@ -88,17 +88,19 @@ public class FileHandlerConfig extends HandlerConfig{
 		if (profile == null) {
 			profile = System.getenv().get(ENV_JEYZER_RECORD_AGENT_PROFILE);
 			recordingProfileProp = false;
+			if (profile == null)
+				profile = System.getProperty(ENV_JEYZER_RECORD_AGENT_PROFILE);
 		}
 		if (recordingHome != null && new File(recordingHome).isDirectory() && profile != null && !profile.isEmpty()) {
-			path = recordingHome + File.pathSeparator + profile  + File.pathSeparator + "log" + File.pathSeparator + "jeyzer-recorder-" + profile + ".log";
+			path = recordingHome + File.separatorChar + profile  + File.separatorChar + "log" + File.separatorChar + "jeyzer-recorder-" + profile + ".log";
 			if (recordingHomeProp)
-				BootLogger.debug(logPrefix() + " - Log file path built with the -D" + PROPERTY_JEYZER_RECORD_APP_RECORDING_HOME + "property. Value is : " + recordingHome);
+				BootLogger.debug(logPrefix() + " - Log file path built with the -D" + ENV_JEYZER_RECORD_APP_RECORDING_HOME + " property. Value is : " + recordingHome);
 			else
-				BootLogger.debug(logPrefix() + " - Log file path built with the " + ENV_JEYZER_RECORD_APP_RECORDING_HOME + " env variable. Value is : " + recordingHome);
+				BootLogger.debug(logPrefix() + " - Log file path built with the " + ENV_JEYZER_RECORD_APP_RECORDING_HOME + " env variable (or agent configuration). Value is : " + recordingHome);
 			if (recordingProfileProp)
 				BootLogger.debug(logPrefix() + " -    and the agent profile from the -D" + PROPERTY_JEYZER_RECORD_AGENT_PROFILE + "property. Value is : " + profile);
 			else
-				BootLogger.debug(logPrefix() + " -    and the agent profile from the : " + ENV_JEYZER_RECORD_AGENT_PROFILE + " env variable. Value is : " + profile);
+				BootLogger.debug(logPrefix() + " -    and the agent profile from the : " + ENV_JEYZER_RECORD_AGENT_PROFILE + " env variable (or agent configuration). Value is : " + profile);
 			BootLogger.debug(logPrefix() + " - Log file path is : " + path);
 
 			return path;
@@ -139,12 +141,13 @@ public class FileHandlerConfig extends HandlerConfig{
 	}
 	
 	// Additional
-	
 	public String getRecorderHomePath() {
 		CodeSource src = LoggerManager.class.getProtectionDomain().getCodeSource();
-		return new File(src.getLocation().getFile()).getParent(); // ../lib
+		File jarFile = new File(src.getLocation().getFile());
+		return jarFile.getParentFile().getParentFile().getAbsolutePath(); // get lib dir and then recorder home dir
 	}
 	
+	// Do not depend on ConfigUtil to prevent early logger creation
 	public String sanitizePathSeparators(String path){
 		if (isWindows()){
 			return path.replace('/', '\\');

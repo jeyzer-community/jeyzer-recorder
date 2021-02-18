@@ -1,7 +1,7 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-	<id>${project.version}</id>
+	<id>package</id>
 	<formats>
 		<format>zip</format>
 	</formats>
@@ -42,19 +42,8 @@
 			<outputDirectory>config/profiles</outputDirectory>
 		</fileSet>
 		<fileSet>
-			<directory>${basedir}/src/main/config/agent</directory>
-			<outputDirectory>config/agent</outputDirectory>
-			<excludes>
-				<exclude>*.installer.properties</exclude>
-			</excludes>
-		</fileSet>
-		<fileSet>
 			<directory>${basedir}/src/main/config/security</directory>
 			<outputDirectory>config/security</outputDirectory>
-		</fileSet>
-		<fileSet>
-			<directory>${basedir}/src/main/config/scaling-template</directory>
-			<outputDirectory>config/scaling-template</outputDirectory>
 		</fileSet>
 	</fileSets>
 	<files>
@@ -71,29 +60,12 @@
 			<outputDirectory>/</outputDirectory>
 		</file>
 		<file>
-			<source>${basedir}/src/main/doc/README-AGENT-SCALING.txt</source>
-			<outputDirectory>/</outputDirectory>
-		</file>
-		<file>
 			<source>${basedir}/LICENSE.txt</source>
 			<outputDirectory>/licenses</outputDirectory>
 		</file>
 		<file>
 			<source>${basedir}/THIRD-PARTY.txt</source>
 			<outputDirectory>/licenses</outputDirectory>
-		</file>
-		<!--  Fill the scaling template directory with standard files -->
-		<file>
-			<source>${basedir}/src/main/config/profiles/standard/standard_generation.xml</source>
-			<outputDirectory>config/scaling-template/jeyzer-rec-configs/profiles/standard</outputDirectory>
-		</file>
-		<file>
-			<source>${basedir}/src/main/config/profiles/standard/standard_advanced_mx.xml</source>
-			<outputDirectory>config/scaling-template/jeyzer-rec-configs/profiles/standard</outputDirectory>
-		</file>
-		<file>
-			<source>${basedir}/src/main/config/log/jeyzer-log.properties</source>
-			<outputDirectory>config/scaling-template/jeyzer-rec-configs/log/log-template</outputDirectory>
 		</file>
 	</files>
 </assembly>

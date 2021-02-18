@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>org.jeyzer</groupId>
 			<artifactId>jeyzer-agent</artifactId>
-			<version>3.0</version>
+			<version>3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jeyzer</groupId>
@@ -97,9 +97,10 @@
 					<execution>
 						<id>make-zip</id>
 						<configuration>
-							<finalName>${project.artifactId}</finalName>
 							<descriptors>
 								<descriptor>src/assembly/bin.xml</descriptor>
+								<descriptor>src/assembly/scaling-template-config.xml</descriptor>
+								<descriptor>src/assembly/work-recordings.xml</descriptor>
 							</descriptors>
 							<attach>false</attach>
 							<outputDirectory>${project.build.directory}/distribution</outputDirectory>
@@ -125,14 +126,19 @@
               				<outputDirectory>${basedir}/target/installer/templates/recorder</outputDirectory>
               				<resources>          
                 				<resource>
-                  					<directory>src/main/config/agent</directory>
+                  					<directory>src/main/config</directory>
                   					<includes>
-          								<include>jeyzer-record.installer.properties</include>
+          								<include>client/jeyzer-record.installer.properties</include>
+          								<!-- Scaling files -->
+          								<include>agent/jeyzer-agent.installer.xml</include>
+          								<include>scaling-template/agent/application-template/jeyzer-record.installer.properties</include>
+          								<include>scaling-template/**/*.xml</include>
+          								<include>log/jeyzer-log.properties</include>
        								</includes>
                   					<filtering>false</filtering>
                 				</resource>
-              				</resources>              
-            			</configuration>            
+              				</resources>
+            			</configuration>
           			</execution>
         		</executions>
       		</plugin>

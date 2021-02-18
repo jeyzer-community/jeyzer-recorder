@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.security.CodeSource;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.jar.Attributes;

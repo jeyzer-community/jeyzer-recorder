@@ -239,12 +239,15 @@ public class LoggerManager {
 		BootLogger.debug("Jeyzer Recorder logging file not specified in the environment.");
 		
 		// scaling environment with variables
-		String configHome = System.getProperty(PROPERTY_JEYZER_RECORD_APP_CONFIG_REPOSITORY);
+		String configHome = System.getProperty(ENV_JEYZER_RECORD_APP_CONFIG_REPOSITORY);
 		if (configHome == null)
 			configHome = System.getenv().get(ENV_JEYZER_RECORD_APP_CONFIG_REPOSITORY);
 		String profile = System.getProperty(PROPERTY_JEYZER_RECORD_AGENT_PROFILE);
 		if (profile == null)
 			profile = System.getenv().get(ENV_JEYZER_RECORD_AGENT_PROFILE);
+		if (profile == null)
+			// Unresolved environment variable declared in the agent and transformed into system properties by the agent
+			profile = System.getProperty(ENV_JEYZER_RECORD_AGENT_PROFILE);
 		if (configHome != null && new File(configHome).isDirectory() && profile != null && !profile.isEmpty()) {
 			propsPath = configHome + File.separator + "log" + File.separator + profile  + File.separator + DEFAULT_LOG_CONFIG_FILE;
 			props = loadPropertyFile(propsPath);
@@ -261,6 +264,9 @@ public class LoggerManager {
 		String agentHome = System.getProperty(PROPERTY_JEYZER_AGENT_HOME);
 		if (agentHome == null)
 			agentHome = System.getenv().get(ENV_JEYZER_AGENT_HOME);
+		if (agentHome == null)
+			// Unresolved environment variable declared in the agent and transformed into system properties by the agent
+			agentHome = System.getProperty(ENV_JEYZER_AGENT_HOME);
 		if (agentHome != null && new File(agentHome).isDirectory()) {
 			propsPath = agentHome + File.separator + "config" + File.separator + "log" + File.separator + DEFAULT_LOG_CONFIG_FILE;
 			props = loadPropertyFile(propsPath);

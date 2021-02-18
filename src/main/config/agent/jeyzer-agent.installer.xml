@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<agent>
+
+    <!-- Scaling unique configuration -->
+	<!-- Variables do support agent parameter, system property and system environment variable resolution -->
+    
+    <!-- Recorder binaries home -->
+    <variable name="jeyzer-agent-home">%{jeyzer.recorder.agent.home}</variable>
+    
+    <!-- Recorder configuration home -->
+    <variable name="jeyzer-configs" default="%{jeyzer.recorder.scaling.config.repository}">${JEYZER_RECORD_APP_CONFIG_REPOSITORY}</variable>
+    
+    <!-- Recording home - Not used below but required inside the jeyzer-recorder-agent.properties -->
+    <variable name="jeyzer-recording-home" default="%{jeyzer.recorder.work.dir}">${JEYZER_RECORD_APP_RECORDING_HOME}</variable>
+    
+    <!-- Recorder agent profile - default on the jeyzer-record-agent-profile agent parameter -->
+    <variable name="jeyzer-record-agent-profile" default="${jeyzer-record-agent-profile}">${JEYZER_RECORD_AGENT_PROFILE}</variable>
+    
+    <!-- Recorder class entry point -->
+    <delegate>org.jeyzer.recorder.JeyzerRecorderAgent</delegate>
+    
+    <!-- Agent isolated class path -->
+    <classpath>
+        <entry>${jeyzer-agent-home}/lib/commons-compress-1.19.jar</entry>
+        <entry>${jeyzer-agent-home}/lib/jeyzer-recorder.jar</entry>
+        <entry>${jeyzer-agent-home}/lib/jeyzer-publish.jar</entry>
+		<entry>${jeyzer-agent-home}</entry>
+    </classpath>
+    
+    <!-- Recorder boot configuration -->
+    <configuration>
+        <item key="jeyzer-recorder-agent.props">${jeyzer-configs}/agent/${jeyzer-record-agent-profile}/jeyzer-record.properties</item>
+    </configuration>
+    
+</agent>

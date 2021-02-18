@@ -1,23 +1,35 @@
 
+
+See the README-AGENT.txt for immediate usage instructions.
+
+
 ---------------------------------
 >>                             <<
 >>>      Jeyzer Recorder      <<<
 >>                             <<
 ---------------------------------
 
-Jeyzer Recorder is initially a light weight Java thread dump collector. 
-Its advanced versions permit to get process and system information as well as applicative data and events.
+Jeyzer Recorder collects the activity of your Java servers and stores it in a black box - the JZR recording - to be analyzed with the Jeyzer Analyzer.
+
+Jeyzer Recorder was initially a light weight Java thread dump collector. 
+Its advanced version permits today to get process and system information as well as applicative data and events.
 
 Thread dumps are helpful for production monitoring, customer support and R&D services to get snapshots of server activities.
 A sequence of thread dumps will for example permit to identify performance bottlenecks, contention points, deadlocks 
 and even memory outage problems or concurrency issues. In a more advanced manner, when executed over long time period, 
 it permits to collect statistics on the server usage and establish application profiling. 
 
-To skip the tedious and quite technical analysis of the thread dumps, use the Jeyzer Analyzer to generate JZR reports. 
+In its advanced form - the Jeyzer Agent Recorder - the additional collected data permit to correlate technical figures (CPU, memory, GC..) 
+and applicative events with the internal threading activity of the monitored process.
+
+The black box analysis is performed with the Jeyzer Analyzer and translated into a JZR report.
 JZR reports will show the Java process activity in a comprehensive and human readable manner, highlighting any technical problem or performance issue 
 as well as providing statistics and profiling figures and charts. JZR reports are Excel files.
 
-It requires Java 7 or above.
+The black box analysis can also be performed at runtime by the Jeyzer Monitor. 
+In this case, the JZR report will be generated if a critical event is detected and dispatched through the rights channels (email, JIRA, web).
+
+Jeyzer Recorder requires Java 7 or above.
 
 For more info, please refer to :
  https://jeyzer.org/jeyzer-recorder
@@ -34,7 +46,8 @@ Jeyzer Recorder can generates periodically recording snapshots through one of th
 
  a) Agent : started within the monitored process, the Jeyzer Recorder agent will access the Java MX Management interface to collect a data snapshot.
     Like for the JMX solution, the agent enables to collect Jeyzer MX publisher metrics (data and events), standard MX bean metrics and Java MX Platform figures.
-    This is the recommended approach : please read the README-AGENT.txt. This doc contains also instructions to monitor multiple Java applications.
+    This is the recommended approach. 
+	This is the recommended approach : please read the README-AGENT.txt. This doc contains also instructions to monitor multiple Java applications.
 
  b) JMX : based on the java process JMX connection details, the Jeyzer Recorder will access the JVM JMX API to collect a data snapshot.
     Go to the <recorder home>/bin directory. 
@@ -352,4 +365,4 @@ Jeyzer Recorder includes the following libraries :
 
 Note that the General Java Agent wrapper prevents any library conflict between Jeyzer Recorder and the monitored application
 as it ensures the loading of the Jeyzer Recorder agent in a separate and isolated class loader.
- 
+
