@@ -14,8 +14,6 @@ package org.jeyzer.recorder.accessor;
 
 import java.lang.instrument.Instrumentation;
 
-
-import org.jeyzer.recorder.JeyzerRecorder;
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.accessor.jmx.JzrJMXAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.JzrAdvancedJMXAccessor;
