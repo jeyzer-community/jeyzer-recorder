@@ -81,8 +81,8 @@ set "JEYZER_RECORDER_LOG_FILE=%JEYZER_RECORDER_HOME%\log\jeyzer-recorder-jstack-
 
 set "JEYZER_RECORD_PARAMS=-Djeyzer.record.config=%JEYZER_RECORD_CONFIG_DIR%\profiles\%JEYZER_RECORD_PROFILE%\%JEYZER_RECORD_PROFILE%_generation.xml"
 
-rem commons-compress libraries
-set "CLASSPATH=%JEYZER_RECORDER_HOME%\lib\commons-compress-${org.apache.commons.commons-compress.version}.jar"
+rem commons-compress and threeten libraries
+set "CLASSPATH=%JEYZER_RECORDER_HOME%\lib\commons-compress-${org.apache.commons.commons-compress.version}.jar;%JEYZER_RECORDER_HOME%\lib\threetenbp-${org.threeten.threetenbp.version}.jar"
 
 rem jeyzer-publish library
 set "CLASSPATH=%CLASSPATH%;%JEYZER_RECORDER_HOME%\lib\jeyzer-publish.jar"

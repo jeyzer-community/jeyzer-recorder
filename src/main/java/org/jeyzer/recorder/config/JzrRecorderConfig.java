@@ -16,7 +16,7 @@ package org.jeyzer.recorder.config;
 
 
 
-import java.time.Duration;
+import org.threeten.bp.Duration;
 
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.util.ConfigUtil;

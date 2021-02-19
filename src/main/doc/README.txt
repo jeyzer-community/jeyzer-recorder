@@ -358,7 +358,10 @@ Jeyzer Recorder includes the following libraries :
 
 - Apache Commons Compress : compression utility library
   https://commons.apache.org/proper/commons-compress/
-  
+
+- TreeTen Backport : backport of the Java SE 8 date-time classes to Java SE 6 and 7.
+  https://www.threeten.org/threetenbp/
+
 - Jeyzer Agent, fork of the General Java Agent project : agent wrapper library
   https://github.com/jeyzer-community/jeyzer-agent
   http://hapi.wikidot.com/java-agent-general

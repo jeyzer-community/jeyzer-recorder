@@ -21,7 +21,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.time.Duration;
 import java.util.Properties;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
@@ -31,6 +30,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.threeten.bp.Duration;
 import org.jeyzer.recorder.JeyzerRecorder;
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.logger.Logger;

@@ -1,4 +1,6 @@
 
-Lists of 2 third-party dependencies.
-     (MIT License) General Java Agent (com.hapiware.agent:agent:3.0 - http://www.hapiware.com/java-agent-general)
+Lists of 4 third-party dependencies.
+     (MIT License) (Mozilla Public License Version 2.0) Jeyzer Java Agent (org.jeyzer:jeyzer-agent:3.1 - https://github.com/jeyzer-community/jeyzer-agent)
+     (Mozilla Public License Version 2.0) Jeyzer Publisher (org.jeyzer:jeyzer-publish:2.2 - https://github.com/jeyzer-community/jeyzer-publish)
      (Apache License, Version 2.0) Apache Commons Compress (org.apache.commons:commons-compress:1.19 - https://commons.apache.org/proper/commons-compress/)
+     (BSD 3-clause) ThreeTen backport (org.threeten:threetenbp:1.5.0 - https://www.threeten.org/threetenbp)

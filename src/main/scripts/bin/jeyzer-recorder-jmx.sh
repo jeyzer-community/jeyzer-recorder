@@ -109,8 +109,8 @@ export JEYZER_RECORDER_LOG_FILE
 
 JEYZER_RECORD_PARAMS="-Djeyzer.record.config="$JEYZER_RECORD_CONFIG_DIR"/profiles/"$JEYZER_RECORD_PROFILE"/"$JEYZER_RECORD_PROFILE"_generation.xml"
 
-# commons-compress libraries
-CLASSPATH="$JEYZER_RECORDER_HOME/lib/commons-compress-${org.apache.commons.commons-compress.version}.jar"
+# commons-compress and threeten libraries
+CLASSPATH="$JEYZER_RECORDER_HOME/lib/commons-compress-${org.apache.commons.commons-compress.version}.jar:$JEYZER_RECORDER_HOME/lib/threetenbp-${org.threeten.threetenbp.version}.jar"
 
 # jeyzer-publish library
 CLASSPATH=""$CLASSPATH":$JEYZER_RECORDER_HOME/lib/jeyzer-publish.jar"

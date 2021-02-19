@@ -21,6 +21,7 @@
     
     <!-- Agent isolated class path -->
     <classpath>
+        <entry>${jeyzer-agent-home}/lib/threetenbp-1.5.0.jar</entry>
         <entry>${jeyzer-agent-home}/lib/commons-compress-1.19.jar</entry>
         <entry>${jeyzer-agent-home}/lib/jeyzer-recorder.jar</entry>
         <entry>${jeyzer-agent-home}/lib/jeyzer-publish.jar</entry>

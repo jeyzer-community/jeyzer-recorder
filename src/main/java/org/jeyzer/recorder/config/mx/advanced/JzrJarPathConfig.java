@@ -13,7 +13,8 @@ package org.jeyzer.recorder.config.mx.advanced;
  */
 
 
-import java.time.Duration;
+// import java.time.Duration;
+import org.threeten.bp.Duration;
 
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.util.ConfigUtil;
