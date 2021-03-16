@@ -65,18 +65,18 @@ public class HandlerConfig {
 		}
 		
 		try {
-			Level level;
+			Level logLevel;
 			
 			if (LoggerConstants.LOG_DEBUG_VALUE.equals(value)) // Map any logj, slf4j value
-				level = Level.FINE;
+				logLevel = Level.FINE;
 			else if (LoggerConstants.LOG_WARN_VALUE.equals(value)) // Map any warn mistake
-				level = Level.WARNING; 
+				logLevel = Level.WARNING; 
 			else 
-			    level = Level.parse(value.toUpperCase());
+			    logLevel = Level.parse(value.toUpperCase());
 			
-			BootLogger.debug(logPrefix() + " - Log level specified by configuration : " + level);
+			BootLogger.debug(logPrefix() + " - Log level specified by configuration : " + logLevel);
 			
-			return level;			
+			return logLevel;			
 		}catch(IllegalArgumentException ex) {
 			BootLogger.debug(logPrefix() + " - Invalid log level : " + value + ". Defaulting to " + Level.INFO);
 			return Level.INFO;

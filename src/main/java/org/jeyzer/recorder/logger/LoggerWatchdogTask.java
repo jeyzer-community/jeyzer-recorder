@@ -15,7 +15,7 @@ package org.jeyzer.recorder.logger;
 import java.io.File;
 import java.util.concurrent.ThreadFactory;
 
-public class LoggerWatchdogTask extends Thread implements Runnable {
+public class LoggerWatchdogTask implements Runnable {
 
 	public static class LoggerWatchdogThreadFactory implements ThreadFactory {
 		@Override

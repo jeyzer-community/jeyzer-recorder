@@ -21,6 +21,9 @@ public class BootLogger {
 	
 	private static  boolean bootDebug = Boolean.parseBoolean(System.getProperty(PROPERTY_JEYZER_RECORDER_BOOT_DEBUG));
 	
+	private BootLogger() {
+	}
+	
 	public static void debug(String message) {
 		if (bootDebug)
 			System.out.println(LOGGER_BOOT_DEBUG_PREFIX + message);

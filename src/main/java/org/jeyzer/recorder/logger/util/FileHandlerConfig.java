@@ -50,30 +50,30 @@ public class FileHandlerConfig extends HandlerConfig{
 	}
 
 	private String loadLogFilePath(Properties props) {
-		String path;
+		String logPath;
 		
 		// property log file entry
-		path = props.getProperty(getName() + LOGGER_PROPERTY_PATH);
-		if (path != null) {
+		logPath = props.getProperty(getName() + LOGGER_PROPERTY_PATH);
+		if (logPath != null) {
 			BootLogger.debug(logPrefix() + " - Log file path read from the configuration " + getName() + LOGGER_PROPERTY_PATH + " property.");
-			BootLogger.debug(logPrefix() + " - Log file path is : " + path);
-			return path;
+			BootLogger.debug(logPrefix() + " - Log file path is : " + logPath);
+			return logPath;
 		}
 		
 		// property log file (below env mirror)
-		path = System.getProperty(PROPERTY_JEYZER_RECORDER_LOG_FILE);
-		if (path != null) {
+		logPath = System.getProperty(PROPERTY_JEYZER_RECORDER_LOG_FILE);
+		if (logPath != null) {
 			BootLogger.debug(logPrefix() + " - Log file path read from the -D" + PROPERTY_JEYZER_RECORDER_LOG_FILE + " property.");
-			BootLogger.debug(logPrefix() + " - Log file path is : " + path);
-			return path;
+			BootLogger.debug(logPrefix() + " - Log file path is : " + logPath);
+			return logPath;
 		}
 		
 		// environment log file
-		path = System.getenv().get(ENV_JEYZER_RECORDER_LOG_FILE);
-		if (path != null) {
+		logPath = System.getenv().get(ENV_JEYZER_RECORDER_LOG_FILE);
+		if (logPath != null) {
 			BootLogger.debug(logPrefix() + " - Log file path read from the " + ENV_JEYZER_RECORDER_LOG_FILE + " env variable.");
-			BootLogger.debug(logPrefix() + " - Log file path is : " + path);
-			return path;
+			BootLogger.debug(logPrefix() + " - Log file path is : " + logPath);
+			return logPath;
 		}
 		
 		// scaling environment with variables
@@ -92,7 +92,7 @@ public class FileHandlerConfig extends HandlerConfig{
 				profile = System.getProperty(ENV_JEYZER_RECORD_AGENT_PROFILE);
 		}
 		if (recordingHome != null && new File(recordingHome).isDirectory() && profile != null && !profile.isEmpty()) {
-			path = recordingHome + File.separatorChar + profile  + File.separatorChar + "log" + File.separatorChar + "jeyzer-recorder-" + profile + ".log";
+			logPath = recordingHome + File.separatorChar + profile  + File.separatorChar + "log" + File.separatorChar + "jeyzer-recorder-" + profile + ".log";
 			if (recordingHomeProp)
 				BootLogger.debug(logPrefix() + " - Log file path built with the -D" + ENV_JEYZER_RECORD_APP_RECORDING_HOME + " property. Value is : " + recordingHome);
 			else
@@ -101,35 +101,35 @@ public class FileHandlerConfig extends HandlerConfig{
 				BootLogger.debug(logPrefix() + " -    and the agent profile from the -D" + PROPERTY_JEYZER_RECORD_AGENT_PROFILE + "property. Value is : " + profile);
 			else
 				BootLogger.debug(logPrefix() + " -    and the agent profile from the : " + ENV_JEYZER_RECORD_AGENT_PROFILE + " env variable (or agent configuration). Value is : " + profile);
-			BootLogger.debug(logPrefix() + " - Log file path is : " + path);
+			BootLogger.debug(logPrefix() + " - Log file path is : " + logPath);
 
-			return path;
+			return logPath;
 		}
 		
 		// agent home (property)
 		String agentHome = System.getProperty(PROPERTY_JEYZER_AGENT_HOME);
 		if (agentHome != null && new File(agentHome).isDirectory()) {
-			path = sanitizePathSeparators(agentHome + LOG_FILE_PATH_SUFFIX);
+			logPath = sanitizePathSeparators(agentHome + LOG_FILE_PATH_SUFFIX);
 			BootLogger.debug(logPrefix() + " - Log file path read from the -D" + PROPERTY_JEYZER_AGENT_HOME + " property. Value is : " + agentHome);
-			BootLogger.debug(logPrefix() + " - Log file path is : " + path);
-			return path;
+			BootLogger.debug(logPrefix() + " - Log file path is : " + logPath);
+			return logPath;
 		}
 		
 		// agent home (env)
 		agentHome = System.getenv().get(ENV_JEYZER_AGENT_HOME);
 		if (agentHome != null && new File(agentHome).isDirectory()) {
-			path = sanitizePathSeparators(agentHome + LOG_FILE_PATH_SUFFIX);
+			logPath = sanitizePathSeparators(agentHome + LOG_FILE_PATH_SUFFIX);
 			BootLogger.debug(logPrefix() + " - Log file path read from the " + ENV_JEYZER_AGENT_HOME + " env variable. Value is : " + agentHome);
-			BootLogger.debug(logPrefix() + " - Log file path is : " + path);
-			return path;
+			BootLogger.debug(logPrefix() + " - Log file path is : " + logPath);
+			return logPath;
 		}
 		
 		// recorder deduced home
-		path = sanitizePathSeparators(getRecorderHomePath() + LOG_FILE_PATH_SUFFIX);
+		logPath = sanitizePathSeparators(getRecorderHomePath() + LOG_FILE_PATH_SUFFIX);
 		BootLogger.debug(logPrefix() + " - Logger file path deduced from the recorder jar location. Home is : " + getRecorderHomePath());
-		BootLogger.debug(logPrefix() + " - Log file path is : " + path);
+		BootLogger.debug(logPrefix() + " - Log file path is : " + logPath);
 
-		return path;
+		return logPath;
 	}
 	
 	public String getPath() {

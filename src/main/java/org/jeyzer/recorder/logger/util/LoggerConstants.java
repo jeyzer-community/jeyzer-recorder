@@ -40,4 +40,7 @@ public class LoggerConstants {
 	public static final String LOG_DEBUG_VALUE = "DEBUG";
 	public static final String LOG_WARN_VALUE = "WARN";
 	public static final String LOG_ERROR_VALUE = "ERROR";
+	
+	private LoggerConstants() {
+	}
 }

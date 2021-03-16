@@ -205,9 +205,8 @@ public class LoggerManager {
 
 	private void createLogDirectory() {
 		File file = new File(fileConfig.getPath());
-		if (!file.getParentFile().exists())
-			if (!file.getParentFile().mkdirs())
-				BootLogger.error("Failed to create the JUL file logging directory : " + file.getParentFile().getPath());
+		if (!file.getParentFile().exists() && !file.getParentFile().mkdirs())
+			BootLogger.error("Failed to create the JUL file logging directory : " + file.getParentFile().getPath());
 	}
 
 	private Properties loadConfigProperties() {
@@ -334,20 +333,20 @@ public class LoggerManager {
 		}
 		
 		try {
-			Level level;
+			Level logLevel;
 			
 			if (LOG_DEBUG_VALUE.equals(value)) // Map any logj, slf4j value
-				level = Level.FINE;
+				logLevel = Level.FINE;
 			else if (LOG_WARN_VALUE.equals(value)) // Map any warn mistake
-				level = Level.WARNING;
+				logLevel = Level.WARNING;
 			else if (LOG_ERROR_VALUE.equals(value)) // Map any logj, slf4j value
-				level = Level.SEVERE;
+				logLevel = Level.SEVERE;
 			else 
-			    level = Level.parse(value.toUpperCase());
+				logLevel = Level.parse(value.toUpperCase());
 			
-			BootLogger.debug("Logger log level specified by configuration : " + level);
+			BootLogger.debug("Logger log level specified by configuration : " + logLevel);
 			
-			return level;			
+			return logLevel;
 		}catch(IllegalArgumentException ex) {
 			BootLogger.debug("Invalid logger log level : " + value + ". Defaulting to " + Level.INFO);
 			return Level.INFO;
@@ -361,8 +360,8 @@ public class LoggerManager {
 			return false;
 		}
 		
-		boolean reload = Boolean.parseBoolean(value);
-		BootLogger.debug("Logger reload read from the configuration. Value is : " + reload);
-		return reload;
+		boolean logReload = Boolean.parseBoolean(value);
+		BootLogger.debug("Logger reload read from the configuration. Value is : " + logReload);
+		return logReload;
 	}
 }
