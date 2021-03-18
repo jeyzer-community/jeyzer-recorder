@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>org.jeyzer</groupId>
 			<artifactId>jeyzer-agent</artifactId>
-			<version>3.1-SNAPSHOT</version>
+			<version>3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jeyzer</groupId>
