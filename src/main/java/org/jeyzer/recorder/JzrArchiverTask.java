@@ -245,9 +245,9 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		
 		StringBuilder name = new StringBuilder(archivePrefix);
 		name.append(FileUtil.getTimeZoneOriginFileMarker());
-		name.append(JzrTimeZone.getTimeStamp(new Date(start), FileUtil.JZR_FILE_DATE_FORMAT, JzrTimeZone.getTimeZone()));
+		name.append(JzrTimeZone.getFileTimeStamp(new Date(start), FileUtil.JZR_FILE_DATE_FORMAT, JzrTimeZone.getTimeZone()));
 		name.append("---");
-		name.append(JzrTimeZone.getTimeStamp(new Date(end), FileUtil.JZR_FILE_DATE_FORMAT, JzrTimeZone.getTimeZone()));
+		name.append(JzrTimeZone.getFileTimeStamp(new Date(end), FileUtil.JZR_FILE_DATE_FORMAT, JzrTimeZone.getTimeZone()));
 		name.append(ext);
 		return name.toString();
 	}

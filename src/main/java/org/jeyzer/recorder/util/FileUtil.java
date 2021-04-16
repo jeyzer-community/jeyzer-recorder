@@ -87,7 +87,7 @@ public class FileUtil {
 		// format is thread-dump-<P or JZR>-<yyyy-MM-dd---HH-mm-ss-SSS-z>.txt
 		StringBuilder name = new StringBuilder(prefix);
 		name.append(getTimeZoneOriginFileMarker());
-		name.append(JzrTimeZone.getTimeStamp(dateStamp, JZR_FILE_DATE_FORMAT, JzrTimeZone.getTimeZone()));
+		name.append(JzrTimeZone.getFileTimeStamp(dateStamp, JZR_FILE_DATE_FORMAT, JzrTimeZone.getTimeZone()));
 		name.append(extension);
 		return name.toString();
 	}

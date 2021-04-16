@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jeyzer.recorder.logger.Logger;
 import org.jeyzer.recorder.logger.LoggerFactory;
@@ -30,7 +32,8 @@ public class JzrTimeZone {
 	// Origin possible values
 	public enum Origin { CUSTOM, PROCESS, JZR };		
 	
-	public static final String PROPERTY_USER_TIMEZONE = "user.timezone";	
+	public static final String PROPERTY_USER_TIMEZONE = "user.timezone";
+	public static final Pattern TIME_ZONE_GMT_PATTERN = Pattern.compile("GMT(\\+|-)\\d\\d:\\d\\d");
 	
 	private static final Logger logger = LoggerFactory.getLogger(JzrTimeZone.class);
 	
@@ -55,6 +58,13 @@ public class JzrTimeZone {
 		if (candidate == null || candidate.isEmpty())
 			return false;
 		
+		// If the user time zone provided through user.timezone is invalid, 
+		//   the JVM will ignore it and use the local time expressed in GMT
+		//   Example : GMT+02:00
+		Matcher matcher = TIME_ZONE_GMT_PATTERN.matcher(candidate);
+		if (matcher.matches())
+			return true;
+		
 		List<String> ids = Arrays.asList(TimeZone.getAvailableIDs());
 		
 		if (!ids.contains(candidate)){
@@ -65,10 +75,12 @@ public class JzrTimeZone {
 		return true;
 	}
 	
-	public static String getTimeStamp(Date dateStamp, String format, TimeZone timeZone) {
+	public static String getFileTimeStamp(Date dateStamp, String format, TimeZone timeZone) {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		sdf.setTimeZone(timeZone);
-		return sdf.format(dateStamp);
-	}	
-	
+		String result = sdf.format(dateStamp);
+		// Handle time zone forbidden chars for files
+		// ex : GMT+02:00, 
+		return result.replace(':', '@').replace('/','$');
+	}
 }
