@@ -31,7 +31,11 @@
 		</manifest>
 		-->
 		
-	</process_card>	
+	</process_card>
+	
+	<!-- Capture the JVM flags. Diagnostic flags only -->
+	<!-- Only available in AdvancedMXAgent mode -->
+	<jvm_flags period="15m" start_offset="2m"/>
 	
 	<!-- Capture the jar paths obtained from the JVM loaded classes. Useful to analyze the jar versions -->
 	<!-- Only available in AdvancedMXAgent mode -->

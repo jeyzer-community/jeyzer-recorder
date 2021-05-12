@@ -39,6 +39,7 @@ import org.jeyzer.recorder.accessor.local.advanced.process.LocalJeyzerAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.process.LocalMemoryAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.process.LocalMemoryPoolAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.process.LocalRuntimePropertiesAccessor;
+import org.jeyzer.recorder.accessor.local.advanced.process.flags.LocalJVMFlagAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.process.jar.LocalJarPathAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.process.jar.LocalManifestAccessor;
 import org.jeyzer.recorder.accessor.local.advanced.process.module.LocalModuleAccessor;
@@ -87,6 +88,8 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 	
 	private LocalModuleAccessor moduleAccessor;
 	
+	private LocalJVMFlagAccessor jvmFlagAccessor;
+	
 	public LocalAdvancedAccessor(JzrAdvancedConfig cfg, Instrumentation instrumentation) throws JzrInitializationException {
 		this.cfg = cfg;
 		
@@ -117,6 +120,8 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 		jarPathAccessor = new LocalJarPathAccessor(cfg.getJarPathConfig(), instrumentation, securityMgr);
 		
 		moduleAccessor = new LocalModuleAccessor(cfg.getModuleConfig(), instrumentation, securityMgr);
+		
+		jvmFlagAccessor = new LocalJVMFlagAccessor(cfg.getJVMFlagConfig(), securityMgr);
 	}
 
 	@Override
@@ -172,6 +177,10 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 			
 			// Start the modules collector. Stopped implicitly when recorder shutdown occurs
 			moduleAccessor.start();
+			
+			// Start the JVM flags collector. Stopped implicitly when recorder shutdown occurs
+			jvmFlagAccessor.start();
+			
 		} finally {
 			processCardClose();
 		}

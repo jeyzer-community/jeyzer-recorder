@@ -33,7 +33,7 @@ public class LocalModuleAccessor {
 	private Instrumentation instrumentation;
 	
 	public LocalModuleAccessor(JzrModuleConfig moduleConfig, Instrumentation instrumentation, JzrSecurityManager securityMgr) {
-		if (moduleConfig.isActive())
+		if (moduleConfig.getSchedulerConfig().isActive())
 			logger.debug("Loading LocalModuleAccessor"); // disturbing otherwise
 		this.config = moduleConfig;
 		this.instrumentation = instrumentation;
@@ -41,7 +41,7 @@ public class LocalModuleAccessor {
 	}
 	
 	public void start() {
-		if (!this.config.isActive())
+		if (!this.config.getSchedulerConfig().isActive())
 			return;
 		
 		logger.debug("Starting LocalModuleAccessor");
@@ -52,8 +52,8 @@ public class LocalModuleAccessor {
 		executor = Executors.newSingleThreadScheduledExecutor(
 				new LocalModuleTask.LocalModuleThreadFactory());
 		executor.scheduleWithFixedDelay(task, 
-				config.getStartOffset().getSeconds(), 
-				config.getPeriod().getSeconds(),
+				config.getSchedulerConfig().getStartOffset().getSeconds(), 
+				config.getSchedulerConfig().getPeriod().getSeconds(),
 				TimeUnit.SECONDS);
 	}
 }

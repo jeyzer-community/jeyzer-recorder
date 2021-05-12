@@ -77,7 +77,7 @@ public class LocalModuleTask implements Runnable{
 	}
 
 	private void store() throws IOException, JzrGenerationException {
-		File file = new File(this.config.getOutputDirectory() + File.separator + MODULES_TEMP_FILE);
+		File file = new File(this.config.getSchedulerConfig().getOutputDirectory() + File.separator + MODULES_TEMP_FILE);
 		
 		try (
 				BufferedWriter writer = getWriter(file);
@@ -93,7 +93,7 @@ public class LocalModuleTask implements Runnable{
 			logger.debug("Process modules file successfully generated into temp file : " + file.getAbsolutePath());
 		
 		boolean result;
-		File finalFile = new File(this.config.getOutputDirectory() + File.separator + MODULES_FILE);
+		File finalFile = new File(this.config.getSchedulerConfig().getOutputDirectory() + File.separator + MODULES_FILE);
 		if (finalFile.exists()) {
 			// delete it first
 			result = finalFile.delete();

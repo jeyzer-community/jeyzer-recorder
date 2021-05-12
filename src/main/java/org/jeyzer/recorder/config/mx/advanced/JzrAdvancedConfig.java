@@ -57,6 +57,7 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 	
 	private JzrJarPathConfig jarPathConfig;
 	private JzrModuleConfig moduleConfig;
+	private JzrJVMFlagConfig jvmFlagConfig;
 	
 	private boolean captureDeadlockEnabled = false;
 
@@ -142,6 +143,10 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 	public JzrModuleConfig getModuleConfig() {
 		return moduleConfig;
 	}
+	
+	public JzrJVMFlagConfig getJVMFlagConfig() {
+		return jvmFlagConfig;
+	}
 
 	public List<JzrDiskSpaceConfig> getDiskSpaceConfigs(){
 		return diskSpaceConfigs;
@@ -184,6 +189,9 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 		// modules, optional
 		loadModulesNode(advancedJmxNode, getThreadDumpDirectory());
 		
+		// JVM flags, optional
+		loadJVMFlagNode(advancedJmxNode, getThreadDumpDirectory());
+		
 		// memory node
 		Element memoryNode = ConfigUtil.getFirstChildNode(advancedJmxNode, JzrMemoryConfig.JZR_MEMORY);
 		if (memoryNode != null)
@@ -216,6 +224,18 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 		else {
 			logger.debug("Jar paths accessor configuration not found.");
 			jarPathConfig = new JzrJarPathConfig();
+		}
+	}
+	
+	private void loadJVMFlagNode(Element advancedJmxNode, String tdDir) throws JzrInitializationException {
+		Element jvmFlagsNode = ConfigUtil.getFirstChildNode(advancedJmxNode, JzrJVMFlagConfig.JZR_JVM_FLAGS);
+		if (jvmFlagsNode != null) {
+			logger.debug("JVM flags accessor configuration found.");
+			jvmFlagConfig = new JzrJVMFlagConfig(jvmFlagsNode, tdDir);
+		}
+		else {
+			logger.debug("JVM flags accessor configuration not found.");
+			jvmFlagConfig = new JzrJVMFlagConfig();
 		}
 	}
 	

@@ -1,4 +1,4 @@
-package org.jeyzer.recorder.accessor.local.advanced.process.jar;
+package org.jeyzer.recorder.accessor.local.advanced.process.flags;
 
 /*-
  * ---------------------------LICENSE_START---------------------------
@@ -13,29 +13,27 @@ package org.jeyzer.recorder.accessor.local.advanced.process.jar;
  */
 
 
-import java.lang.instrument.Instrumentation;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.jeyzer.recorder.accessor.mx.security.JzrSecurityManager;
-import org.jeyzer.recorder.config.mx.advanced.JzrJarPathConfig;
+import org.jeyzer.recorder.config.mx.advanced.JzrJVMFlagConfig;
 import org.jeyzer.recorder.logger.Logger;
 import org.jeyzer.recorder.logger.LoggerFactory;
 
-public class LocalJarPathAccessor {
+public class LocalJVMFlagAccessor {
 	
-	protected static final Logger logger = LoggerFactory.getLogger(LocalJarPathAccessor.class);
+	protected static final Logger logger = LoggerFactory.getLogger(LocalJVMFlagAccessor.class);
 
 	private ScheduledExecutorService executor;
 	private JzrSecurityManager securityMgr;
-	private JzrJarPathConfig config;
-	private Instrumentation instrumentation;
+	private JzrJVMFlagConfig config;
 	
-	public LocalJarPathAccessor(JzrJarPathConfig jarPathConfig, Instrumentation instrumentation, JzrSecurityManager securityMgr) {
-		logger.debug("Loading LocalJarPathAccessor");
-		this.config = jarPathConfig;
-		this.instrumentation = instrumentation;
+	public LocalJVMFlagAccessor(JzrJVMFlagConfig jvmFlagConfig, JzrSecurityManager securityMgr) {
+		if (jvmFlagConfig.getSchedulerConfig().isActive())
+			logger.debug("Loading LocalJVMFlagAccessor"); // disturbing otherwise
+		this.config = jvmFlagConfig;
 		this.securityMgr = securityMgr;
 	}
 	
@@ -43,13 +41,13 @@ public class LocalJarPathAccessor {
 		if (!this.config.getSchedulerConfig().isActive())
 			return;
 		
-		logger.debug("Starting LocalJarPathAccessor");
-		LocalJarPathTask task = new LocalJarPathTask(
+		logger.debug("Starting LocalModuleAccessor");
+		LocalJVMFlagTask task = new LocalJVMFlagTask(
 				config, 
-				securityMgr,
-				instrumentation);
+				securityMgr
+				);
 		executor = Executors.newSingleThreadScheduledExecutor(
-				new LocalJarPathTask.LocalJarPathThreadFactory());
+				new LocalJVMFlagTask.LocalJVMFlagThreadFactory());
 		executor.scheduleWithFixedDelay(task, 
 				config.getSchedulerConfig().getStartOffset().getSeconds(), 
 				config.getSchedulerConfig().getPeriod().getSeconds(),

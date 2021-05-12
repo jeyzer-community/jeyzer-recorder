@@ -20,6 +20,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.jeyzer.recorder.accessor.local.advanced.process.flags.LocalJVMFlagTask;
 import org.jeyzer.recorder.accessor.local.advanced.process.jar.LocalJarPathTask;
 import org.jeyzer.recorder.accessor.local.advanced.process.module.LocalModuleTask;
 import org.jeyzer.recorder.accessor.mx.security.JzrSecurityManager;
@@ -81,6 +82,9 @@ public class JzrArchiverTask extends Thread implements Runnable {
 	private boolean processModulesSupported;
 	private String processModulesPath;
 	
+	private boolean jvmFlagsSupported;
+	private String jvmFlagsPath;
+	
 	long startZipTime;
 	
 	public JzrArchiverTask(JzrRecorderConfig cfg) {
@@ -119,6 +123,10 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		// optional modules file
 		processModulesSupported = cfg instanceof JzrAdvancedMXAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
 		processModulesPath = cfg.getThreadDumpDirectory() + File.separator + LocalModuleTask.MODULES_FILE;
+		
+		// jvm flags file
+		jvmFlagsSupported = cfg instanceof JzrAdvancedMXAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
+		jvmFlagsPath = cfg.getThreadDumpDirectory() + File.separator + LocalJVMFlagTask.JVM_FLAGS_FILE;
 		
 		// initialize start time	
 		startZipTime = Calendar.getInstance().getTimeInMillis() 
@@ -187,7 +195,8 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		
 		File[] files2 = addFile(files, processJarPath, processJarPathsSupported);
 		File[] files3 = addFile(files2, processModulesPath, processModulesSupported);
-		File[] filesToZip = addFile(files3, encryptionKeyFilePath, encryptionPublished);
+		File[] files4 = addFile(files3, jvmFlagsPath, jvmFlagsSupported);
+		File[] filesToZip = addFile(files4, encryptionKeyFilePath, encryptionPublished);
 		
 		if (SystemHelper.isWindows())
 			// zip the files

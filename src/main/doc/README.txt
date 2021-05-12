@@ -221,6 +221,18 @@ Java modules list file generation can be disabled by configuration.
 The loaded Java modules list file is included in each recording archive file.
 
 
+----------------------------------
+===        JVM flags           ===
+----------------------------------
+
+Optionally, Jeyzer Recorder can generate the list of the JVM flags (limited to the diagnostic ones) after startup in the jvm-flags.txt file.
+As flags may be changed at any time, the file is re-generated every 15 minutes by default.
+The JVM flag collection starts after 2 minutes by default.
+
+JVM flags list file generation can be disabled by configuration.
+The loaded JVM flags list file is included in each recording archive file.
+
+
 --------------------------------
 ===        Time zone         ===
 --------------------------------
@@ -274,6 +286,7 @@ When enabled Advanced MX permits to collect additional data from the Java Platfo
 	- Recording write time (AdvancedMXAgent method only)
 	- Loaded jar paths (AdvancedMXAgent method only)
 	- Loaded Java modules (AdvancedMXAgent method only)
+	- JVM flags (AdvancedMXAgent method only and limited to the JVM diagnostic flags)
 In addition, it permits to collect process and thread data as well as applicative events published through the Jeyzer MX interface :
 	- Thread context parameters  (ex : action request parameters)
 	- Thread context id  (ex : request id)
