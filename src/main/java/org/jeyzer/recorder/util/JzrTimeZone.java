@@ -76,9 +76,12 @@ public class JzrTimeZone {
 	}
 	
 	public static String getFileTimeStamp(Date dateStamp, String format, TimeZone timeZone) {
+		// Format must NOT contain any 'z' char
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		sdf.setTimeZone(timeZone);
 		String result = sdf.format(dateStamp);
+		// Add the required time zone at the end
+		result += timeZone.getID();
 		// Handle time zone forbidden chars for files
 		// ex : GMT+02:00, 
 		return result.replace(':', '@').replace('/','$');

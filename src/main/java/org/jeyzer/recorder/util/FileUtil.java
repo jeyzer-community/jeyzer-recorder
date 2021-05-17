@@ -36,7 +36,9 @@ public class FileUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 	
-	public static final String JZR_FILE_DATE_FORMAT = "yyyy-MM-dd---HH-mm-ss-SSS-z"; // z stands for regional time zone
+	// The 'z' at the end has been removed as it does not put official time zone ids. 
+	//   Example : "US/Pacific" ends up as "PDT" which is not standard.
+	public static final String JZR_FILE_DATE_FORMAT = "yyyy-MM-dd---HH-mm-ss-SSS-"; 
 	public static final String JZR_FILE_JZR_PREFIX = "snap-";
 	public static final String JZR_FILE_JZR_EXTENSION = ".jzr";
 	
