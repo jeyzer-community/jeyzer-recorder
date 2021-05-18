@@ -46,7 +46,9 @@ public class JstackAccessor extends JzrAbstractJstackAccessor{
 	
 	@Override
 	public long threadDump(File file) throws JzrProcessNotAvailableException, JzrGenerationException {
-		long startTime, endTime, duration; 
+		long startTime;
+		long endTime;
+		long duration;
 		int result = -1;
         
 		String command = JAVA_HOME +  JSTACK_COMMAND + " " + cfg.getOptions() + " " + cfg.getPid();
@@ -113,7 +115,9 @@ public class JstackAccessor extends JzrAbstractJstackAccessor{
 	}
 
 	protected void dumpJinfo(File file, BufferedWriter writer) throws IOException {
-		long startTime, endTime, duration; 
+		long startTime;
+		long endTime;
+		long duration;
         
 		String command = JAVA_HOME +  JINFO_COMMAND + JINFO_OPTION + cfg.getPid();
         

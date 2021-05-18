@@ -126,7 +126,8 @@ public class LocalAdvancedAccessor extends JzrAbstractAccessor {
 
 	@Override
 	public long threadDump(File file) throws JzrGenerationException {
-		long startTime, endTime;
+		long startTime;
+		long endTime;
 		
 		try {
 			createDumpFile(file);

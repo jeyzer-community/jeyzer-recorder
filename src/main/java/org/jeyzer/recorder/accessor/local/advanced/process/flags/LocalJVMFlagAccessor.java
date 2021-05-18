@@ -26,7 +26,6 @@ public class LocalJVMFlagAccessor {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(LocalJVMFlagAccessor.class);
 
-	private ScheduledExecutorService executor;
 	private JzrSecurityManager securityMgr;
 	private JzrJVMFlagConfig config;
 	
@@ -46,7 +45,7 @@ public class LocalJVMFlagAccessor {
 				config, 
 				securityMgr
 				);
-		executor = Executors.newSingleThreadScheduledExecutor(
+		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(
 				new LocalJVMFlagTask.LocalJVMFlagThreadFactory());
 		executor.scheduleWithFixedDelay(task, 
 				config.getSchedulerConfig().getStartOffset().getSeconds(), 

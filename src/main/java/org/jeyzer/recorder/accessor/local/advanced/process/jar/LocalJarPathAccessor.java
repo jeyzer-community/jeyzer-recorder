@@ -27,7 +27,6 @@ public class LocalJarPathAccessor {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(LocalJarPathAccessor.class);
 
-	private ScheduledExecutorService executor;
 	private JzrSecurityManager securityMgr;
 	private JzrJarPathConfig config;
 	private Instrumentation instrumentation;
@@ -48,7 +47,7 @@ public class LocalJarPathAccessor {
 				config, 
 				securityMgr,
 				instrumentation);
-		executor = Executors.newSingleThreadScheduledExecutor(
+		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(
 				new LocalJarPathTask.LocalJarPathThreadFactory());
 		executor.scheduleWithFixedDelay(task, 
 				config.getSchedulerConfig().getStartOffset().getSeconds(), 

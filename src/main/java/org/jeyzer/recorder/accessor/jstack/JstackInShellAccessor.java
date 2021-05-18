@@ -45,7 +45,9 @@ public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
 	
 	@Override
 	public long threadDump(File file) throws JzrProcessNotAvailableException, JzrGenerationException {
-		long startTime, endTime, duration; 
+		long startTime;
+		long endTime;
+		long duration;
 	
 		try {
 			String command;
@@ -108,7 +110,9 @@ public class JstackInShellAccessor extends JzrAbstractJstackAccessor{
 
 	@Override
 	protected void dumpJinfo(File file, BufferedWriter writer) throws IOException {
-		long startTime, endTime, duration; 
+		long startTime;
+		long endTime;
+		long duration;
 	
 		FileUtil.closeWriter(file, writer); // close the writer now, otherwise append is lost
 		

@@ -180,7 +180,8 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 	}
 	
 	protected long collectTDInfo() {
-		long startTime, endTime;
+		long startTime;
+		long endTime;
 		
         if (logger.isDebugEnabled())
         	logger.debug("Accessing thread dump info from MX bean");

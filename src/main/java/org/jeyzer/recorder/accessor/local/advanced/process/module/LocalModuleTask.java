@@ -14,7 +14,6 @@ package org.jeyzer.recorder.accessor.local.advanced.process.module;
 
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.lang.module.ModuleDescriptor;
@@ -29,22 +28,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadFactory;
 
-import org.jeyzer.recorder.accessor.error.JzrGenerationException;
+import org.jeyzer.recorder.accessor.local.advanced.process.LocalTask;
 import org.jeyzer.recorder.accessor.mx.security.JzrSecurityManager;
 import org.jeyzer.recorder.config.mx.advanced.JzrModuleConfig;
-import org.jeyzer.recorder.output.JzrWriterFactory;
 import org.jeyzer.recorder.logger.Logger;
 import org.jeyzer.recorder.logger.LoggerFactory;
 
-public class LocalModuleTask implements Runnable{
+public class LocalModuleTask extends LocalTask {
 
 	private static final Logger logger = LoggerFactory.getLogger(LocalModuleTask.class);
 
+	public static final String MODULES_DISPLAY = "modules";
+	
 	public static final String MODULES_FILE = "process-modules.txt";
 	private static final String MODULES_TEMP_FILE = "process-modules-in-progress.tmp";
 	
 	private Instrumentation instrumentation;
-	private JzrSecurityManager securityMgr;
 	private JzrModuleConfig config;
 	
 	private Set<Module> modules = new HashSet<>();
@@ -60,8 +59,8 @@ public class LocalModuleTask implements Runnable{
 	}	
 	
 	public LocalModuleTask(JzrModuleConfig config, JzrSecurityManager securityMgr, Instrumentation instrumentation) {
+		super(securityMgr);
 		this.config = config;
-		this.securityMgr = securityMgr; 
 		this.instrumentation = instrumentation;
 	}
 
@@ -69,48 +68,14 @@ public class LocalModuleTask implements Runnable{
 	public void run() {
 		try {
 			collectModules();
-			store();
+			store(this.config.getSchedulerConfig().getOutputDirectory(), MODULES_FILE, MODULES_TEMP_FILE, MODULES_DISPLAY);
 			this.modules.clear();
 		}catch(Exception ex) {
 			logger.error("Module collector failed to collect the modules", ex);
 		}
 	}
 
-	private void store() throws IOException, JzrGenerationException {
-		File file = new File(this.config.getSchedulerConfig().getOutputDirectory() + File.separator + MODULES_TEMP_FILE);
-		
-		try (
-				BufferedWriter writer = getWriter(file);
-			)
-		{
-			storeModules(writer);
-		}catch(IOException ex){
-			logger.error("Failed to print into the process modules temp file");
-			throw ex;
-		}
-		
-		if (logger.isDebugEnabled())
-			logger.debug("Process modules file successfully generated into temp file : " + file.getAbsolutePath());
-		
-		boolean result;
-		File finalFile = new File(this.config.getSchedulerConfig().getOutputDirectory() + File.separator + MODULES_FILE);
-		if (finalFile.exists()) {
-			// delete it first
-			result = finalFile.delete();
-			if (!result)
-				throw new JzrGenerationException("Failed to delete the previous : " + finalFile.getAbsolutePath());
-		}
-		
-		result = file.renameTo(finalFile);
-		if (!result) {
-			result = file.delete();
-			if (!result)
-				throw new JzrGenerationException("Failed to rename the temp process modules and delete it afterwards");	
-			throw new JzrGenerationException("Failed to rename the temp process modules file as : " + finalFile.getAbsolutePath());
-		}
-	}
-
-	private void storeModules(BufferedWriter writer) throws IOException {
+	protected void storeData(BufferedWriter writer) throws IOException {
 		List<Module> modulesToPrint = new ArrayList<>(this.modules);
 		Collections.sort(modulesToPrint, new Comparator<Module>(){
 			@Override
@@ -195,9 +160,5 @@ public class LocalModuleTask implements Runnable{
 		
 		if (logger.isDebugEnabled())
 			logger.debug("Number of modules found : " + this.modules.size());
-	}
-	
-	protected BufferedWriter getWriter(File file) throws IOException {
-		return JzrWriterFactory.newInstance().createWriter(file, securityMgr);
 	}
 }

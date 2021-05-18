@@ -27,7 +27,6 @@ public class LocalModuleAccessor {
 	
 	protected static final Logger logger = LoggerFactory.getLogger(LocalModuleAccessor.class);
 
-	private ScheduledExecutorService executor;
 	private JzrSecurityManager securityMgr;
 	private JzrModuleConfig config;
 	private Instrumentation instrumentation;
@@ -49,7 +48,7 @@ public class LocalModuleAccessor {
 				config, 
 				securityMgr,
 				instrumentation);
-		executor = Executors.newSingleThreadScheduledExecutor(
+		ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(
 				new LocalModuleTask.LocalModuleThreadFactory());
 		executor.scheduleWithFixedDelay(task, 
 				config.getSchedulerConfig().getStartOffset().getSeconds(), 
