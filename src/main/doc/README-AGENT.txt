@@ -46,7 +46,7 @@ under these 2 central places :
 - Recording home 
   It is by default deployed under the <Jeyzer home>/work/recordings directory
   You can change its location by setting the JEYZER_RECORD_APP_RECORDING_HOME environment variable 
-    or the -Djeyzer.record.app.recording.home system property (to add on the application command line)
+    or the -DJEYZER_RECORD_APP_RECORDING_HOME system property (to add on the application command line)
     or by updating the agent configuration stored in <Jeyzer home>/recorder/config/agent/jeyzer-agent.xml
   All directories get created dynamically.
   It is referred hereafter as <Recording home>
