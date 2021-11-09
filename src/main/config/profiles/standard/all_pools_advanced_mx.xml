@@ -122,6 +122,43 @@
 				<threshold size="50000"/>
 			</collection>
 		</pool>
+		
+		<!-- Tenured Gen -->
+		<pool name="Tenured Gen">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+				<threshold size="50000"/>
+			</usage>
+			<collection>
+				<used/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+	
+		<!-- Eden Space -->
+		<pool name="Eden Space">
+			<peak>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<init/>
+			</usage>
+		</pool>
 
 		<!-- Perm gen JDK 7 -->
 		<pool name="PS Perm Gen">

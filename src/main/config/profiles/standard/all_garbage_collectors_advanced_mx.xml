@@ -104,7 +104,8 @@
 			</last_gc_info>
 		</collector>
 
-		<!-- Copy. Enabled with JVM option -XX:+UseSerialGC -->
+		<!-- Copy. Default for single CPU. Stop the world pauses -->
+		<!-- Enabled with JVM option -XX:+UseSerialGC -->
 		<!-- Manages memory pools : Eden Space, Survivor Space -->
 		<collector name="Copy">
 			<collection>
@@ -124,23 +125,9 @@
 							<max/>
 						</usage>
 					</pool>
-					<pool name="Tenured Gen">
-						<!-- Only usage is supported -->
-						<usage>
-							<used/>
-							<max/>
-						</usage>
-					</pool>
 				</before>
 				<after>
 					<pool name="Eden Space">
-						<!-- Only usage is supported -->
-						<usage>
-							<used/>
-							<max/>
-						</usage>
-					</pool>
-					<pool name="Tenured Gen">
 						<!-- Only usage is supported -->
 						<usage>
 							<used/>

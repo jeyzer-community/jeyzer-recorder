@@ -301,6 +301,80 @@
 				</after>
 			</last_gc_info>
 		</collector>
+		
+		<!-- Copy. Default on single CPU based system. Enabled with JVM option -XX:+UseSerialGC -->
+		<!-- Manages memory pools : Eden Space, Survivor Space -->
+		<collector name="Copy">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<end_time/>
+				<before>
+					<pool name="Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>
+			</last_gc_info>
+		</collector>
+		
+		<!-- MarkSweepCompact. Default on single CPU based system. Enabled with JVM option -XX:+UseSerialGC -->
+		<!-- Manages memory pools : Tenured Gen, Eden Space, Survivor Space -->
+		<collector name="MarkSweepCompact">
+			<collection>
+				<count/>
+				<time/>
+			</collection>
+			<last_gc_info>
+				<end_time/>
+				<before>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</before>
+				<after>
+					<pool name="Tenured Gen">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+					<pool name="Eden Space">
+						<!-- Only usage is supported -->
+						<usage>
+							<used/>
+							<max/>
+						</usage>
+					</pool>
+				</after>				
+			</last_gc_info>
+		</collector>
 	
 	</garbage_collectors>
 
@@ -308,7 +382,7 @@
 	<!-- Provided by java.lang.management.MemoryPoolMXBean -->
 	<memory_pools>
 
-		<!-- Important : the Jeyzer Recorder will attempt to collect data from the G1 (JDK 11) OR from the PS Scavenge (JDK 8) memory pools -->
+		<!-- Important : the Jeyzer Recorder will attempt to collect data from the G1 (JDK 11) OR from the PS Scavenge (JDK 8) memory pools. Single CPU will force the JVM to use the serial GC -->
 		<!--             If JDK version is known up front, remove the non required GC sections -->
 	
 		<!-- Old gen G1 -->
@@ -359,6 +433,34 @@
 	
 		<!-- PS Eden space -->
 		<pool name="PS Eden Space">
+			<peak>
+				<used/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+			</usage>
+		</pool>
+		
+		<!-- Tenured Gen -->
+		<pool name="Tenured Gen">
+			<peak>
+				<used/>
+			</peak>
+			<usage>
+				<used/>
+				<max/>
+				<committed/>
+				<threshold size="50000"/>
+			</usage>
+			<collection>
+				<used/>
+				<threshold size="50000"/>
+			</collection>
+		</pool>
+	
+		<!-- Eden Space -->
+		<pool name="Eden Space">
 			<peak>
 				<used/>
 			</peak>
