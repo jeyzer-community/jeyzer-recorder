@@ -38,6 +38,7 @@
 		     which cannot be parsed at build time as the agent also handles properties at runtime -->
 		<org.apache.commons.commons-compress.version>1.19</org.apache.commons.commons-compress.version>
 		<org.threeten.threetenbp.version>1.5.0</org.threeten.threetenbp.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
 	<build>
