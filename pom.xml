@@ -4,7 +4,7 @@
 	<groupId>org.jeyzer</groupId>
 	<artifactId>jeyzer-recorder</artifactId>
 	<packaging>jar</packaging>
-	<version>2.7-SNAPSHOT</version>
+	<version>3.0-SNAPSHOT</version>
 	<name>Jeyzer Recorder</name>
 	<url>https://github.com/jeyzer-community/jeyzer-recorder</url>
 	<description>The Jeyzer Recorder. Documentation available at https://jeyzer.org/docs/jzr-recording/</description>
@@ -24,12 +24,12 @@
 		<dependency>
 			<groupId>org.jeyzer</groupId>
 			<artifactId>jeyzer-agent</artifactId>
-			<version>3.1</version>
+			<version>3.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jeyzer</groupId>
 			<artifactId>jeyzer-publish</artifactId>
-			<version>2.2</version>
+			<version>3.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	
@@ -183,7 +183,7 @@
 	</developers>
 	
 	<organization>
-		<name>Jeyzer SAS</name>
+		<name>Jeyzer</name>
 		<url>https://jeyzer.org</url>
 	</organization>
 	<inceptionYear>2020</inceptionYear>

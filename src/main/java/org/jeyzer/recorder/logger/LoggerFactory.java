@@ -9,7 +9,7 @@ import java.util.logging.Level;
  * ---------------------------LICENSE_START---------------------------
  * Jeyzer Recorder
  * --
- * Copyright (C) 2020 - 2021 Jeyzer SAS
+ * Copyright (C) 2020, 2023 Jeyzer
  * --
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
