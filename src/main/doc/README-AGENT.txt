@@ -141,6 +141,14 @@ Following entry must be added in the process domain.xml:
 Do not put path between ""
 
 
+------------------------------------------
+===  Agent deployment under JBoss      ===
+------------------------------------------
+
+The jeyzer-record-agent-profile parameter specified in the javaagent parameter may not be accepted by the JBoss startup script.
+In such case, the agent profile must be set as a system environment variable through the JEYZER_RECORD_AGENT_PROFILE variable.
+
+
 -------------------------
 ===     Upgrade       ===
 -------------------------
