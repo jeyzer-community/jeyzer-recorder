@@ -19,6 +19,7 @@ package org.jeyzer.recorder.accessor.jmx.advanced;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jeyzer.recorder.accessor.jmx.advanced.process.FileDescriptorCountAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.process.GenericMXBeanAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.process.JeyzerAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.process.ProcessCPULoadAccessor;
@@ -26,6 +27,7 @@ import org.jeyzer.recorder.accessor.jmx.advanced.process.RuntimeUpTimeAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.system.FreePhysicalMemoryAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.system.SystemCPULoadAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.system.TotalPhysicalMemoryAccessor;
+import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractFileDescriptorCountAccessor;
 import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractGenericMXBeanAccessor;
 import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractJeyzerAccessor;
 import org.jeyzer.recorder.accessor.mx.advanced.process.JzrAbstractProcessCPULoadAccessor;
@@ -76,6 +78,8 @@ public class JzrJMXBeanFieldAccessorBuilder {
 				accessor = new TotalPhysicalMemoryAccessor();
 			else if (JzrAbstractRuntimeUpTimeAccessor.ACCESSOR_NAME.equals(name))
 				accessor = new RuntimeUpTimeAccessor();
+			else if (JzrAbstractFileDescriptorCountAccessor.ACCESSOR_NAME.equals(name))
+				accessor = new FileDescriptorCountAccessor();
 			else if (JzrAbstractJeyzerAccessor.ACCESSOR_NAME.equals(name))
 				accessor = jeyzerAccessor;
 			else if (JzrAbstractGenericMXBeanAccessor.ACCESSOR_NAME.equals(name)){

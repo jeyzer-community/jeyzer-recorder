@@ -282,6 +282,7 @@ When enabled Advanced MX permits to collect additional data from the Java Platfo
 	- Process up time
 	- Pool memory before and after garbage collection
 	- Garbage collection execution time and count
+	- Max and Open file descriptor count (Unix only)
 	- Free and used disk spaces (AdvancedMXAgent method only)
 	- Recording write time (AdvancedMXAgent method only)
 	- Loaded jar paths (AdvancedMXAgent method only)

@@ -72,6 +72,8 @@
 		<process_cpu_load/>
 		<!-- Provided by java.lang.management.RuntimeMXBean -->
 		<process_up_time/>
+		<!-- Provided by com.sun.management.UnixOperatingSystemMXBean -->
+		<process_open_file_desc_count/>
 		<!-- Provided by org.jeyzer.mx.Jeyzer -->
 		<!-- jeyzer_process_parameters/-->
 		<!-- Provided by applicative MX bean -->

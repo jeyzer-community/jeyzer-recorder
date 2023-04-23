@@ -46,6 +46,8 @@
 		<process_cpu_load/>
 		<!-- Provided by java.lang.management.RuntimeMXBean -->
 		<process_up_time/>
+		<!-- Provided by com.sun.management.UnixOperatingSystemMXBean -->
+		<process_open_file_desc_count/>
 		<!-- Provided by Tomcat MX beans -->
 		<mx_parameters name="Catalina:type=GlobalRequestProcessor,name=*" attributes="requestCount,errorCount,processingTime,bytesSent,bytesReceived"/>
 		<mx_parameters name="Catalina:type=Manager,context=/my_app,host=localhost" attributes="activeSessions"/>

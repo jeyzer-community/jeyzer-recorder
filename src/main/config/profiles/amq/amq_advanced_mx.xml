@@ -46,6 +46,8 @@
 		<process_cpu_load/>
 		<!-- Provided by java.lang.management.RuntimeMXBean -->
 		<process_up_time/>
+		<!-- Provided by com.sun.management.UnixOperatingSystemMXBean -->
+		<process_open_file_desc_count/>
 		<!-- Provided by AMQ MX beans -->
 		<mx_parameters name="org.apache.activemq:type=Broker,brokerName=*,service=Health" attributes="CurrentStatus"/>
 		<mx_parameters name="org.apache.activemq:type=Broker,brokerName=*" attributes="MemoryPercentUsage,StorePercentUsage,TempPercentUsage"/>
