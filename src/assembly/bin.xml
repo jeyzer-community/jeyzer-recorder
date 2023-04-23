@@ -14,6 +14,7 @@
 				<include>org.jeyzer:jeyzer-recorder</include>
 				<include>org.jeyzer:jeyzer-publish</include>
 				<include>org.jeyzer:jeyzer-agent</include>
+				<include>org.jeyzer.util.logging:jeyzer-logger</include>
 			</includes>
 		</dependencySet>
 		<dependencySet>
@@ -23,6 +24,7 @@
 				<exclude>org.jeyzer:jeyzer-recorder</exclude>
 				<exclude>org.jeyzer:jeyzer-publish</exclude>
 				<exclude>org.jeyzer:jeyzer-agent</exclude>
+				<exclude>org.jeyzer.util.logging:jeyzer-logger</exclude>
 			</excludes>
 		</dependencySet>
 	</dependencySets> 

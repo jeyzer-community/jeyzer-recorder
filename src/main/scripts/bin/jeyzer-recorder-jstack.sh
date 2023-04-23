@@ -114,6 +114,9 @@ CLASSPATH="$JEYZER_RECORDER_HOME/lib/commons-compress-${org.apache.commons.commo
 # jeyzer-publish library
 CLASSPATH=""$CLASSPATH":$JEYZER_RECORDER_HOME/lib/jeyzer-publish.jar"
 
+# jeyzer-logger library
+CLASSPATH=""$CLASSPATH":$JEYZER_RECORDER_HOME/lib/jeyzer-logger.jar"
+
 # jeyzer-recorder library 
 CLASSPATH=""$CLASSPATH":$JEYZER_RECORDER_HOME/lib/jeyzer-recorder.jar"
 export CLASSPATH

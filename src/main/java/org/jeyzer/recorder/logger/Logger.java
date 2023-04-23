@@ -12,11 +12,11 @@ package org.jeyzer.recorder.logger;
  * ----------------------------LICENSE_END----------------------------
  */
 
-import java.util.logging.Level;
+import org.jeyzer.util.logging.Level;
 
 public class Logger {
 
-	private java.util.logging.Logger utilLogger;
+	private org.jeyzer.util.logging.Logger utilLogger;
 	
 	Logger(String name) {
 		utilLogger = LoggerManager.instance().getLogger(name);

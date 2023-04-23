@@ -13,7 +13,7 @@ package org.jeyzer.recorder.logger.util;
  */
 
 import java.util.Properties;
-import java.util.logging.Level;
+import org.jeyzer.util.logging.Level;
 
 import org.jeyzer.recorder.logger.BootLogger;
 
@@ -34,6 +34,10 @@ public class HandlerConfig {
 	
 	public Boolean isActive() {
 		return this.active;
+	}
+	
+	public Boolean setActive(boolean active) {
+		return this.active = active; // in case of error, change the behavior
 	}
 
 	public Level getLevel() {

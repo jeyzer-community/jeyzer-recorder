@@ -87,6 +87,9 @@ set "CLASSPATH=%JEYZER_RECORDER_HOME%\lib\commons-compress-${org.apache.commons.
 rem jeyzer-publish library
 set "CLASSPATH=%CLASSPATH%;%JEYZER_RECORDER_HOME%\lib\jeyzer-publish.jar"
 
+rem jeyzer-logger library
+set "CLASSPATH=%CLASSPATH%;%JEYZER_RECORDER_HOME%\lib\jeyzer-logger.jar"
+
 rem jeyzer-recorder library
 set "CLASSPATH=%CLASSPATH%;%JEYZER_RECORDER_HOME%\lib\jeyzer-recorder.jar"
 

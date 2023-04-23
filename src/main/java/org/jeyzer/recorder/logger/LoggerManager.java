@@ -23,12 +23,12 @@ import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import org.jeyzer.util.logging.ConsoleHandler;
+import org.jeyzer.util.logging.FileHandler;
+import org.jeyzer.util.logging.Level;
+import org.jeyzer.util.logging.LogRecord;
+import org.jeyzer.util.logging.Logger;
+import org.jeyzer.util.logging.SimpleFormatter;
 
 import org.jeyzer.recorder.logger.util.ConsoleHandlerConfig;
 import org.jeyzer.recorder.logger.util.FileHandlerConfig;
@@ -123,6 +123,9 @@ public class LoggerManager {
 		if (fileHandler == null)
 			createFileHandler();
 
+		if (fileHandler == null)
+			return; // error in the initialization
+		
 		BootLogger.debug("Disabling file handler");
 		fileHandler.setLevel(Level.OFF);
 	}
@@ -144,6 +147,13 @@ public class LoggerManager {
 	private void setupFileHandler() {
 		if (fileHandler == null)
 			createFileHandler();
+
+		if (fileHandler == null) {
+			// disable the file handler in case of error
+			BootLogger.error("Jeyzer JUL file logging is now disabled due to unrecoverable error on the file logger creation.");
+			this.fileConfig.setActive(false);
+			return;
+		}
 		
 		if (fileHandler.getLevel() != fileConfig.getLevel())
 			fileHandler.setLevel(fileConfig.getLevel());
@@ -187,7 +197,7 @@ public class LoggerManager {
 		          }
 		     });
 		} catch (SecurityException | IOException ex) {
-			BootLogger.error("Failed to create the JUL file handler", ex);
+			BootLogger.error("Failed to create the Jeyzer JUL file handler", ex);
 		}
 	}
 
@@ -206,7 +216,7 @@ public class LoggerManager {
 	private void createLogDirectory() {
 		File file = new File(fileConfig.getPath());
 		if (!file.getParentFile().exists() && !file.getParentFile().mkdirs())
-			BootLogger.error("Failed to create the JUL file logging directory : " + file.getParentFile().getPath());
+			BootLogger.error("Failed to create the Jeyzer JUL file logging directory : " + file.getParentFile().getPath());
 	}
 
 	private Properties loadConfigProperties() {

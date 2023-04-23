@@ -31,6 +31,11 @@
 			<artifactId>jeyzer-publish</artifactId>
 			<version>3.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jeyzer.util.logging</groupId>
+			<artifactId>jeyzer-logger</artifactId>
+			<version>3.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	
 	<properties>

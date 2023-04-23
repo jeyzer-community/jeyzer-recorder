@@ -369,6 +369,10 @@ Jeyzer Recorder includes the following libraries :
   https://jeyzer.org/jeyzer-publisher-api
   https://github.com/jeyzer-community/jeyzer-publish
 
+- Jeyzer logger : Java JUL derived implementation
+  https://github.com/jeyzer-community/jeyzer-logger
+  https://github.com/JetBrains/jdk8u_jdk/tree/master/src/share/classes/java/util/logging
+  
 - Apache Commons Compress : compression utility library
   https://commons.apache.org/proper/commons-compress/
 

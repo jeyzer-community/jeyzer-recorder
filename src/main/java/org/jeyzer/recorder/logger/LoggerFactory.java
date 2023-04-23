@@ -3,7 +3,7 @@ package org.jeyzer.recorder.logger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
+import org.jeyzer.util.logging.Level;
 
 /*-
  * ---------------------------LICENSE_START---------------------------
