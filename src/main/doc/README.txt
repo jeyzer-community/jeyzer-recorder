@@ -105,26 +105,33 @@ Recording encryption can be achieved in 2 ways:
 ==== Recording archiving ====
 -------------------------------
 
-To provide a consistent JZR recording packaging and reduce the disk space footprint of the recording snapshots : 
+To provide a consistent JZR recording packaging and reduce the disk space footprint of the recording snapshots, the following is always applied : 
 
- 1) Periodically, the Jeyzer Recorder automatically cleans the oldest recording snapshots after archiving it into a JZR recording file. 
-    This JZR recording either a zip file on Windows or a tar.gz file on Unix.
+ 1) Periodically, the Jeyzer Recorder automatically archives the recording snapshots into a JZR recording file. 
+    This JZR recording is either a zip file on Windows or a tar.gz file on Unix.
     It is generated under a configurable archive directory. By default, the archive directory is located under the recording one. 
-    Clean-up and archiving period is configurable. By default files are archived every 5 minutes. 
+    Archiving period is configurable. By default the recording snapshots are archived every 6 hours, after a predefined offset (7 hours by default). 
     For a production environment, it is recommended to set it to a period between 4 and 12 hours.
 	Zip file will be named as follow : <archive_prefix>-<time zone origin>-<start date>---<start time>---<end date>---<end time>.zip
 	The archive_prefix is configurable and usually set to jzr-rec-${JEYZER_RECORD_PROFILE}-
 
  2) Rolling archive mechanism applies on the JZR recordings : the Jeyzer Recorder deletes automatically the oldest JZR recording 
-    when the number of those exceeds a certain configurable threshold.
-    By default, the last 10 JZR recordings are kept.
+    when the number of those exceeds a predefined limit.
 	For a production environment, Jeyzer Recorder should be configured to keep the last few days of activity.
+    By default, the limit is set to 20 JZR recordings, which corresponds to a retention period of 5 days.
 
- Archiving can be enabled at process shutdown. 
- It is disabled by default to catch up the restarts upon Jeyzer analysis. 
- Points 1 and 2 are applied.
+Additionally, the archiving can be enabled at process shutdown. 
+It is disabled by default to catch up the restarts upon Jeyzer analysis. 
+ 
+Example of archiving with default values, assuming that the recording has been running for weeks with a 30s snapshot period :
+ - Between now and 7 hours in the past (offset) : 840 recording snapshots (.jzr files) get generated and remain available on disk.
+ - Every 6 hours, the 7 hours+ aged recording snapshots get archived in 1 JZR recording (.zip/tar.gz). 
+   The JZR recording contains therefore 720 recording snapshots. Its file name is stamped with start and end time of the archiving range.
+ - Based on a retention period of 5 days, with 4 JZR recordings per day (one every 6 hours), 20 JZR recordings are available on disk.
+ - After 7 hours and 5 days, the oldest JZR recording (.zip/tar.gz) gets deleted.
+ - Optional : on next shutdown, the above 840 recording snapshots (.jzr files) get archived in a JZR recording (.zip/tar.gz).
 
-	
+
 --------------------------------
 ===  Advanced configuration  ===
 --------------------------------
@@ -312,6 +319,16 @@ Jeyzer Analyzer allows to include all those figures in the JZR reports.
 --------------------------------
 ===           FAQ            ===
 --------------------------------
+
+On Java 21, which method is the best to monitor virtual threads (or fibers) ? JMX, agent, Jstack, JFR ?
+None of them. 
+In fact, Java 21 did enrich only the JDK jcmd tool to generate specific file dumps on disk.
+While waiting for a better support on the existing APIs, the Jeyzer Recorder is shipping the jcmd-periodic.bat in the <recorder home>/bin directory.
+The jcmd-periodic.bat will execute the jcmd tool periodically, even if it fails to connect to the target application.
+Edit it first to add the jcmd target before executing it. The jcmd target can be retrieved with the jps tool.
+By default, the jcmd target is DemoVT21 which corresponds to the Jeyzer Virtual Threads demo.
+Dumps are generated in the <jeyzer home>/work/recorder/<jcmd target> directory.
+
 
 JMX and Jstack methods : what if the java monitored process is not available ?
 If the server to monitor is not started, Jeyzer Recorder will retry periodically to connect to it.
