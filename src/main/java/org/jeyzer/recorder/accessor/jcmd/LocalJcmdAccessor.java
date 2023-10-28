@@ -32,18 +32,18 @@ import org.jeyzer.recorder.logger.LoggerFactory;
 
 public class LocalJcmdAccessor implements JzrAccessor{
 
-    private static final String HOTSPOT_BEAN_NAME = "com.sun.management:type=HotSpotDiagnostic";
-    private static final String HOTSPOT_BEAN_CLASS = "com.sun.management.HotSpotDiagnosticMXBean$ThreadDumpFormat";
-    private static final String HOTSPOT_BEAN_METHOD = "dumpThreads";
-    
+	private static final String HOTSPOT_BEAN_NAME = "com.sun.management:type=HotSpotDiagnostic";
+	private static final String HOTSPOT_BEAN_CLASS = "com.sun.management.HotSpotDiagnosticMXBean$ThreadDumpFormat";
+	private static final String HOTSPOT_BEAN_METHOD = "dumpThreads";
+
 	private static final Logger logger = LoggerFactory.getLogger(LocalJcmdAccessor.class);	
 
 	private final JzrJcmdConfig cfg;
-	
+
 	public LocalJcmdAccessor(final JzrJcmdConfig cfg) {
 		this.cfg = cfg;
 	}
-	
+
 	@Override
 	public long threadDump(File file) throws JzrProcessNotAvailableException, JzrGenerationException {
 		long startTime;
@@ -51,36 +51,36 @@ public class LocalJcmdAccessor implements JzrAccessor{
 		long duration;
 
 		startTime = System.currentTimeMillis();
-	    try {
-        	// Must use reflection for this Java 21+ code execution to stay compatible with Java 7
-            Class<?> hotspotDiagClass = Class.forName("com.sun.management.HotSpotDiagnosticMXBean");
-            MBeanServer server = ManagementFactory.getPlatformMBeanServer();
+		try {
+			// Must use reflection for this Java 21+ code execution to stay compatible with Java 7
+			Class<?> hotspotDiagClass = Class.forName("com.sun.management.HotSpotDiagnosticMXBean");
+			MBeanServer server = ManagementFactory.getPlatformMBeanServer();
 			Object hotspotMBean = ManagementFactory.newPlatformMXBeanProxy(server, HOTSPOT_BEAN_NAME, hotspotDiagClass);
-			
-            Class<?> dumpFormatEnum = Class.forName(HOTSPOT_BEAN_CLASS);
-            Object[] constants = dumpFormatEnum.getEnumConstants();
-            // constants are 0 : TEXT_PLAIN and 1 : JSON 
-            Object format = JCMD_TXT.equals(this.cfg.getFormat()) ? constants[0] : constants[1];
-            
-            Method m = hotspotDiagClass.getMethod(HOTSPOT_BEAN_METHOD, String.class, dumpFormatEnum);
-            m.invoke( hotspotMBean , file.getAbsolutePath(), format);
-        } catch (Exception ex) {
+
+			Class<?> dumpFormatEnum = Class.forName(HOTSPOT_BEAN_CLASS);
+			Object[] constants = dumpFormatEnum.getEnumConstants();
+			// constants are 0 : TEXT_PLAIN and 1 : JSON 
+			Object format = JCMD_TXT.equals(this.cfg.getFormat()) ? constants[0] : constants[1];
+
+			Method m = hotspotDiagClass.getMethod(HOTSPOT_BEAN_METHOD, String.class, dumpFormatEnum);
+			m.invoke( hotspotMBean , file.getAbsolutePath(), format);
+		} catch (Exception ex) {
 			String msg = "Failed to generate jcmd thread dump file : " + ex.getMessage();
 			throw new JzrGenerationException(msg, ex);
-        }
+		}
 
-        endTime = System.currentTimeMillis();
-        duration = endTime - startTime;
-        if (logger.isDebugEnabled())
-        	logger.debug("Jcmd dumpThreads execution time : " + duration + " ms");
-        
-        return startTime + (duration) / 2;
+		endTime = System.currentTimeMillis();
+		duration = endTime - startTime;
+		if (logger.isDebugEnabled())
+			logger.debug("Jcmd dumpThreads execution time : " + duration + " ms");
+
+		return startTime + (duration) / 2;
 	}
 
 	@Override
 	public void validate() throws JzrValidationException {
-        try {
-            Class.forName(HOTSPOT_BEAN_CLASS);
+		try {
+			Class.forName(HOTSPOT_BEAN_CLASS);
 		} catch (ClassNotFoundException e) {
 			logger.error("Jcmd initialisation failed : the jcmd thread dump is not available on the current JVM. JVM must be Java 21+. Requested class, not found, is : " + HOTSPOT_BEAN_CLASS);
 			throw new JzrValidationException("Jcmd initialisation failed : the jcmd thread dump is not available on the current JVM. JVM must be Java 21+");
