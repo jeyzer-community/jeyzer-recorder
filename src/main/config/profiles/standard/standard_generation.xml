@@ -17,7 +17,7 @@
 	<!-- Time unit is sec -->
 	<snapshot period="${JEYZER_RECORD_PERIOD}" start_delay="${JEYZER_RECORD_START_DELAY}" output_dir="${JEYZER_RECORD_DIRECTORY}" capture_duration="${JEYZER_RECORD_CAPTURE_DURATION}">
 
-		<!-- Method can be : AdvancedMXAgent, AdvancedJMX, JMX, Jstack, JstackInShell. -->		
+		<!-- Method can be : AdvancedMXAgent, AdvancedJMX, Jcmd, JMX, Jstack, JstackInShell -->		
 		<method name="${JEYZER_RECORD_DUMP_METHOD}"/>
 
 		<methods>
@@ -36,6 +36,10 @@
 				 Standard output is written to file. Error output is written to log file  -->
 			<!-- Options : -l prints dead locks, -F force stacks, to be used when process is hung -->
 			<jstack pid="${JEYZER_TARGET_PID}" options="-l"/>
+			
+			<!-- Jcmd. Performs only thread dumps. Captures virtual threads. Applies on Java 21+ -->
+			<!-- Format : txt or json -->
+			<jcmd format="txt"/>
 		</methods>
 	
 	</snapshot>

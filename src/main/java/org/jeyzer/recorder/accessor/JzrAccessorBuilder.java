@@ -15,12 +15,14 @@ package org.jeyzer.recorder.accessor;
 import java.lang.instrument.Instrumentation;
 
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
+import org.jeyzer.recorder.accessor.jcmd.LocalJcmdAccessor;
 import org.jeyzer.recorder.accessor.jmx.JzrJMXAccessor;
 import org.jeyzer.recorder.accessor.jmx.advanced.JzrAdvancedJMXAccessor;
 import org.jeyzer.recorder.accessor.jstack.JstackAccessor;
 import org.jeyzer.recorder.accessor.jstack.JstackInShellAccessor;
 import org.jeyzer.recorder.accessor.local.LocalAdvancedAccessor;
 import org.jeyzer.recorder.config.JzrRecorderConfig;
+import org.jeyzer.recorder.config.jcmd.JzrJcmdConfig;
 import org.jeyzer.recorder.config.jmx.JzrJMXConfig;
 import org.jeyzer.recorder.config.jmx.advanced.JzrAdvancedJMXConfig;
 import org.jeyzer.recorder.config.jstack.JzrJstackConfig;
@@ -49,6 +51,10 @@ public class JzrAccessorBuilder {
 		else if (cfg instanceof JzrAdvancedMXAgentConfig){
 			logger.debug("Loading Advanced JMX accessor.");
 			return new LocalAdvancedAccessor((JzrAdvancedMXAgentConfig)cfg, instrumentation);
+		}
+		else if (cfg instanceof JzrJcmdConfig){
+			logger.debug("Loading Jcmd accessor.");
+			return new LocalJcmdAccessor((JzrJcmdConfig)cfg);
 		}
 		else if (cfg instanceof JzrJMXConfig){
 			logger.debug("Loading JMX accessor.");

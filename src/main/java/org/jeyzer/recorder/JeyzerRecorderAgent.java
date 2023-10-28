@@ -43,6 +43,7 @@ public class JeyzerRecorderAgent {
 	private static final String JEYZER_RECORDER_CONFIG_DIR_PROPERTY = "jeyzer-record.JEYZER_RECORD_CONFIG_DIR";
 	private static final String JEYZER_RECORDER_PROFILE_PROPERTY = "jeyzer-record.JEYZER_RECORD_PROFILE";
 	
+	private static final String JEYZER_RECORDER_AGENT_DUMP_METHOD_PROPERTY = "jeyzer-record.JEYZER_RECORD_DUMP_METHOD";
 	private static final String JEYZER_RECORDER_METHOD_PROPERTY_NAME = "JEYZER_RECORD_DUMP_METHOD";
 	
 	private static final String JEYZER_RECORDER_PROP_PREFIX = "jeyzer-record.";
@@ -197,8 +198,11 @@ public class JeyzerRecorderAgent {
 			+	"/"
 			+	props.getProperty(JEYZER_RECORDER_CONFIG_FILE_PROPERTY));
 		
-		// agent method
-		System.setProperty(JEYZER_RECORDER_METHOD_PROPERTY_NAME, JzrRecorderConfigBuilder.PARAM_METHOD_AGENT); 
+		// agent method can be advancedmxagent (default) or jcmd 
+		if (props.getProperty(JEYZER_RECORDER_AGENT_DUMP_METHOD_PROPERTY) != null)
+			System.setProperty(JEYZER_RECORDER_METHOD_PROPERTY_NAME, props.getProperty(JEYZER_RECORDER_AGENT_DUMP_METHOD_PROPERTY)); 
+		else
+			System.setProperty(JEYZER_RECORDER_METHOD_PROPERTY_NAME, JzrRecorderConfigBuilder.PARAM_METHOD_AGENT); 
 	}
 	
 	 private static void logStart() {

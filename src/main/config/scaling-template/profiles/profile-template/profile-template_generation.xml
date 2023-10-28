@@ -36,6 +36,10 @@
 				 Standard output is written to file. Error output is written to log file  -->
 			<!-- Options : -l prints dead locks, -F force stacks, to be used when process is hung -->
 			<jstack pid="${JEYZER_TARGET_PID}" options="-l"/>
+			
+			<!-- Jcmd. Performs only thread dumps. Captures virtual threads. Applies on Java 21+ -->
+			<!-- Format : txt or json -->
+			<jcmd format="txt"/>
 		</methods>
 	
 	</snapshot>

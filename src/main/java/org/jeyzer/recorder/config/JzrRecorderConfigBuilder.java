@@ -19,6 +19,7 @@ package org.jeyzer.recorder.config;
 import java.io.InputStream;
 
 import org.jeyzer.recorder.accessor.error.JzrInitializationException;
+import org.jeyzer.recorder.config.jcmd.JzrJcmdConfig;
 import org.jeyzer.recorder.config.jmx.JzrJMXConfig;
 import org.jeyzer.recorder.config.jmx.advanced.JzrAdvancedJMXConfig;
 import org.jeyzer.recorder.config.jstack.JzrJstackConfig;
@@ -43,6 +44,7 @@ public class JzrRecorderConfigBuilder {
 	public static final String PARAM_METHOD_AGENT = "advancedmxagent";
 	private static final String PARAM_METHOD_JSTACK_IN_SHELL = "jstackinshell";
 	private static final String PARAM_METHOD_JSTACK = "jstack";
+	private static final String PARAM_METHOD_JCMD = "jcmd";
 	
 	private static final JzrRecorderConfigBuilder builder = new JzrRecorderConfigBuilder();
 	
@@ -80,6 +82,9 @@ public class JzrRecorderConfigBuilder {
 			
 			if (PARAM_METHOD_AGENT.equals(method.toLowerCase())){
 				return new JzrAdvancedMXAgentConfig(recorder);
+			}
+			else if (PARAM_METHOD_JCMD.equals(method.toLowerCase())){
+				return new JzrJcmdConfig(recorder);
 			}
 			else if (PARAM_METHOD_JSTACK_IN_SHELL.equals(method.toLowerCase())){
 				return new JzrJstackInShellConfig(recorder);
