@@ -244,20 +244,8 @@ public class LocalAdvancedVTAccessor extends JzrAbstractAccessor {
 		this.diskWriteAccessor.collectPrintStart();
 		
 		try{
-			printFileHeader();
-			
-			writeln("");
-			
-//			for (ThreadInfo ti : tinfos) {
-//				printThreadInfo(ti);
-//
-//				if (this.canDumpLocks){
-//					LockInfo[] syncs = ti.getLockedSynchronizers();
-//					printLockInfo(syncs);
-//					writeln("");
-//				}
-//			}
-			
+			printFileHeader();			
+			writeln("");			
 		}catch(IOException ex){
 			this.diskWriteAccessor.failDiskWriteInfo();
 			String msg = "Failed to print thread dump info : " + ex.getMessage();
@@ -273,7 +261,7 @@ public class LocalAdvancedVTAccessor extends JzrAbstractAccessor {
 		}
 	}
 
-	protected void checkTDMXSupportedFeatures() throws JzrGenerationException {
+	protected void checkTDMXSupportedFeatures() {
 
 		// look for findDeadlockedThreads operations :
 		// if findDeadlockedThreads operation doesn't exist,
@@ -340,20 +328,7 @@ public class LocalAdvancedVTAccessor extends JzrAbstractAccessor {
 	
 	protected void collectTDInfo(File file)  throws JzrGenerationException {
 		
-        // 1. collect thread dumps
-//        if (this.canDumpLocks){
-//    		tinfos = tmbean.dumpAllThreads(true, true); // synchronized lock monitor support
-//    		int i =0;
-//    		this.tids = new long[tinfos.length];
-//            for (ThreadInfo ti : tinfos) {
-//            	this.tids[i] = ti.getThreadId();
-//            	i++;
-//            }
-//        }else{
-//            this.tids = tmbean.getAllThreadIds();
-//    		tinfos = tmbean.getThreadInfo(tids, Integer.MAX_VALUE);
-//        }
-        
+        // 1. collect thread dumps        
         vtAccessor.collect(file);
         
         // get threads in deadlock
@@ -441,31 +416,4 @@ public class LocalAdvancedVTAccessor extends JzrAbstractAccessor {
 	
 		writeln(FileUtil.JZR_FIELD_CAPTURE_DURATION + this.captureDuration);
 	}
-	
-//	private void printThreadInfo(ThreadInfo ti) throws IOException {
-//		// print thread information
-//		printThreadHeader(ti);
-//
-//		// print stack trace with locks
-//		StackTraceElement[] stacktrace = ti.getStackTrace();
-//		MonitorInfo[] monitors = ti.getLockedMonitors();
-//		for (int i = 0; i < stacktrace.length; i++) {
-//			StackTraceElement ste = stacktrace[i];
-//			writeln(INDENT + "at " + ste.toString());
-//			for (MonitorInfo mi : monitors) {
-//				if (mi.getLockedStackDepth() == i) {
-//					writeln(INDENT + "  - locked " + mi);
-//				}
-//			}
-//		}
-//		writeln("");
-//	}
-	
-//	private void printLockInfo(LockInfo[] locks) throws IOException {
-//		writeln(INDENT + "Locked synchronizers: count = " + locks.length);
-//		for (LockInfo li : locks) {
-//			writeln(INDENT + "  - " + li);
-//		}
-//		writeln("");
-//	}
 }

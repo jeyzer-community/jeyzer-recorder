@@ -1,5 +1,7 @@
 package org.jeyzer.recorder.config.jcmd;
 
+import org.jeyzer.recorder.accessor.error.JzrInitializationException;
+
 /*-
  * ---------------------------LICENSE_START---------------------------
  * Jeyzer Recorder
@@ -14,7 +16,6 @@ package org.jeyzer.recorder.config.jcmd;
 
 
 import org.jeyzer.recorder.config.JzrRecorderConfig;
-import org.jeyzer.recorder.config.jmx.JzrJMXConfig;
 import org.jeyzer.recorder.logger.Logger;
 import org.jeyzer.recorder.logger.LoggerFactory;
 import org.jeyzer.recorder.util.ConfigUtil;
@@ -25,14 +26,14 @@ public class JzrJcmdConfig extends JzrRecorderConfig {
 	public static final String JCMD_TXT = "txt";
 	public static final String JCMD_JSON = "json";
 	
-	private static final Logger logger = LoggerFactory.getLogger(JzrJMXConfig.class);	
+	private static final Logger logger = LoggerFactory.getLogger(JzrJcmdConfig.class);	
 	
 	private static final String JZR_JCMD = "jcmd";
 	private static final String JZR_FORMAT = "format";
 	
 	private String format;
 	
-	public JzrJcmdConfig(Element recorder) throws Exception {
+	public JzrJcmdConfig(Element recorder) throws JzrInitializationException {
 		super(recorder);
 		
 		// snapshot node
@@ -47,12 +48,12 @@ public class JzrJcmdConfig extends JzrRecorderConfig {
 		String value = ConfigUtil.getAttributeValue(jcmdNode, JZR_FORMAT);
 		if (value == null || value.isEmpty()) {
 			logger.error("Error - Format parameter empty. Must be txt or json.");
-			throw new Exception("Error - Format parameter empty. Must be txt or json.");
+			throw new JzrInitializationException("Error - Format parameter empty. Must be txt or json.");
 		}
 		this.format = value.toLowerCase();
 		if (!JCMD_TXT.equals(this.format) && !JCMD_JSON.equals(this.format)) {
 			logger.error("Error - Format parameter invalid : " + value + ". Must be txt or json.");
-			throw new Exception("Error - Format parameter empty. Must be txt or json.");
+			throw new JzrInitializationException("Error - Format parameter empty. Must be txt or json.");
 		}
 	}
 	

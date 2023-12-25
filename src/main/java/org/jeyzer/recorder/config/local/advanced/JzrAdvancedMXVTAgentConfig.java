@@ -1,5 +1,7 @@
 package org.jeyzer.recorder.config.local.advanced;
 
+import org.jeyzer.recorder.accessor.error.JzrInitializationException;
+
 /*-
  * ---------------------------LICENSE_START---------------------------
  * Jeyzer Recorder
@@ -12,7 +14,6 @@ package org.jeyzer.recorder.config.local.advanced;
  * ----------------------------LICENSE_END----------------------------
  */
 
-import org.jeyzer.recorder.config.jmx.JzrJMXConfig;
 import org.jeyzer.recorder.config.mx.advanced.JzrAdvancedConfig;
 import org.jeyzer.recorder.logger.Logger;
 import org.jeyzer.recorder.logger.LoggerFactory;
@@ -24,7 +25,7 @@ public class JzrAdvancedMXVTAgentConfig extends JzrAdvancedConfig{
 	public static final String VT_DUMP_FORMAT_TXT = "txt";
 	public static final String VT_DUMP_FORMAT_JSON = "json";
 	
-	private static final Logger logger = LoggerFactory.getLogger(JzrJMXConfig.class);	
+	private static final Logger logger = LoggerFactory.getLogger(JzrAdvancedMXVTAgentConfig.class);	
 	
 	private static final String JZR_MX_ADVANCED_VT = "mx_advanced_vt";
 	private static final String JZR_FORMAT = "format";
@@ -32,7 +33,7 @@ public class JzrAdvancedMXVTAgentConfig extends JzrAdvancedConfig{
 	private String format;
 
 	
-	public JzrAdvancedMXVTAgentConfig(Element recorder) throws Exception {
+	public JzrAdvancedMXVTAgentConfig(Element recorder) throws JzrInitializationException {
 		super(recorder);
 		
 		// snapshot node
@@ -47,12 +48,12 @@ public class JzrAdvancedMXVTAgentConfig extends JzrAdvancedConfig{
 		String value = ConfigUtil.getAttributeValue(mxAvancedVTNode, JZR_FORMAT);
 		if (value == null || value.isEmpty()) {
 			logger.error("Error - Format parameter empty. Must be txt or json.");
-			throw new Exception("Error - Format parameter empty. Must be txt or json.");
+			throw new JzrInitializationException("Error - Format parameter empty. Must be txt or json.");
 		}
 		this.format = value.toLowerCase();
 		if (!VT_DUMP_FORMAT_TXT.equals(this.format) && !VT_DUMP_FORMAT_JSON.equals(this.format)) {
 			logger.error("Error - Format parameter invalid : " + value + ". Must be txt or json.");
-			throw new Exception("Error - Format parameter empty. Must be txt or json.");
+			throw new JzrInitializationException("Error - Format parameter empty. Must be txt or json.");
 		}
 	}
 

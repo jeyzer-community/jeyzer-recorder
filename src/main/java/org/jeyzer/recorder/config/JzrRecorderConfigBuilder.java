@@ -82,25 +82,25 @@ public class JzrRecorderConfigBuilder {
 			
 			method = loadMethod(recorder); 
 			
-			if (PARAM_METHOD_AGENT.equals(method.toLowerCase())){
+			if (PARAM_METHOD_AGENT.equalsIgnoreCase(method)){
 				return new JzrAdvancedMXAgentConfig(recorder);
 			}
-			else if (PARAM_METHOD_AGENT_VT.equals(method.toLowerCase())){
+			else if (PARAM_METHOD_AGENT_VT.equalsIgnoreCase(method)){
 				return new JzrAdvancedMXVTAgentConfig(recorder);
 			}
-			else if (PARAM_METHOD_JCMD.equals(method.toLowerCase())){
+			else if (PARAM_METHOD_JCMD.equalsIgnoreCase(method)){
 				return new JzrJcmdConfig(recorder);
 			}
-			else if (PARAM_METHOD_JSTACK_IN_SHELL.equals(method.toLowerCase())){
+			else if (PARAM_METHOD_JSTACK_IN_SHELL.equalsIgnoreCase(method)){
 				return new JzrJstackInShellConfig(recorder);
 			}
-			else if (PARAM_METHOD_JSTACK.equals(method.toLowerCase())){
+			else if (PARAM_METHOD_JSTACK.equalsIgnoreCase(method)){
 				return new JzrJstackConfig(recorder);
 			}
-			else if (PARAM_METHOD_JMX.equals(method.toLowerCase())){
+			else if (PARAM_METHOD_JMX.equalsIgnoreCase(method)){
 				return new JzrJMXConfig(recorder);
 			}
-			else if (PARAM_METHOD_ADVANCED_JMX.equals(method.toLowerCase())){
+			else if (PARAM_METHOD_ADVANCED_JMX.equalsIgnoreCase(method)){
 				return new JzrAdvancedJMXConfig(recorder);
 			}
 			else{

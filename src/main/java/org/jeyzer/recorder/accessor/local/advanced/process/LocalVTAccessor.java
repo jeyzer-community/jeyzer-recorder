@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
 import javax.management.MBeanServer;
 
 import org.jeyzer.recorder.accessor.error.JzrGenerationException;
-import org.jeyzer.recorder.accessor.error.JzrInitializationException;
 import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXVTAgentConfig;
 
 import org.jeyzer.recorder.logger.Logger;
@@ -38,7 +37,7 @@ public class LocalVTAccessor {
 
 	private final JzrAdvancedMXVTAgentConfig cfg;
 
-	public LocalVTAccessor(final JzrAdvancedMXVTAgentConfig cfg) throws JzrInitializationException {
+	public LocalVTAccessor(final JzrAdvancedMXVTAgentConfig cfg) {
 		this.cfg = cfg;
 	}
 
@@ -51,8 +50,8 @@ public class LocalVTAccessor {
 		
 		// Protection as the ThreadDumpFormat does not override any existing output file
 		File previousFile = new File(virtualThreadFilePath);
-		if (previousFile.exists())
-			previousFile.delete();
+		if (previousFile.exists() && !previousFile.delete())
+			logger.warn("Failed to delete the " + previousFile.getAbsolutePath());
 		
         if (logger.isDebugEnabled())
         	logger.debug("Accessing virtual thread dump info from HotSpotDiagnostic MX bean");

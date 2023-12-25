@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.management.LockInfo;
 import java.lang.management.ManagementFactory;
+import java.lang.management.MonitorInfo;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.net.MalformedURLException;
@@ -386,17 +387,17 @@ public class JzrJMXAccessor extends JzrAbstractAccessor {
 		printThreadHeader(ti);
 
 		// print stack trace with locks
-//		StackTraceElement[] stacktrace = ti.getStackTrace();
-//		MonitorInfo[] monitors = ti.getLockedMonitors();
-//		for (int i = 0; i < stacktrace.length; i++) {
-//			StackTraceElement ste = stacktrace[i];
-//			writeln(INDENT + "at " + ste.toString());
-//			for (MonitorInfo mi : monitors) {
-//				if (mi.getLockedStackDepth() == i) {
-//					writeln(INDENT + "  - locked " + mi);
-//				}
-//			}
-//		}
+		StackTraceElement[] stacktrace = ti.getStackTrace();
+		MonitorInfo[] monitors = ti.getLockedMonitors();
+		for (int i = 0; i < stacktrace.length; i++) {
+			StackTraceElement ste = stacktrace[i];
+			writeln(INDENT + "at " + ste.toString());
+			for (MonitorInfo mi : monitors) {
+				if (mi.getLockedStackDepth() == i) {
+					writeln(INDENT + "  - locked " + mi);
+				}
+			}
+		}
 		
 		writeln("");
 	}

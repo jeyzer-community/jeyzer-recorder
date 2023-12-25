@@ -22,7 +22,6 @@ import javax.management.MBeanServer;
 
 import org.jeyzer.recorder.accessor.JzrAccessor;
 import org.jeyzer.recorder.accessor.error.JzrGenerationException;
-import org.jeyzer.recorder.accessor.error.JzrProcessNotAvailableException;
 import org.jeyzer.recorder.accessor.error.JzrValidationException;
 import org.jeyzer.recorder.config.jcmd.JzrJcmdConfig;
 import org.jeyzer.recorder.util.JzrTimeZone;
@@ -45,7 +44,7 @@ public class LocalJcmdAccessor implements JzrAccessor{
 	}
 
 	@Override
-	public long threadDump(File file) throws JzrProcessNotAvailableException, JzrGenerationException {
+	public long threadDump(File file) throws JzrGenerationException {
 		long startTime;
 		long endTime;
 		long duration;
