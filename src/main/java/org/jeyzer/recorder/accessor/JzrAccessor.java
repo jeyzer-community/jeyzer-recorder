@@ -12,10 +12,6 @@ package org.jeyzer.recorder.accessor;
  * ----------------------------LICENSE_END----------------------------
  */
 
-
-
-
-
 import java.io.File;
 
 import org.jeyzer.recorder.accessor.error.JzrGenerationException;
@@ -32,3 +28,4 @@ public interface JzrAccessor {
 	public String getTimeZoneId();
 
 }
+

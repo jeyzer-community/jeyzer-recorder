@@ -12,11 +12,8 @@ package org.jeyzer.recorder;
  * ----------------------------LICENSE_END----------------------------
  */
 
-
-
 import java.io.File;
 import java.lang.instrument.Instrumentation;
-import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -34,10 +31,10 @@ import org.jeyzer.recorder.config.JzrRecorderConfigBuilder;
 import org.jeyzer.recorder.logger.LoggerFactory;
 import org.jeyzer.recorder.logger.Logger;
 import org.jeyzer.recorder.util.ConfigUtil;
-import org.jeyzer.recorder.util.FileUtil;
 import org.jeyzer.recorder.util.JzrTimeZone;
 import org.jeyzer.recorder.util.SystemHelper;
 import org.jeyzer.recorder.util.JzrTimeZone.Origin;
+import org.jeyzer.recorder.util.RecordingFileHandler;
 
 
 public class JeyzerRecorder implements Runnable {
@@ -60,13 +57,10 @@ public class JeyzerRecorder implements Runnable {
 			return t;
 		}
 	}
-	
-	private static final String TEMP_FILE_NAME = "jzr-snap-in-progress.tmp";
+
 	public static final String PROCESS_CARD_FILE_NAME = "process-card.properties";
 	
 	private JzrRecorderConfig cfg;
-	
-	private String tempfilename;
 	
 	private boolean initiated = false;
 	private JzrAccessor monitor;
@@ -77,13 +71,12 @@ public class JeyzerRecorder implements Runnable {
 
 	public JeyzerRecorder(JzrRecorderConfig cfg, Instrumentation instrumentation) throws JzrInitializationException, JzrValidationException{
 		this.cfg = cfg;
-		tempfilename = cfg.getThreadDumpDirectory() + File.separator + TEMP_FILE_NAME;
 		monitor = JzrAccessorBuilder.newInstance().buildAccessor(cfg, instrumentation);
 		monitor.validate();
 	}	
 	
 	public void dump() {
-		File tempFile = new File(tempfilename);
+		RecordingFileHandler fileHandler = new RecordingFileHandler(cfg);
 		long startTime = 0;
 		long tdTimestamp = 0;
 		File tdFile = null;
@@ -98,10 +91,10 @@ public class JeyzerRecorder implements Runnable {
 				startTime = System.currentTimeMillis();
 			}
 			
-			tdTimestamp = monitor.threadDump(tempFile);
+			tdTimestamp = monitor.threadDump(fileHandler.getTempFile());
 			
-			// rename temporary file
-			tdFile = renameTemporaryFile(tempFile, tdTimestamp);
+			// rename temporary file(s)
+			tdFile = fileHandler.renameTemporaryFile(tdTimestamp);
 			
 			if (logger.isDebugEnabled()){
 				logger.debug("Recording snapshot successfully generated into file : " + tdFile.getAbsolutePath());
@@ -127,7 +120,7 @@ public class JeyzerRecorder implements Runnable {
 		}
         finally{
 			if (tdFile == null)
-				renameTemporaryFile(tempFile, -1); 
+				fileHandler.renameTemporaryFile(-1);
         }
 	}
 
@@ -182,27 +175,6 @@ public class JeyzerRecorder implements Runnable {
 		logger.info("Time zone issued from the current process : " + TimeZone.getDefault().getID());
 		JzrTimeZone.setTimeZone(TimeZone.getDefault(), Origin.JZR);
 	}
-
-	private File renameTemporaryFile(File tempFile, long tdTimestamp){
-		if (tdTimestamp == -1)
-			tdTimestamp = System.currentTimeMillis();
-			
-		String fileName = FileUtil.getTimeStampedFileName(
-				FileUtil.JZR_FILE_JZR_PREFIX, 
-				new Date(tdTimestamp),
-				FileUtil.JZR_FILE_JZR_EXTENSION); 
-		String filePath = cfg.getThreadDumpDirectory() + File.separator + fileName;
-		File tdFile = new File(filePath);
-		if (tempFile.exists()){
-			if (! tempFile.renameTo(tdFile))
-				logger.error("Failed to rename file " + tempfilename + " into file " + filePath);
-		}
-		else{
-			logger.debug("Temp file " + tempFile.getPath() + " doesn't exist. Skipping the renaming.");
-		}
-		return tdFile;
-	}
-	
 
 	public static void main(String[] args) {
 		JeyzerRecorder ftd = null;

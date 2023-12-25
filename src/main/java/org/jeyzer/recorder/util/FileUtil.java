@@ -41,6 +41,9 @@ public class FileUtil {
 	public static final String JZR_FILE_DATE_FORMAT = "yyyy-MM-dd---HH-mm-ss-SSS-"; 
 	public static final String JZR_FILE_JZR_PREFIX = "snap-";
 	public static final String JZR_FILE_JZR_EXTENSION = ".jzr";
+	public static final String JZR_FILE_JZR_VT_EXTENSION = ".jzr.vt";
+	
+	public static final String TEMP_FILE_NAME = "jzr-snap-in-progress.tmp";
 	
 	public static final String JZR_FILE_TIME_ZONE_CUSTOM_ORIGIN = "c-";
 	public static final String JZR_FILE_TIME_ZONE_PROCESS_ORIGIN = "p-";

@@ -26,6 +26,7 @@ import org.jeyzer.recorder.accessor.local.advanced.process.module.LocalModuleTas
 import org.jeyzer.recorder.accessor.mx.security.JzrSecurityManager;
 import org.jeyzer.recorder.config.JzrRecorderConfig;
 import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXAgentConfig;
+import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXVTAgentConfig;
 import org.jeyzer.recorder.util.CompressionUtil;
 import org.jeyzer.recorder.util.FileUtil;
 import org.jeyzer.recorder.util.JzrTimeZone;
@@ -85,6 +86,8 @@ public class JzrArchiverTask extends Thread implements Runnable {
 	private boolean jvmFlagsSupported;
 	private String jvmFlagsPath;
 	
+	private boolean vtDumpsSupported;
+	
 	long startZipTime;
 	
 	public JzrArchiverTask(JzrRecorderConfig cfg) {
@@ -117,16 +120,19 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		encryptionKeyFilePath = cfg.getThreadDumpDirectory() + File.separator + JzrSecurityManager.PUBLISHED_ENCRYPTED_AES_KEY_FILE;
 		
 		// optional jar paths file
-		processJarPathsSupported = cfg instanceof JzrAdvancedMXAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
+		processJarPathsSupported = cfg instanceof JzrAdvancedMXAgentConfig || cfg instanceof JzrAdvancedMXVTAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
 		processJarPath = cfg.getThreadDumpDirectory() + File.separator + LocalJarPathTask.JAR_PATHS_FILE;
 		
 		// optional modules file
-		processModulesSupported = cfg instanceof JzrAdvancedMXAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
+		processModulesSupported = cfg instanceof JzrAdvancedMXAgentConfig || cfg instanceof JzrAdvancedMXVTAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
 		processModulesPath = cfg.getThreadDumpDirectory() + File.separator + LocalModuleTask.MODULES_FILE;
 		
 		// jvm flags file
-		jvmFlagsSupported = cfg instanceof JzrAdvancedMXAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
+		jvmFlagsSupported = cfg instanceof JzrAdvancedMXAgentConfig || cfg instanceof JzrAdvancedMXVTAgentConfig; // not sufficient, will check later the file existence. Should get it from the advanced configuration, but not accessible here
 		jvmFlagsPath = cfg.getThreadDumpDirectory() + File.separator + LocalJVMFlagTask.JVM_FLAGS_FILE;
+		
+		// virtual thread dump support
+		vtDumpsSupported = cfg instanceof JzrAdvancedMXVTAgentConfig;
 		
 		// initialize start time	
 		startZipTime = Calendar.getInstance().getTimeInMillis() 
@@ -198,6 +204,9 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		File[] files4 = addFile(files3, jvmFlagsPath, jvmFlagsSupported);
 		File[] filesToZip = addFile(files4, encryptionKeyFilePath, encryptionPublished);
 		
+		if (vtDumpsSupported)
+			filesToZip = addVTDumpFiles(filesToZip, endZipTime);
+		
 		if (SystemHelper.isWindows())
 			// zip the files
 			CompressionUtil.zipFiles(filesToZip, archiveFile);
@@ -206,11 +215,46 @@ public class JzrArchiverTask extends Thread implements Runnable {
 		
 		startZipTime = endZipTime;
 		
+		cleanTds(tds, endZipTime);
+	}
+
+	private void cleanTds(File[] tds, long endZipTime) {
 		// delete the recording snapshot files 
 		for (File td : tds){
 			if (!td.delete())
 				logger.warn("Failed to delete recording snapshot file : " + td.getAbsolutePath());
 		}
+		
+		if (vtDumpsSupported)
+			cleanVTDumpFiles(endZipTime);
+	}
+
+	private void cleanVTDumpFiles(long endZipTime) {
+		ThreadDumpFileFilter filefilter = new ThreadDumpFileFilter(
+				FileUtil.JZR_FILE_JZR_PREFIX, FileUtil.JZR_FILE_JZR_VT_EXTENSION, endZipTime);
+		File[] vtTds = this.tdDir.listFiles(filefilter);
+		
+		// delete the VT recording snapshot files 
+		for (File vtTd : vtTds){
+			if (!vtTd.delete())
+				logger.warn("Failed to delete VT recording snapshot file : " + vtTd.getAbsolutePath());
+		}
+	}
+
+	private File[] addVTDumpFiles(File[] files, long endZipTime) {
+		ThreadDumpFileFilter filefilter = new ThreadDumpFileFilter(
+				FileUtil.JZR_FILE_JZR_PREFIX, FileUtil.JZR_FILE_JZR_VT_EXTENSION, endZipTime);
+		File[] vtTds = this.tdDir.listFiles(filefilter);
+		
+		if (vtTds.length == 0)
+			return files;
+		
+		File[] newFiles = new File[files.length + vtTds.length];
+
+	    System.arraycopy(files, 0, newFiles, 0, files.length);
+	    System.arraycopy(vtTds, 0, newFiles, files.length, vtTds.length);
+	    
+	    return newFiles;
 	}
 
 	private File[] addFile(File[] files, String path, boolean condition) {

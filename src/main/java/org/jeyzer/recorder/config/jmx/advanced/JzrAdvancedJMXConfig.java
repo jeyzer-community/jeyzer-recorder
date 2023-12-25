@@ -19,6 +19,8 @@ import org.w3c.dom.Element;
 
 public class JzrAdvancedJMXConfig extends JzrAdvancedConfig{
 
+	private static final String JZR_MX_ADVANCED = "mx_advanced";
+	
 	private JzrJMXConfig jmxConfig;
 	
 	public JzrAdvancedJMXConfig(Element recorder) throws Exception {
@@ -28,6 +30,11 @@ public class JzrAdvancedJMXConfig extends JzrAdvancedConfig{
 	
 	public JzrJMXConfig getTDJMXConfig(){
 		return this.jmxConfig;
+	}
+
+	@Override
+	protected String getAdvancedNodeName() {
+		return JZR_MX_ADVANCED;
 	}
 
 }

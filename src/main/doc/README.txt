@@ -320,14 +320,18 @@ Jeyzer Analyzer allows to include all those figures in the JZR reports.
 ===           FAQ            ===
 --------------------------------
 
-On Java 21, which method is the best to monitor virtual threads (or fibers) ? JMX, agent, Jstack, JFR ?
-None of them. 
-In fact, Java 21 did enrich only the JDK jcmd tool to generate specific file dumps on disk.
-While waiting for a better support on the existing APIs, the Jeyzer Recorder is shipping the jcmd-periodic.bat in the <recorder home>/bin directory.
-The jcmd-periodic.bat will execute the jcmd tool periodically, even if it fails to connect to the target application.
-Edit it first to add the jcmd target before executing it. The jcmd target can be retrieved with the jps tool.
-By default, the jcmd target is DemoVT21 which corresponds to the Jeyzer Virtual Threads demo.
-Dumps are generated in the <jeyzer home>/work/recorder/<jcmd target> directory.
+On Java 21, which method is the best to monitor virtual threads (or fibers) ?
+Three methods are available, in this order of preference : 
+- Jeyzer Recorder agent : Advanced MX Virtual Threads agent method
+  The Jeyzer Recorder agent collects the virtual threads and the process and system MX figures (CPU, memory, GC..).
+- Jeyzer Recorder agent : Jcmd method
+  The Jeyzer Recorder agent collects only the virtual threads like for jcmd.
+- Jcmd tool : collects the virtual threads. JDK is required.
+  The Jeyzer Recorder is shipping the jcmd-periodic.bat in the <recorder home>/bin directory.
+  The jcmd-periodic.bat will execute the jcmd tool periodically, even if it fails to connect to the target application.
+  Edit it first to add the jcmd target before executing it. The jcmd target can be retrieved with the jps tool.
+  By default, the jcmd target is DemoVT21 which corresponds to the Jeyzer Virtual Threads demo.
+  Dumps are generated in the <jeyzer home>/work/recorder/<jcmd target> directory.
 
 
 JMX and Jstack methods : what if the java monitored process is not available ?

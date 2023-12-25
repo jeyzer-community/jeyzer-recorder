@@ -25,6 +25,7 @@ import org.jeyzer.recorder.config.jmx.advanced.JzrAdvancedJMXConfig;
 import org.jeyzer.recorder.config.jstack.JzrJstackConfig;
 import org.jeyzer.recorder.config.jstack.JzrJstackInShellConfig;
 import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXAgentConfig;
+import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXVTAgentConfig;
 import org.jeyzer.recorder.util.ConfigUtil;
 import org.jeyzer.recorder.util.SystemHelper;
 import org.jeyzer.recorder.logger.Logger;
@@ -42,6 +43,7 @@ public class JzrRecorderConfigBuilder {
 	private static final String PARAM_METHOD_JMX    = "jmx";
 	private static final String PARAM_METHOD_ADVANCED_JMX = "advancedjmx";
 	public static final String PARAM_METHOD_AGENT = "advancedmxagent";
+	public static final String PARAM_METHOD_AGENT_VT = "advancedmxvtagent";
 	private static final String PARAM_METHOD_JSTACK_IN_SHELL = "jstackinshell";
 	private static final String PARAM_METHOD_JSTACK = "jstack";
 	private static final String PARAM_METHOD_JCMD = "jcmd";
@@ -82,6 +84,9 @@ public class JzrRecorderConfigBuilder {
 			
 			if (PARAM_METHOD_AGENT.equals(method.toLowerCase())){
 				return new JzrAdvancedMXAgentConfig(recorder);
+			}
+			else if (PARAM_METHOD_AGENT_VT.equals(method.toLowerCase())){
+				return new JzrAdvancedMXVTAgentConfig(recorder);
 			}
 			else if (PARAM_METHOD_JCMD.equals(method.toLowerCase())){
 				return new JzrJcmdConfig(recorder);

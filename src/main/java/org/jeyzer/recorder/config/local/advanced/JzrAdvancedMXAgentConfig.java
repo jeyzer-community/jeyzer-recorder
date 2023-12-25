@@ -18,8 +18,15 @@ import org.w3c.dom.Element;
 
 public class JzrAdvancedMXAgentConfig extends JzrAdvancedConfig{
 
+	private static final String JZR_MX_ADVANCED = "mx_advanced";
+	
 	public JzrAdvancedMXAgentConfig(Element recorder) throws Exception {
 		super(recorder);
+	}
+
+	@Override
+	protected String getAdvancedNodeName() {
+		return JZR_MX_ADVANCED;
 	}
 
 }

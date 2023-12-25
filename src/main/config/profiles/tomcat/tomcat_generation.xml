@@ -17,16 +17,21 @@
 	<!-- Time unit is sec -->
 	<snapshot period="${JEYZER_RECORD_PERIOD}" start_delay="${JEYZER_RECORD_START_DELAY}" output_dir="${JEYZER_RECORD_DIRECTORY}" capture_duration="${JEYZER_RECORD_CAPTURE_DURATION}">
 
-		<!-- Method can be : AdvancedMXAgent, AdvancedJMX, JMX, Jstack, JstackInShell. -->		
+		<!-- Method can be : AdvancedMXAgent, AdvancedMXVTAgent, AdvancedJMX, JMX, Jstack, JstackInShell, Jcmd. -->		
 		<method name="${JEYZER_RECORD_DUMP_METHOD}"/>
 
 		<methods>
-			<!-- JMX access. Performs only thread dumps -->
-			<jmx connection="${JEYZER_TARGET_JMX_ADDRESS}" user="${JEYZER_TARGET_JMX_USER}" password="${JEYZER_TARGET_JMX_PASSWORD}" capture_deadlocks="true"/>
-		
 			<!-- Advanced MX access. Performs thread dump as well other configurable figures 
 			     Achieved through remote JMX access or local java agent -->
 			<mx_advanced config_file="${JEYZER_RECORD_CONFIG_DIR}/profiles/${JEYZER_RECORD_PROFILE}/${JEYZER_RECORD_PROFILE}_advanced_mx.xml"/>
+		
+			<!-- Captures the process and system metrics and perform the jcmd thread.dump_to_file equivalent to include the virtual threads. --> 
+			<!-- Achieved through local java agent. Applies on Java 21+ -->
+			<!-- Format : txt or json. -->
+			<mx_advanced_vt format="txt" config_file="${JEYZER_RECORD_CONFIG_DIR}/profiles/${JEYZER_RECORD_PROFILE}/${JEYZER_RECORD_PROFILE}_advanced_mx.xml"/>
+		
+			<!-- JMX access. Performs only thread dumps -->
+			<jmx connection="${JEYZER_TARGET_JMX_ADDRESS}" user="${JEYZER_TARGET_JMX_USER}" password="${JEYZER_TARGET_JMX_PASSWORD}" capture_deadlocks="true"/>
 
 			<!-- JstackInShell. Calls jstack through cmd.exe or sh and redirects the output to a file -->
 			<!-- Options : -l prints dead locks, -F force stacks, to be used when process is hung -->		
@@ -37,7 +42,7 @@
 			<!-- Options : -l prints dead locks, -F force stacks, to be used when process is hung -->
 			<jstack pid="${JEYZER_TARGET_PID}" options="-l"/>
 			
-			<!-- Jcmd. Performs only thread dumps. Captures virtual threads. Applies on Java 21+ -->
+			<!-- Jcmd thread.dump_to_file equivalent. Performs only thread dumps. Captures virtual threads. Applies on Java 21+ -->
 			<!-- Format : txt or json -->
 			<jcmd format="txt"/>
 		</methods>

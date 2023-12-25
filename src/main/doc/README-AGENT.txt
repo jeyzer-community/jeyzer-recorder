@@ -96,11 +96,13 @@ Edit the jeyzer-record.properties to change any of these settings.
 -------------------------------------
 
 Since Jeyzer 3.2, it is possible to capture virtual threads through the Jeyzer Recorder Agent.
-To activate it, set the JEYZER_RECORD_DUMP_METHOD environment variable to "jcmd" 
+To activate it, set the JEYZER_RECORD_DUMP_METHOD environment variable either to "advancedmxvtagent" or "jcmd" 
 or edit the agent jeyzer-record.properties configuration file to set the jeyzer-record.JEYZER_RECORD_DUMP_METHOD.
-The dump format can be either txt (default) or JSON. The format can be changed in the standard_generation.xml : <jcmd format="txt"/>
-Technically, the jcmd file dump action is called through the VM diagnostic mbean.
-Note that the process card gets also generated.
+Technically, the 2 methods dump the virtual threads through the VM diagnostic mbean. Output is similar to the JDK jcmd tool one.
+The "jcmd" method dumps the virtual threads and generates the process card.
+The "advancedmxvtagent" method does the same and also generates the process and system MX figures in a dedicated file.
+The virtual thread dump format can be either txt (default) or JSON. The format can be changed in the standard_generation.xml : 
+  <jcmd format="txt"/>  or  <mx_advanced_vt format="txt"/>
 Requires Java 21.
 
 

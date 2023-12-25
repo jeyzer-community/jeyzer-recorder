@@ -21,6 +21,7 @@ import org.jeyzer.recorder.accessor.jmx.advanced.JzrAdvancedJMXAccessor;
 import org.jeyzer.recorder.accessor.jstack.JstackAccessor;
 import org.jeyzer.recorder.accessor.jstack.JstackInShellAccessor;
 import org.jeyzer.recorder.accessor.local.LocalAdvancedAccessor;
+import org.jeyzer.recorder.accessor.local.LocalAdvancedVTAccessor;
 import org.jeyzer.recorder.config.JzrRecorderConfig;
 import org.jeyzer.recorder.config.jcmd.JzrJcmdConfig;
 import org.jeyzer.recorder.config.jmx.JzrJMXConfig;
@@ -28,6 +29,7 @@ import org.jeyzer.recorder.config.jmx.advanced.JzrAdvancedJMXConfig;
 import org.jeyzer.recorder.config.jstack.JzrJstackConfig;
 import org.jeyzer.recorder.config.jstack.JzrJstackInShellConfig;
 import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXAgentConfig;
+import org.jeyzer.recorder.config.local.advanced.JzrAdvancedMXVTAgentConfig;
 import org.jeyzer.recorder.logger.Logger;
 import org.jeyzer.recorder.logger.LoggerFactory;
 
@@ -49,8 +51,12 @@ public class JzrAccessorBuilder {
 			return new JzrAdvancedJMXAccessor((JzrAdvancedJMXConfig)cfg);
 		}
 		else if (cfg instanceof JzrAdvancedMXAgentConfig){
-			logger.debug("Loading Advanced JMX accessor.");
+			logger.debug("Loading Advanced MX accessor.");
 			return new LocalAdvancedAccessor((JzrAdvancedMXAgentConfig)cfg, instrumentation);
+		}
+		else if (cfg instanceof JzrAdvancedMXVTAgentConfig){
+			logger.debug("Loading Advanced MX VT accessor.");
+			return new LocalAdvancedVTAccessor((JzrAdvancedMXVTAgentConfig)cfg, instrumentation);
 		}
 		else if (cfg instanceof JzrJcmdConfig){
 			logger.debug("Loading Jcmd accessor.");

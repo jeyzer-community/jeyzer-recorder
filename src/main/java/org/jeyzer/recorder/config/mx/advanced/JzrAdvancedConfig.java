@@ -34,9 +34,10 @@ import org.w3c.dom.NodeList;
 
 public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 
+	private static final String JZR_MX_ADVANCED = "mx_advanced";
+	
 	private static final Logger logger = LoggerFactory.getLogger(JzrAdvancedConfig.class);
 
-	private static final String JZR_MX_ADVANCED = "mx_advanced";
 	private static final String JZR_MX_ADVANCED_CONFIG_FILE = "config_file";
 	private static final String JZR_MX_THREADS = "threads";
 	private static final String JZR_MX_CAPTURE_DEADLOCKS = "capture_deadlocks";	
@@ -71,7 +72,7 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 		Element methodsNode = ConfigUtil.getFirstChildNode(dumpNode, JzrRecorderConfig.JZR_METHODS);
 		
 		// jmx node
-		Element jmxAdvancedNode = ConfigUtil.getFirstChildNode(methodsNode, JZR_MX_ADVANCED);
+		Element jmxAdvancedNode = ConfigUtil.getFirstChildNode(methodsNode, getAdvancedNodeName());
 
 		String path = ConfigUtil.loadStringValue(jmxAdvancedNode, JZR_MX_ADVANCED_CONFIG_FILE);
 		path = SystemHelper.sanitizePathSeparators(path);
@@ -93,6 +94,8 @@ public abstract class JzrAdvancedConfig extends JzrRecorderConfig{
 			throw new JzrInitializationException("Advanced MX configuration file " + path + " reading failed.");
 		}
 	}
+	
+	protected abstract String getAdvancedNodeName();
 	
 	@Override
 	public boolean isEncryptionEnabled() {
