@@ -4,7 +4,7 @@
 	<groupId>org.jeyzer</groupId>
 	<artifactId>jeyzer-recorder</artifactId>
 	<packaging>jar</packaging>
-	<version>3.3-SNAPSHOT</version>
+	<version>3.3</version>
 	<name>Jeyzer Recorder</name>
 	<url>https://github.com/jeyzer-community/jeyzer-recorder</url>
 	<description>The Jeyzer Recorder. Documentation available at https://jeyzer.org/docs/jzr-recording/</description>
@@ -198,7 +198,7 @@
 		<url>https://github.com/jeyzer-community/jeyzer-recorder</url>
 		<connection>scm:git:ssh://git@github.com/jeyzer-community/jeyzer-recorder.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/jeyzer-community/jeyzer-recorder.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>jeyzer-recorder-3.3</tag>
 	</scm>
 		
 </project>
