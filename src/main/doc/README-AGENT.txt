@@ -161,9 +161,9 @@ Do not put path between ""
 ------------------------------------------
 
 The jeyzer-record-agent-profile parameter specified in the javaagent parameter may not be accepted by the JBoss startup script.
-In such case, use only the following VM parameter on your Java application command line :
-    -javaagent:"<Jeyzer home>/recorder/lib/jeyzer-agent.jar"=<Jeyzer home>/recorder/config/agent/jeyzer-agent.xml
-and set the agent profile as a system environment variable through the JEYZER_RECORD_AGENT_PROFILE variable :
+In such case, it must be specified in a separate start parameter in your Java application command line :
+    -javaagent:"<Jeyzer home>/recorder/lib/jeyzer-agent.jar"=<Jeyzer home>/recorder/config/agent/jeyzer-agent.xml -DJEYZER_RECORD_AGENT_PROFILE=<app name>
+As an alternative it can be defined as a system environment variable through the JEYZER_RECORD_AGENT_PROFILE variable :
     JEYZER_RECORD_AGENT_PROFILE=<app name>
 
 
